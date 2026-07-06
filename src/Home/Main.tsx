@@ -1,14 +1,14 @@
 "use client";
 
+import useMenuHook from "./Hooks/useMenuHook";
+import useHomeMediaHook from "./Hooks/useHomeMediaHook";
 import Hero from "./Components/Hero";
 import Tile from "./Components/Tile";
 import PromoBanner from "./Components/PromoBanner";
 import MenuDrawer from "./Components/MenuDrawer";
-import useMenuHook from "./Hooks/useMenuHook";
-import useHomeMediaHook from "./Hooks/useHomeMediaHook";
 
 export default function Main() {
-  const { modalMenu, handleModal, accordionJoias, handleAccordion } = useMenuHook();
+  const { modalMenu, handleModal } = useMenuHook();
   const {
     bannerVideo,
     imageSale,
@@ -28,14 +28,9 @@ export default function Main() {
 
   return (
     <div className="flex min-h-screen w-full flex-col overflow-x-hidden overflow-y-auto bg-white">
-      <MenuDrawer
-        modalMenu={modalMenu}
-        handleModal={handleModal}
-        accordionJoias={accordionJoias}
-        handleAccordion={handleAccordion}
-      />
+      <MenuDrawer modalMenu={modalMenu} handleModal={handleModal} />
 
-      <Hero videoSrc={bannerVideo} modalMenu={modalMenu} handleModal={handleModal} />
+      <Hero videoSrc={bannerVideo} handleModal={handleModal} />
 
       <main className="grid grid-cols-3">
         <Tile label="SALE" subtitle="ATÉ 30% OFF" imageSrc={imageSale} href="#" />

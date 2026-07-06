@@ -2,13 +2,8 @@ export type MenuState = {
   open: boolean;
 };
 
-export type AccordionState = {
-  open: boolean;
-};
-
 export type HeroProps = {
   videoSrc: string;
-  modalMenu: MenuState;
   handleModal: (action: string) => void;
 };
 
@@ -19,8 +14,6 @@ export type HeaderProps = {
 export type MenuDrawerProps = {
   modalMenu: MenuState;
   handleModal: (action: string) => void;
-  accordionJoias: AccordionState;
-  handleAccordion: (action: string) => void;
 };
 
 export type TileProps = {
