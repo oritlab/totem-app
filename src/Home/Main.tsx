@@ -1,4 +1,4 @@
-import Header from "./Components/Header";
+import Header from "@/src/shared/Components/Header";
 import Tile from "./Components/Tile";
 import PromoBanner from "./Components/PromoBanner";
 
@@ -11,12 +11,17 @@ export default function Main() {
 
       <main className="grid grid-cols-3 gap-1 p-1">
         <Tile label="SALE ATÉ 50% OFF" imageSrc={RING_IMAGE} className="aspect-square" />
-        <Tile label="RELÓGIOS" imageSrc={RING_IMAGE} className="aspect-square" />
-        <Tile label="NOVIDADES" imageSrc={RING_IMAGE} className="aspect-square" />
+        <Tile label="RELÓGIOS" imageSrc={RING_IMAGE} className="aspect-square" href="/produtos/relogios" />
+        <Tile label="NOVIDADES" imageSrc={RING_IMAGE} className="aspect-square" href="/produtos/novidades" />
 
-        <Tile label="VINTAGE" imageSrc={RING_IMAGE} className="aspect-square" />
-        <Tile label="DIAMANTES" imageSrc={RING_IMAGE} className="aspect-square" />
-        <Tile label="MARCAS ICÔNICAS" imageSrc={RING_IMAGE} className="aspect-square" />
+        <Tile label="VINTAGE" imageSrc={RING_IMAGE} className="aspect-square" href="/produtos/vintage" />
+        <Tile label="DIAMANTES" imageSrc={RING_IMAGE} className="aspect-square" href="/produtos/diamantes" />
+        <Tile
+          label="MARCAS ICÔNICAS"
+          imageSrc={RING_IMAGE}
+          className="aspect-square"
+          href="/produtos/marcas-iconicas"
+        />
 
         <PromoBanner
           imageSrc={RING_IMAGE}
@@ -25,17 +30,18 @@ export default function Main() {
           subtitle="Troque suas peças em 360 dias"
           titleClassName="text-zinc-800"
         />
-        <Tile label="ANÉIS" imageSrc={RING_IMAGE} className="aspect-square" />
+        <Tile label="ANÉIS" imageSrc={RING_IMAGE} className="aspect-square" href="/produtos/aneis" />
 
-        <Tile label="BRINCOS" imageSrc={RING_IMAGE} className="aspect-square" />
-        <Tile label="COLARES" imageSrc={RING_IMAGE} className="aspect-square" />
-        <Tile label="PINGENTES" imageSrc={RING_IMAGE} className="aspect-square" />
+        <Tile label="BRINCOS" imageSrc={RING_IMAGE} className="aspect-square" href="/produtos/brincos" />
+        <Tile label="COLARES" imageSrc={RING_IMAGE} className="aspect-square" href="/produtos/colares" />
+        <Tile label="PINGENTES" imageSrc={RING_IMAGE} className="aspect-square" href="/produtos/pingentes" />
 
         <Tile
           label="PULSEIRAS"
           imageSrc={RING_IMAGE}
           className="aspect-square"
           labelClassName="items-end pb-4"
+          href="/produtos/pulseiras"
         />
         <PromoBanner
           imageSrc={RING_IMAGE}

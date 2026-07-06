@@ -3,6 +3,7 @@ export type TileProps = {
   imageSrc: string;
   className: string;
   labelClassName?: string;
+  href?: string;
 };
 
 export type PromoBannerProps = {

@@ -1,12 +1,13 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { TileProps } from "../types";
 
 export default function Tile(props: TileProps) {
-  const { label, imageSrc, className, labelClassName = "" } = props;
+  const { label, imageSrc, className, labelClassName = "", href } = props;
 
-  return (
-    <div className={`relative overflow-hidden ${className}`}>
+  const content = (
+    <>
       <Image
         src={imageSrc}
         alt={label}
@@ -20,6 +21,16 @@ export default function Tile(props: TileProps) {
       >
         {label}
       </span>
-    </div>
+    </>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className={`relative block overflow-hidden ${className}`}>
+        {content}
+      </Link>
+    );
+  }
+
+  return <div className={`relative overflow-hidden ${className}`}>{content}</div>;
 }
