@@ -3,7 +3,7 @@ import Link from "next/link";
 import { MenuDrawerProps } from "../types";
 
 export default function MenuDrawer(props: MenuDrawerProps) {
-  const { modalMenu, handleModal, accordionJoias, handleAccordion } = props;
+  const { modalMenu, handleModal } = props;
 
   if (!modalMenu.open) return null;
 
@@ -127,7 +127,7 @@ export default function MenuDrawer(props: MenuDrawerProps) {
         <div className="px-4 pb-4">
           <Link
             href="#"
-            className="flex w-full cursor-pointer items-center justify-center rounded-md bg-black px-6 py-3 text-xs tracking-widest text-white"
+            className="flex w-full cursor-pointer items-center justify-center rounded-sm bg-black px-6 py-3 text-xs tracking-widest text-white"
           >
             ECOMMERCE
           </Link>
