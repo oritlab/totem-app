@@ -14,7 +14,7 @@ export default function MenuDrawer(props: MenuDrawerProps) {
         onClick={() => handleModal("close")}
       />
 
-      <nav className="relative flex h-full w-90 flex-col overflow-y-auto rounded-bl-[30px] bg-white p-2">
+      <nav className="relative flex h-full w-[85vw] max-w-90 flex-col overflow-y-auto rounded-bl-[20px] bg-white p-2 sm:rounded-bl-[30px]">
         <button
           className="cursor-pointer px-6 py-4 text-left text-sm tracking-widest text-zinc-800"
           onClick={() => handleModal("close")}

@@ -13,8 +13,16 @@ export default function Tile(props: TileProps) {
       <div
         className={`absolute inset-0 flex flex-col items-center justify-center gap-1 text-center text-white ${labelClassName}`}
       >
-        <span className={`${label === "SALE" ? "pl-[0.25em] text-7xl tracking-[0.5em] font-serif mb-2 font-light" : "text-3xl" }`}>{label}</span>
-        {subtitle && <span className="pl-[0.25em] text-md tracking-[0.5em]">{subtitle}</span>}
+        <span
+          className={`${label === "SALE" ? "pl-[0.25em] mb-2 font-serif text-3xl font-light tracking-[0.5em] sm:text-5xl md:text-6xl lg:text-7xl" : "text-base sm:text-xl md:text-2xl lg:text-3xl"}`}
+        >
+          {label}
+        </span>
+        {subtitle && (
+          <span className="pl-[0.25em] text-[10px] tracking-[0.5em] sm:text-xs md:text-sm">
+            {subtitle}
+          </span>
+        )}
       </div>
     </Link>
   );

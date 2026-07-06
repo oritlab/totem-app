@@ -5,7 +5,7 @@ export default function Hero(props: HeroProps) {
   const { videoSrc, handleModal } = props;
 
   return (
-    <div className="relative aspect-[2.1/1] w-full overflow-hidden">
+    <div className="relative aspect-4/3 w-full overflow-hidden sm:aspect-video lg:aspect-[2.1/1]">
       <video
         src={videoSrc}
         autoPlay
