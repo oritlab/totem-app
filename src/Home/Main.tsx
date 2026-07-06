@@ -1,45 +1,73 @@
-import Header from "./Components/Header";
+"use client";
+
+import Hero from "./Components/Hero";
 import Tile from "./Components/Tile";
 import PromoBanner from "./Components/PromoBanner";
-
-const RING_IMAGE = "/images/aneis.jpg";
+import MenuDrawer from "./Components/MenuDrawer";
+import useMenuHook from "./Hooks/useMenuHook";
+import useHomeMediaHook from "./Hooks/useHomeMediaHook";
 
 export default function Main() {
+  const { modalMenu, handleModal, accordionJoias, handleAccordion } = useMenuHook();
+  const {
+    bannerVideo,
+    imageSale,
+    imageWatch,
+    imageNews,
+    imageVintage,
+    imageDiamond,
+    imageMarcas,
+    image360,
+    imageRing,
+    imageBrinco,
+    imageColar,
+    imagePingente,
+    imagePulseira,
+    imageBuy,
+  } = useHomeMediaHook();
+
   return (
-    <div className="flex min-h-screen flex-col bg-black">
-      <Header />
+    <div className="flex min-h-screen w-full flex-col overflow-x-hidden overflow-y-auto bg-white">
+      <MenuDrawer
+        modalMenu={modalMenu}
+        handleModal={handleModal}
+        accordionJoias={accordionJoias}
+        handleAccordion={handleAccordion}
+      />
 
-      <main className="grid grid-cols-3 gap-1 p-1">
-        <Tile label="SALE ATÉ 50% OFF" imageSrc={RING_IMAGE} className="aspect-square" />
-        <Tile label="RELÓGIOS" imageSrc={RING_IMAGE} className="aspect-square" />
-        <Tile label="NOVIDADES" imageSrc={RING_IMAGE} className="aspect-square" />
+      <Hero videoSrc={bannerVideo} modalMenu={modalMenu} handleModal={handleModal} />
 
-        <Tile label="VINTAGE" imageSrc={RING_IMAGE} className="aspect-square" />
-        <Tile label="DIAMANTES" imageSrc={RING_IMAGE} className="aspect-square" />
-        <Tile label="MARCAS ICÔNICAS" imageSrc={RING_IMAGE} className="aspect-square" />
+      <main className="grid grid-cols-3">
+        <Tile label="SALE" subtitle="ATÉ 30% OFF" imageSrc={imageSale} href="#" />
+        <Tile label="RELÓGIOS" imageSrc={imageWatch} href="#" />
+        <Tile label="NOVIDADES" imageSrc={imageNews} href="#" />
+
+        <Tile label="VINTAGE" imageSrc={imageVintage} href="#" />
+        <Tile label="DIAMANTES" imageSrc={imageDiamond} href="#" />
+        <Tile label="MARCAS ICÔNICAS" imageSrc={imageMarcas} href="#" />
 
         <PromoBanner
-          imageSrc={RING_IMAGE}
-          imageOpacityClassName="opacity-20"
+          imageSrc={image360}
+          // imageOpacityClassName="opacity-20"
           title={"360 dias para\ncomeçar de novo"}
           subtitle="Troque suas peças em 360 dias"
           titleClassName="text-zinc-800"
         />
-        <Tile label="ANÉIS" imageSrc={RING_IMAGE} className="aspect-square" />
+        <Tile label="ANÉIS" imageSrc={imageRing} href="#" />
 
-        <Tile label="BRINCOS" imageSrc={RING_IMAGE} className="aspect-square" />
-        <Tile label="COLARES" imageSrc={RING_IMAGE} className="aspect-square" />
-        <Tile label="PINGENTES" imageSrc={RING_IMAGE} className="aspect-square" />
+        <Tile label="BRINCOS" imageSrc={imageBrinco} href="#" />
+        <Tile label="COLARES" imageSrc={imageColar} href="#" />
+        <Tile label="PINGENTES" imageSrc={imagePingente} href="#" />
 
         <Tile
           label="PULSEIRAS"
-          imageSrc={RING_IMAGE}
-          className="aspect-square"
-          labelClassName="items-end pb-4"
+          imageSrc={imagePulseira}
+          href="#"
+          labelClassName=""
         />
         <PromoBanner
-          imageSrc={RING_IMAGE}
-          imageOpacityClassName="opacity-10"
+          imageSrc={imageBuy}
+          // imageOpacityClassName="opacity-10"
           title={"COMPRAMOS SUAS\nJOIAS E RELÓGIOS"}
           subtitle={"VENHA CONHECER NOSSA · 30% DE DESCONTO\nNA AVALIAÇÃO DE SUAS MERCADORIAS"}
           titleClassName="text-orange-700"
