@@ -7,7 +7,7 @@ export type AccordionState = {
 };
 
 export type HeroProps = {
-  imageSrc: string;
+  videoSrc: string;
   modalMenu: MenuState;
   handleModal: (action: string) => void;
 };
@@ -27,6 +27,7 @@ export type TileProps = {
   label: string;
   imageSrc: string;
   href: string;
+  subtitle?: string;
   labelClassName?: string;
 };
 
