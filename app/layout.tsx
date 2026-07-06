@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Catálogo Orit",
-  description: "Categorias e peças orit",
+  description: "Catálogo de categorias e peças Orit",
   icons: {
     icon: "/orit-simbolo.svg",
   },
