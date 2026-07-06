@@ -58,7 +58,7 @@ export default function MenuDrawer(props: MenuDrawerProps) {
               RELÓGIOS
             </Link>
           </li>
-          <li className="border-b border-black">
+          {/* <li className="border-b border-black">
             <button
               className="flex w-full cursor-pointer items-center justify-between px-6 py-4 text-left text-sm text-zinc-800"
               onClick={() => handleAccordion("toggle")}
@@ -96,6 +96,31 @@ export default function MenuDrawer(props: MenuDrawerProps) {
                 </li>
               </ul>
             )}
+          </li> */}
+          <li className="border-b border-black">
+            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+              ANÉIS E ALIANÇAS
+            </Link>
+          </li>
+          <li className="border-b border-black">
+            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+              BRINCOS
+            </Link>
+          </li>
+          <li className="border-b border-black">
+            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+              COLARES
+            </Link>
+          </li>
+          <li className="border-b border-black">
+            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+              PINGENTES
+            </Link>
+          </li>
+          <li className="border-b border-black">
+            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+              PULSEIRAS
+            </Link>
           </li>
         </ul>
 
