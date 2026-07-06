@@ -25,7 +25,7 @@ export default function MenuDrawer(props: MenuDrawerProps) {
         <ul className="flex flex-1 flex-col pb-2">
           <li className="border-b border-black">
             <Link href="/" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
-              ÍNICO
+              ÍNICIO
             </Link>
           </li>
           <li className="border-b border-black">
