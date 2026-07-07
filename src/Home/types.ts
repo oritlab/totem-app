@@ -8,10 +8,6 @@ export type HeroProps = {
 };
 
 export type HeaderProps = {
-  // "light" (padrão) = logo/hambúrguer brancos, pra ficar sobre fundo escuro.
-  // "dark" = logo/hambúrguer escuros, pra ficar sobre fundo claro (ex:
-  // banner "split" da Listagem — ver Produtos/Listagem/Components/HeroBanner.tsx).
-  theme?: "light" | "dark";
   handleModal: (action: string) => void;
 };
 
