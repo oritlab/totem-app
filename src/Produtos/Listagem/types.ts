@@ -1,5 +1,9 @@
 import { RefObject } from "react";
 
+import { HeaderProps } from "../../global/types/global";
+
+export type { HeaderProps };
+
 export type Product = {
   sku: string;
   name: string;

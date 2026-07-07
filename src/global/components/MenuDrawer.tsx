@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { MenuDrawerProps } from "../types";
+import { MenuDrawerProps } from "../types/global";
 
 export default function MenuDrawer(props: MenuDrawerProps) {
   const { modalMenu, handleModal } = props;
@@ -126,7 +126,7 @@ export default function MenuDrawer(props: MenuDrawerProps) {
 
         <div className="px-4 pb-4">
           <Link
-            href="#"
+            href="https://www.orit.com.br/"
             className="flex w-full cursor-pointer items-center justify-center rounded-sm bg-black px-6 py-3 text-xs tracking-widest text-white"
           >
             ECOMMERCE

@@ -1,0 +1,20 @@
+// Tipos usados por mais de uma página. Cada página importa daqui e
+// re-exporta junto dos próprios tipos no seu types.ts — nunca se importa
+// direto de global.tsx fora daqui.
+
+export type MenuState = {
+  open: boolean;
+};
+
+export type HeaderProps = {
+  // "light" (padrão) = logo/hambúrguer brancos, pra ficar sobre fundo escuro.
+  // "dark" = logo/hambúrguer escuros, pra ficar sobre fundo claro (ex:
+  // banner "split" da Listagem — ver Produtos/Listagem/Components/HeroBanner.tsx).
+  theme?: "light" | "dark";
+  handleModal: (action: string) => void;
+};
+
+export type MenuDrawerProps = {
+  modalMenu: MenuState;
+  handleModal: (action: string) => void;
+};

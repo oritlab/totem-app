@@ -1,11 +1,12 @@
 "use client";
 
+import MenuDrawer from "@/src/global/components/MenuDrawer";
+
 import useMenuHook from "./Hooks/useMenuHook";
 import useHomeMediaHook from "./Hooks/useHomeMediaHook";
 import Hero from "./Components/Hero";
 import Tile from "./Components/Tile";
 import PromoBanner from "./Components/PromoBanner";
-import MenuDrawer from "./Components/MenuDrawer";
 
 export default function Main() {
   const { modalMenu, handleModal } = useMenuHook();

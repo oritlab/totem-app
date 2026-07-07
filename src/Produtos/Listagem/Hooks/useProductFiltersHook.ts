@@ -4,53 +4,46 @@ import { FilterGroupKey, FilterSelections } from "../filters";
 
 export default function useProductFiltersHook() {
   // 1. States
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [activeGroupKey, setActiveGroupKey] = useState<FilterGroupKey | null>(null);
-  const [selections, setSelections] = useState<FilterSelections>({});
+  const [filterState, setFilterState] = useState({
+    isOpen: false,
+    activeGroupKey: null as FilterGroupKey | null,
+    selections: {} as FilterSelections,
+  });
 
   // 2. Funções de API — N/A
 
   // 3. useEffect — N/A
 
   // 4. Handlers
-  function handleOpenFilter() {
-    setIsFilterOpen(true);
+  function handleFilter(action: "open" | "close") {
+    if (action === "open") setFilterState({ ...filterState, isOpen: true });
+    if (action === "close") setFilterState({ ...filterState, isOpen: false, activeGroupKey: null });
   }
 
-  function handleCloseFilter() {
-    setIsFilterOpen(false);
-    setActiveGroupKey(null);
-  }
-
-  function handleOpenGroup(groupKey: FilterGroupKey) {
-    setActiveGroupKey(groupKey);
-  }
-
-  function handleCloseGroup() {
-    setActiveGroupKey(null);
+  function handleGroup(action: "open" | "close", groupKey?: FilterGroupKey) {
+    if (action === "open" && groupKey) setFilterState({ ...filterState, activeGroupKey: groupKey });
+    if (action === "close") setFilterState({ ...filterState, activeGroupKey: null });
   }
 
   function handleToggleOption(groupKey: string, option: string) {
-    const current = selections[groupKey] ?? [];
+    const current = filterState.selections[groupKey] ?? [];
     const next = current.includes(option)
       ? current.filter((value) => value !== option)
       : [...current, option];
-    setSelections({ ...selections, [groupKey]: next });
+    setFilterState({ ...filterState, selections: { ...filterState.selections, [groupKey]: next } });
   }
 
   function handleClearFilters() {
-    setSelections({});
+    setFilterState({ ...filterState, selections: {} });
   }
 
   // 5. return — só o que o componente consome, nunca o setter
   return {
-    isFilterOpen,
-    activeGroupKey,
-    selections,
-    handleOpenFilter,
-    handleCloseFilter,
-    handleOpenGroup,
-    handleCloseGroup,
+    isFilterOpen: filterState.isOpen,
+    activeGroupKey: filterState.activeGroupKey,
+    selections: filterState.selections,
+    handleFilter,
+    handleGroup,
     handleToggleOption,
     handleClearFilters,
   };

@@ -1,6 +1,6 @@
 "use client";
 
-import MenuDrawer from "@/src/Home/Components/MenuDrawer";
+import MenuDrawer from "@/src/global/components/MenuDrawer";
 import useMenuHook from "@/src/Home/Hooks/useMenuHook";
 
 import FilterBar from "./Components/FilterBar";
@@ -36,10 +36,8 @@ export default function Main(props: MainProps) {
     isFilterOpen,
     activeGroupKey,
     selections,
-    handleOpenFilter,
-    handleCloseFilter,
-    handleOpenGroup,
-    handleCloseGroup,
+    handleFilter,
+    handleGroup,
     handleToggleOption,
     handleClearFilters,
   } = useProductFiltersHook();
@@ -80,7 +78,7 @@ export default function Main(props: MainProps) {
         onToggleSort={handleToggleSort}
         onCloseSort={handleCloseSort}
         hasActiveFilters={totalSelectedCount > 0}
-        onOpenFilter={handleOpenFilter}
+        onOpenFilter={() => handleFilter("open")}
         onClearFilters={handleClearFilters}
       />
       <ProductGrid products={visibleProducts} columns={columns} />
@@ -92,7 +90,7 @@ export default function Main(props: MainProps) {
 
       {isFilterOpen && (
         <div className="fixed inset-0 z-50 flex">
-          <div className="absolute inset-0 bg-black/40" onClick={handleCloseFilter} />
+          <div className="absolute inset-0 bg-black/40" onClick={() => handleFilter("close")} />
 
           {/* Máscara de recorte compartilhada pelos dois drawers — a borda
               e o canto arredondado vivem aqui, não em cada painel. O
@@ -108,15 +106,15 @@ export default function Main(props: MainProps) {
               activeGroupKey={activeGroupKey}
               totalSelectedCount={totalSelectedCount}
               sortOption={sortOption}
-              onClose={handleCloseFilter}
-              onOpenGroup={handleOpenGroup}
+              onClose={() => handleFilter("close")}
+              onOpenGroup={(groupKey) => handleGroup("open", groupKey)}
               onSortChange={handleSortChange}
               onClearFilters={handleClearFilters}
             />
             <FilterOptionsDrawer
               group={activeGroup}
               selectedOptions={activeGroupKey ? selections[activeGroupKey] ?? [] : []}
-              onClose={handleCloseGroup}
+              onClose={() => handleGroup("close")}
               onToggleOption={(option) => activeGroupKey && handleToggleOption(activeGroupKey, option)}
             />
           </div>

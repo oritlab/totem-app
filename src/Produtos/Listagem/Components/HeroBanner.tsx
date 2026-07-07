@@ -1,9 +1,8 @@
 import Image from "next/image";
 
-import Header from "@/src/Home/Components/Header";
-import { HeaderProps } from "@/src/Home/types";
+import Header from "@/src/global/components/Header";
 
-import { CategoryBanner } from "../types";
+import { CategoryBanner, HeaderProps } from "../types";
 
 type HeroBannerProps = CategoryBanner & Pick<HeaderProps, "handleModal">;
 
