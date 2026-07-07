@@ -21,12 +21,18 @@ export const CATEGORIES: Category[] = [
   { slug: "vintage", name: "Vintage", banner: placeholderBanner("Vintage") },
   { slug: "diamantes", name: "Diamantes", banner: placeholderBanner("Diamantes") },
   { slug: "marcas-iconicas", name: "Marcas Icônicas", banner: placeholderBanner("Marcas Icônicas") },
-  { slug: "aneis", name: "Anéis", banner: placeholderBanner("Anéis") },
+  { slug: "joias", name: "Joias", banner: placeholderBanner("Joias") },
+  { slug: "aneis", name: "Anéis e Alianças", banner: placeholderBanner("Anéis") },
   { slug: "brincos", name: "Brincos", banner: placeholderBanner("Brincos") },
   { slug: "colares", name: "Colares", banner: placeholderBanner("Colares") },
   { slug: "pingentes", name: "Pingentes", banner: placeholderBanner("Pingentes") },
   { slug: "pulseiras", name: "Pulseiras", banner: placeholderBanner("Pulseiras") },
 ];
+
+// Sub-categorias que compõem a vitrine agregada de "joias" (ver
+// filterProductsByCategory) — mesmos slugs usados no menu (Header.tsx, que
+// mantém sua própria lista local, sem depender deste arquivo).
+const JOIAS_SLUGS = ["aneis", "brincos", "colares", "pingentes", "pulseiras"];
 
 // Banner provisório pra categoria sem arte/texto definitivo ainda — sem
 // imageUrl, o HeroBanner cai num fundo escuro liso (ver Components/HeroBanner.tsx).
@@ -44,8 +50,14 @@ export function getCategoryBySlug(slug: string): Category | undefined {
 }
 
 // "novidades" não é uma categoria de produto de fato — é uma vitrine com
-// tudo, então não filtra por slug.
+// tudo, então não filtra por slug. "joias" agrega as 5 sub-categorias de
+// JOIAS_SLUGS, em vez de filtrar por um slug "joias" que nenhum produto tem.
 export function filterProductsByCategory(products: Product[], categorySlug?: string): Product[] {
   if (!categorySlug || categorySlug === "novidades") return products;
+  if (categorySlug === "joias") {
+    return products.filter((product) =>
+      product.categories.some((slug) => JOIAS_SLUGS.includes(slug))
+    );
+  }
   return products.filter((product) => product.categories.includes(categorySlug));
 }

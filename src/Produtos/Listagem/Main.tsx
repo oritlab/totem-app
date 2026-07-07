@@ -1,18 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import useMenuDrawerHook from "@/src/shared/Hooks/useMenuDrawerHook";
 
-import { filterProductsByCategory } from "../categories";
-import { Category, CategoryBanner } from "../types";
 import FilterBar from "./Components/FilterBar";
 import HeroBanner from "./Components/HeroBanner";
 import LoadMore from "./Components/LoadMore";
 import ProductGrid from "./Components/ProductGrid";
-import { mockProducts } from "./mocks";
-import { sortProducts } from "./sort";
-import { GridColumns, SortOption } from "./types";
-
-const INITIAL_COUNT = 8;
+import useProductsListHook from "./Hooks/useProductsListHook";
+import useSortDropdownHook from "./Hooks/useSortDropdownHook";
+import { Category, CategoryBanner } from "./types";
 
 const DEFAULT_BANNER: CategoryBanner = {
   title: "Catálogo",
@@ -26,32 +22,50 @@ type MainProps = {
 };
 
 // Quem renderiza este componente precisa passar key={category?.slug} —
-// é isso que faz o React remontar (e reiniciar paginação/colunas/ordenação)
-// ao trocar de categoria, em vez de um useEffect chamando setState.
+// é isso que faz o React remontar o hook (e reiniciar paginação/colunas/
+// ordenação) ao trocar de categoria, em vez de um useEffect chamando setState.
 export default function Main(props: MainProps) {
   const { category } = props;
-  const [shown, setShown] = useState(INITIAL_COUNT);
-  const [columns, setColumns] = useState<GridColumns>(4);
-  const [sortOption, setSortOption] = useState<SortOption | null>(null);
+  const {
+    visibleProducts,
+    totalCount,
+    columns,
+    sortOption,
+    handleColumnsChange,
+    handleSortChange,
+    handleLoadMore,
+  } = useProductsListHook(category);
 
-  const categoryProducts = filterProductsByCategory(mockProducts, category?.slug);
-  const visibleProducts = sortProducts(categoryProducts, sortOption).slice(0, shown);
+  const { isOpen: isSortOpen, dropdownRef: sortRef, handleToggle: handleToggleSort, handleClose: handleCloseSort } =
+    useSortDropdownHook();
+
+  const { isMenuOpen, menuRef, handleOpenMenu, handleCloseMenu } = useMenuDrawerHook();
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      <HeroBanner {...(category?.banner ?? DEFAULT_BANNER)} />
+      <HeroBanner
+        {...(category?.banner ?? DEFAULT_BANNER)}
+        isMenuOpen={isMenuOpen}
+        menuRef={menuRef}
+        onOpenMenu={handleOpenMenu}
+        onCloseMenu={handleCloseMenu}
+      />
 
       <FilterBar
         columns={columns}
-        onColumnsChange={setColumns}
+        onColumnsChange={handleColumnsChange}
         sortOption={sortOption}
-        onSortChange={setSortOption}
+        onSortChange={handleSortChange}
+        isSortOpen={isSortOpen}
+        sortRef={sortRef}
+        onToggleSort={handleToggleSort}
+        onCloseSort={handleCloseSort}
       />
       <ProductGrid products={visibleProducts} columns={columns} />
       <LoadMore
         shown={visibleProducts.length}
-        total={categoryProducts.length}
-        onLoadMore={() => setShown(categoryProducts.length)}
+        total={totalCount}
+        onLoadMore={handleLoadMore}
       />
     </div>
   );

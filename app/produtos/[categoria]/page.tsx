@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { getCategoryBySlug } from "@/src/Produtos/categories";
+import { getCategoryBySlug } from "@/src/Produtos/Listagem/categories";
 import Main from "@/src/Produtos/Listagem/Main";
 
 type CategoriaPageProps = {
@@ -8,8 +8,8 @@ type CategoriaPageProps = {
 };
 
 export default async function CategoriaPage(props: CategoriaPageProps) {
-  const { categoria } = await props.params;
-  const category = getCategoryBySlug(categoria);
+  const params = await props.params;
+  const category = getCategoryBySlug(params.categoria);
 
   if (!category) notFound();
 

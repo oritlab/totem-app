@@ -1,13 +1,23 @@
+"use client";
+
 import Header from "@/src/shared/Components/Header";
+import useMenuDrawerHook from "@/src/shared/Hooks/useMenuDrawerHook";
 import Tile from "./Components/Tile";
 import PromoBanner from "./Components/PromoBanner";
 
 const RING_IMAGE = "/images/aneis.jpg";
 
 export default function Main() {
+  const { isMenuOpen, menuRef, handleOpenMenu, handleCloseMenu } = useMenuDrawerHook();
+
   return (
     <div className="flex min-h-screen flex-col bg-black">
-      <Header />
+      <Header
+        isMenuOpen={isMenuOpen}
+        menuRef={menuRef}
+        onOpenMenu={handleOpenMenu}
+        onCloseMenu={handleCloseMenu}
+      />
 
       <main className="grid grid-cols-3 gap-1 p-1">
         <Tile label="SALE ATÉ 50% OFF" imageSrc={RING_IMAGE} className="aspect-square" />

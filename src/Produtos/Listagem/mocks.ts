@@ -1,4 +1,4 @@
-import { Product } from "../types";
+import { Product } from "./types";
 
 // Amostra real de produtos já sincronizados no totem-catalog-api (nome, marca,
 // preço e imagem real do CDN da Orit) — usada só até a integração com o

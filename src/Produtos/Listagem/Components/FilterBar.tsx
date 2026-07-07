@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from "react";
-
 import { FilterBarProps, SORT_OPTION_LABELS, SortOption } from "../types";
 
 const SORT_OPTIONS: SortOption[] = ["nome", "menor-preco", "maior-preco", "novidades"];
@@ -7,19 +5,16 @@ const SORT_OPTIONS: SortOption[] = ["nome", "menor-preco", "maior-preco", "novid
 // Filtro ("Filtrar por") ainda é só o visual do Figma, sem lógica por trás —
 // o contrato de filtros ainda não foi definido (ver Context/Integracao-Backend.md).
 export default function FilterBar(props: FilterBarProps) {
-  const { columns, onColumnsChange, sortOption, onSortChange } = props;
-  const [isSortOpen, setIsSortOpen] = useState(false);
-  const sortRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
-        setIsSortOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const {
+    columns,
+    onColumnsChange,
+    sortOption,
+    onSortChange,
+    isSortOpen,
+    sortRef,
+    onToggleSort,
+    onCloseSort,
+  } = props;
 
   return (
     <div className="flex items-center justify-between gap-4 border-b border-zinc-200 px-6 py-4 text-sm text-zinc-700">
@@ -59,11 +54,11 @@ export default function FilterBar(props: FilterBarProps) {
         <div ref={sortRef} className="relative">
           <button
             type="button"
-            onClick={() => setIsSortOpen((open) => !open)}
+            onClick={onToggleSort}
             aria-expanded={isSortOpen}
             className="flex cursor-pointer items-center gap-1.5"
           >
-            {sortOption ? SORT_OPTION_LABELS[sortOption] : "Selecione"}
+            {sortOption ? SORT_OPTION_LABELS[sortOption] : "Ordenar"}
             <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6.29688 7.89844L10.4969 12.0984L14.6969 7.89844" stroke="#6B7280" strokeWidth="1.575" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -77,7 +72,7 @@ export default function FilterBar(props: FilterBarProps) {
                     type="button"
                     onClick={() => {
                       onSortChange(option);
-                      setIsSortOpen(false);
+                      onCloseSort();
                     }}
                     className={`block w-full cursor-pointer px-4 py-2 text-left hover:bg-zinc-50 ${
                       sortOption === option ? "font-medium text-zinc-900" : "text-zinc-600"

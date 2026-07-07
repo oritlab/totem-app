@@ -1,33 +1,38 @@
-"use client";
-
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { RefObject } from "react";
 
-import { CATEGORIES } from "@/src/Produtos/categories";
+// Ordem do menu segue o Figma: itens fixos (Início, Sale) + categorias,
+// incluindo as sub-categorias de joias direto na lista (sem agrupamento).
+// "Sale" ainda não tem rota/página definida — fica sem link por enquanto,
+// mesmo tratamento do tile equivalente na Home. Componente único e
+// compartilhado entre Home e Listagem — não duplicar por página: é UI
+// reutilizável (logo, drawer, menu), diferente de dado/tipo de página.
+const MENU_CATEGORIES = [
+  { slug: "novidades", name: "Novidades" },
+  { slug: "vintage", name: "Vintage" },
+  { slug: "diamantes", name: "Diamantes" },
+  { slug: "marcas-iconicas", name: "Marcas Icônicas" },
+  { slug: "relogios", name: "Relógios" },
+  { slug: "aneis", name: "Anéis e Alianças" },
+  { slug: "brincos", name: "Brincos" },
+  { slug: "colares", name: "Colares" },
+  { slug: "pingentes", name: "Pingentes" },
+  { slug: "pulseiras", name: "Pulseiras" },
+];
 
-type HeaderProps = {
+export type HeaderProps = {
   // "light" (padrão) = logo/menu brancos, pra ficar sobre fundo escuro.
   // "dark" = logo/menu escuros, pra ficar sobre fundo claro (ex: banner
-  // "split" — ver HeroBanner.tsx).
+  // "split" — ver Produtos/Listagem/Components/HeroBanner.tsx).
   theme?: "light" | "dark";
+  isMenuOpen: boolean;
+  menuRef: RefObject<HTMLDivElement | null>;
+  onOpenMenu: () => void;
+  onCloseMenu: () => void;
 };
 
 export default function Header(props: HeaderProps) {
-  const { theme = "light" } = props;
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!isMenuOpen) return;
-
-    function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsMenuOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isMenuOpen]);
+  const { theme = "light", isMenuOpen, menuRef, onOpenMenu, onCloseMenu } = props;
 
   return (
     <header
@@ -60,7 +65,7 @@ export default function Header(props: HeaderProps) {
         </defs>
       </svg>
 
-      <button type="button" aria-label="Abrir menu" onClick={() => setIsMenuOpen(true)} className="cursor-pointer">
+      <button type="button" aria-label="Abrir menu" onClick={onOpenMenu} className="cursor-pointer">
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.17056 30.3687C5.76973 30.3687 5.43292 30.2316 5.16014 29.9575C4.88737 29.6833 4.75098 29.3415 4.75098 28.9321C4.75098 28.5293 4.88737 28.1932 5.16014 27.9237C5.43292 27.6546 5.76973 27.52 6.17056 27.52H33.8297C34.2306 27.52 34.569 27.6571 34.8451 27.9312C35.1213 28.2054 35.2593 28.5439 35.2593 28.9466C35.2593 29.3561 35.1213 29.6954 34.8451 29.9646C34.569 30.234 34.2306 30.3687 33.8297 30.3687H6.17056ZM6.17056 21.4196C5.76973 21.4196 5.43292 21.2823 5.16014 21.0079C4.88737 20.7337 4.75098 20.3953 4.75098 19.9925C4.75098 19.59 4.88737 19.254 5.16014 18.9846C5.43292 18.7151 5.76973 18.5804 6.17056 18.5804H33.8297C34.2306 18.5804 34.569 18.7176 34.8451 18.9921C35.1213 19.2662 35.2593 19.6047 35.2593 20.0075C35.2593 20.41 35.1213 20.7459 34.8451 21.0154C34.569 21.2848 34.2306 21.4196 33.8297 21.4196H6.17056ZM6.17056 12.48C5.76973 12.48 5.43292 12.3429 5.16014 12.0687C4.88737 11.7946 4.75098 11.4528 4.75098 11.0433C4.75098 10.6405 4.88737 10.3046 5.16014 10.0354C5.43292 9.76595 5.76973 9.63123 6.17056 9.63123H33.8297C34.2306 9.63123 34.569 9.76831 34.8451 10.0425C35.1213 10.3166 35.2593 10.6551 35.2593 11.0579C35.2593 11.4673 35.1213 11.8068 34.8451 12.0762C34.569 12.3454 34.2306 12.48 33.8297 12.48H6.17056Z" fill="currentColor"/>
         </svg>
@@ -75,21 +80,36 @@ export default function Header(props: HeaderProps) {
             <button
               type="button"
               aria-label="Fechar menu"
-              onClick={() => setIsMenuOpen(false)}
-              className="cursor-pointer self-end text-2xl"
+              onClick={onCloseMenu}
+              className="flex cursor-pointer items-center gap-2 self-start text-sm uppercase tracking-wide"
             >
-              ×
+              Fechar
+              <span aria-hidden="true">×</span>
             </button>
-            <nav className="flex flex-col gap-4 font-serif text-lg tracking-wide">
-              {CATEGORIES.map((category) => (
+
+            <nav className="flex flex-col text-sm uppercase tracking-wide">
+              <Link
+                href="/"
+                onClick={onCloseMenu}
+                className="border-b border-zinc-200 py-3"
+              >
+                Início
+              </Link>
+
+              <span className="border-b border-zinc-200 py-3">Sale até 30% off</span>
+
+              {MENU_CATEGORIES.map((category) => (
                 <Link
                   key={category.slug}
                   href={`/produtos/${category.slug}`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={onCloseMenu}
+                  className="border-b border-zinc-200 py-3"
                 >
                   {category.name}
                 </Link>
               ))}
+
+              <span className="mt-8 bg-black py-3 text-center text-white">Ecommerce</span>
             </nav>
           </div>
         </div>

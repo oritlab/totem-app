@@ -1,5 +1,4 @@
-import { Product } from "../types";
-import { SortOption } from "./types";
+import { Product, SortOption } from "./types";
 
 // "novidades" = ordem original do array (não temos data de cadastro no mock,
 // então tratamos a ordem em que a Wake devolveu como "mais recente").
