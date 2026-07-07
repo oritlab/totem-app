@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { AccordionState } from "../types";
+import { AccordionState } from "@/src/global/types/produto";
 
 export default function useAccordionHook() {
   const [accordion, setAccordion] = useState<AccordionState>({ openIndex: null });

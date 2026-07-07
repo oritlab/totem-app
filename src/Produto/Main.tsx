@@ -13,23 +13,13 @@ export default function Main() {
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-white p-4">
-        <TopBar category={produto.category} backHref="/" />
+      <TopBar category={produto.category} backHref="/" />
 
-        <ImageCarousel images={produto.images} />
+      <ImageCarousel images={produto.images} />
 
-        <ProductInfo
-          reference={produto.reference}
-          badge={produto.badge}
-          promotionBadge={produto.promotionBadge}
-          brand={produto.brand}
-          title={produto.title}
-          originalPrice={produto.originalPrice}
-          price={produto.price}
-          installment={produto.installment}
-          pixPrice={produto.pixPrice}
-        />
+      <ProductInfo produto={produto} />
 
-        <AccordionSection items={produto.accordionItems} openIndex={openIndex} handleToggle={handleToggle} />
+      <AccordionSection accordionItems={produto.accordionItems} openIndex={openIndex} handleToggle={handleToggle} />
     </div>
   );
 }

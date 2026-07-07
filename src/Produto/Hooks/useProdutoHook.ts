@@ -1,4 +1,4 @@
-import { ProdutoData } from "../types";
+import { ProdutoData } from "@/src/global/types/produto";
 
 export default function useProdutoHook() {
   const produto: ProdutoData = {

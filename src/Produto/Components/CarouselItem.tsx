@@ -1,47 +1,20 @@
-"use client";
-
 import Image from "next/image";
-import { useRef, useState } from "react";
 
-import { ProdutoImage } from "../types";
-
-const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov"];
-
-function isVideo(src: string) {
-  return VIDEO_EXTENSIONS.some((extension) => src.toLowerCase().endsWith(extension));
-}
-
-type CarouselItemProps = {
-  media: ProdutoImage;
-  priority: boolean;
-};
+import { CarouselItemProps } from "@/src/global/types/produto";
+import useCarouselItemHook from "../Hooks/useCarouselItemHook";
 
 export default function CarouselItem(props: CarouselItemProps) {
   const { media, priority } = props;
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const { videoRef, isPlaying, isVideo, handleToggle, handleEnded } = useCarouselItemHook(media.src);
 
-  function handleToggle() {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (video.paused) {
-      video.play();
-      setIsPlaying(true);
-    } else {
-      video.pause();
-      setIsPlaying(false);
-    }
-  }
-
-  if (isVideo(media.src)) {
+  if (isVideo) {
     return (
       <div className="absolute inset-0" onClick={handleToggle}>
         <video
           ref={videoRef}
           src={media.src}
           playsInline
-          onEnded={() => setIsPlaying(false)}
+          onEnded={handleEnded}
           aria-label={media.alt}
           className="h-full w-full cursor-pointer object-cover"
         />

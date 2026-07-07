@@ -32,6 +32,11 @@ export type ImageCarouselProps = {
   images: ProdutoImage[];
 };
 
+export type CarouselItemProps = {
+  media: ProdutoImage;
+  priority: boolean;
+};
+
 export type DragState = {
   dragging: boolean;
   startX: number;
@@ -39,15 +44,7 @@ export type DragState = {
 };
 
 export type ProductInfoProps = {
-  reference: string;
-  badge?: string;
-  promotionBadge?: string;
-  brand: string;
-  title: string;
-  originalPrice?: string;
-  price: string;
-  installment: string;
-  pixPrice: string;
+  produto: ProdutoData;
 };
 
 export type AccordionState = {
@@ -55,7 +52,7 @@ export type AccordionState = {
 };
 
 export type AccordionSectionProps = {
-  items: AccordionItemData[];
+  accordionItems: AccordionItemData[];
   openIndex: number | null;
   handleToggle: (index: number) => void;
 };
