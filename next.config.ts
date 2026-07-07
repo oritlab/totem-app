@@ -1,6 +1,8 @@
 import path from "path";
 import type { NextConfig } from "next";
 
+const totemCdnHost = new URL(process.env.NEXT_PUBLIC_TOTEM_CDN_HOST as string);
+
 const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(__dirname),
@@ -14,6 +16,11 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "vender.orit.com.br",
+      },
+      {
+        protocol: totemCdnHost.protocol.replace(":", "") as "https",
+        hostname: totemCdnHost.hostname,
+        pathname: "/totem-images/**",
       },
     ],
   },

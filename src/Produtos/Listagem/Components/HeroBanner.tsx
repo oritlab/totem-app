@@ -1,27 +1,21 @@
 import Image from "next/image";
 
-import Header, { HeaderProps } from "@/src/shared/Components/Header";
+import Header from "@/src/Home/Components/Header";
+import { HeaderProps } from "@/src/Home/types";
 
 import { CategoryBanner } from "../types";
 
-type HeroBannerProps = CategoryBanner &
-  Pick<HeaderProps, "isMenuOpen" | "menuRef" | "onOpenMenu" | "onCloseMenu">;
+type HeroBannerProps = CategoryBanner & Pick<HeaderProps, "handleModal">;
 
 export default function HeroBanner(props: HeroBannerProps) {
-  const { imageUrl, title, subtitle, variant, align, isMenuOpen, menuRef, onOpenMenu, onCloseMenu } = props;
+  const { imageUrl, title, subtitle, variant, align, handleModal } = props;
   const textOnRight = align === "right";
 
   if (variant === "split") {
     return (
       <div className="relative flex w-full items-stretch bg-[#f4f1ec] landscape:aspect-[21/5] portrait:aspect-[4/3]">
         <div className="absolute inset-x-0 top-0 z-10">
-          <Header
-            theme="dark"
-            isMenuOpen={isMenuOpen}
-            menuRef={menuRef}
-            onOpenMenu={onOpenMenu}
-            onCloseMenu={onCloseMenu}
-          />
+          <Header theme="dark" handleModal={handleModal} />
         </div>
 
         <div className={`flex w-full ${textOnRight ? "flex-row" : "flex-row-reverse"}`}>
@@ -50,12 +44,7 @@ export default function HeroBanner(props: HeroBannerProps) {
       )}
 
       <div className="absolute inset-x-0 top-0 z-10">
-        <Header
-          isMenuOpen={isMenuOpen}
-          menuRef={menuRef}
-          onOpenMenu={onOpenMenu}
-          onCloseMenu={onCloseMenu}
-        />
+        <Header handleModal={handleModal} />
       </div>
 
       <div

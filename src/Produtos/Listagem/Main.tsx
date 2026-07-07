@@ -1,6 +1,7 @@
 "use client";
 
-import useMenuDrawerHook from "@/src/shared/Hooks/useMenuDrawerHook";
+import MenuDrawer from "@/src/Home/Components/MenuDrawer";
+import useMenuHook from "@/src/Home/Hooks/useMenuHook";
 
 import FilterBar from "./Components/FilterBar";
 import HeroBanner from "./Components/HeroBanner";
@@ -39,17 +40,13 @@ export default function Main(props: MainProps) {
   const { isOpen: isSortOpen, dropdownRef: sortRef, handleToggle: handleToggleSort, handleClose: handleCloseSort } =
     useSortDropdownHook();
 
-  const { isMenuOpen, menuRef, handleOpenMenu, handleCloseMenu } = useMenuDrawerHook();
+  const { modalMenu, handleModal } = useMenuHook();
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
-      <HeroBanner
-        {...(category?.banner ?? DEFAULT_BANNER)}
-        isMenuOpen={isMenuOpen}
-        menuRef={menuRef}
-        onOpenMenu={handleOpenMenu}
-        onCloseMenu={handleCloseMenu}
-      />
+      <MenuDrawer modalMenu={modalMenu} handleModal={handleModal} />
+
+      <HeroBanner {...(category?.banner ?? DEFAULT_BANNER)} handleModal={handleModal} />
 
       <FilterBar
         columns={columns}
