@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { MenuDrawerProps } from "../types";
+import { MenuDrawerProps } from "../types/global";
 
 export default function MenuDrawer(props: MenuDrawerProps) {
   const { modalMenu, handleModal } = props;
@@ -34,27 +34,27 @@ export default function MenuDrawer(props: MenuDrawerProps) {
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/novidades" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
               NOVIDADES
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/vintage" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
               VINTAGE
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/diamantes" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
               DIAMANTES
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/marcas-iconicas" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
               MARCAS ICÔNICAS
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/relogios" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
               RELÓGIOS
             </Link>
           </li>
@@ -98,27 +98,27 @@ export default function MenuDrawer(props: MenuDrawerProps) {
             )}
           </li> */}
           <li className="border-b border-black">
-            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/aneis" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
               ANÉIS E ALIANÇAS
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/brincos" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
               BRINCOS
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/colares" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
               COLARES
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/pingentes" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
               PINGENTES
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/pulseiras" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
               PULSEIRAS
             </Link>
           </li>
@@ -126,7 +126,7 @@ export default function MenuDrawer(props: MenuDrawerProps) {
 
         <div className="px-4 pb-4">
           <Link
-            href="#"
+            href="https://www.orit.com.br/"
             className="flex w-full cursor-pointer items-center justify-center rounded-sm bg-black px-6 py-3 text-xs tracking-widest text-white"
           >
             ECOMMERCE

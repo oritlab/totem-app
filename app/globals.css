@@ -11,6 +11,7 @@
   --color-foreground: var(--foreground);
   --font-sans: "Google Sans Flex", var(--font-geist-sans), sans-serif;
   --font-mono: var(--font-geist-mono);
+  --font-outfit: var(--font-outfit), sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
