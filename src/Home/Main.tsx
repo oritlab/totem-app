@@ -1,11 +1,12 @@
 "use client";
 
+import MenuDrawer from "@/src/global/components/MenuDrawer";
+
 import useMenuHook from "./Hooks/useMenuHook";
 import useHomeMediaHook from "./Hooks/useHomeMediaHook";
 import Hero from "./Components/Hero";
 import Tile from "./Components/Tile";
 import PromoBanner from "./Components/PromoBanner";
-import MenuDrawer from "./Components/MenuDrawer";
 
 export default function Main() {
   const { modalMenu, handleModal } = useMenuHook();
@@ -34,12 +35,12 @@ export default function Main() {
 
       <main className="grid grid-cols-3">
         <Tile label="SALE" subtitle="ATÉ 30% OFF" imageSrc={imageSale} href="#" />
-        <Tile label="RELÓGIOS" imageSrc={imageWatch} href="#" />
-        <Tile label="NOVIDADES" imageSrc={imageNews} href="#" />
+        <Tile label="RELÓGIOS" imageSrc={imageWatch} href="/produtos/relogios" />
+        <Tile label="NOVIDADES" imageSrc={imageNews} href="/produtos/novidades" />
 
-        <Tile label="VINTAGE" imageSrc={imageVintage} href="#" />
-        <Tile label="DIAMANTES" imageSrc={imageDiamond} href="#" />
-        <Tile label="MARCAS ICÔNICAS" imageSrc={imageMarcas} href="#" />
+        <Tile label="VINTAGE" imageSrc={imageVintage} href="/produtos/vintage" />
+        <Tile label="DIAMANTES" imageSrc={imageDiamond} href="/produtos/diamantes" />
+        <Tile label="MARCAS ICÔNICAS" imageSrc={imageMarcas} href="/produtos/marcas-iconicas" />
 
         <PromoBanner
           imageSrc={image360}
@@ -48,16 +49,16 @@ export default function Main() {
           subtitle="Troque suas peças em 360 dias"
           titleClassName="text-zinc-800"
         />
-        <Tile label="ANÉIS" imageSrc={imageRing} href="#" />
+        <Tile label="ANÉIS" imageSrc={imageRing} href="/produtos/aneis" />
 
-        <Tile label="BRINCOS" imageSrc={imageBrinco} href="#" />
-        <Tile label="COLARES" imageSrc={imageColar} href="#" />
-        <Tile label="PINGENTES" imageSrc={imagePingente} href="#" />
+        <Tile label="BRINCOS" imageSrc={imageBrinco} href="/produtos/brincos" />
+        <Tile label="COLARES" imageSrc={imageColar} href="/produtos/colares" />
+        <Tile label="PINGENTES" imageSrc={imagePingente} href="/produtos/pingentes" />
 
         <Tile
           label="PULSEIRAS"
           imageSrc={imagePulseira}
-          href="#"
+          href="/produtos/pulseiras"
           labelClassName=""
         />
         <PromoBanner

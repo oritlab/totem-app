@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: "https",
+        hostname: "orit.fbitsstatic.net",
+      },
+      {
+        protocol: "https",
+        hostname: "vender.orit.com.br",
+      },
+      {
         protocol: totemCdnHost.protocol.replace(":", "") as "https",
         hostname: totemCdnHost.hostname,
         pathname: "/totem-images/**",

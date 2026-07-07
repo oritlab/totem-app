@@ -1,18 +1,9 @@
-export type MenuState = {
-  open: boolean;
-};
+import { HeaderProps, MenuDrawerProps, MenuState } from "../global/types/global";
+
+export type { HeaderProps, MenuDrawerProps, MenuState };
 
 export type HeroProps = {
   videoSrc: string;
-  handleModal: (action: string) => void;
-};
-
-export type HeaderProps = {
-  handleModal: (action: string) => void;
-};
-
-export type MenuDrawerProps = {
-  modalMenu: MenuState;
   handleModal: (action: string) => void;
 };
 

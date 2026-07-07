@@ -1,5 +1,6 @@
+import Header from "@/src/global/components/Header";
+
 import { HeroProps } from "../types";
-import Header from "./Header";
 
 export default function Hero(props: HeroProps) {
   const { videoSrc, handleModal } = props;
