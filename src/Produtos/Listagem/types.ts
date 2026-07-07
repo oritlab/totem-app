@@ -54,11 +54,14 @@ export type FilterBarProps = {
   columns: GridColumns;
   onColumnsChange: (columns: GridColumns) => void;
   sortOption: SortOption | null;
-  onSortChange: (sortOption: SortOption) => void;
+  onSortChange: (sortOption: SortOption | null) => void;
   isSortOpen: boolean;
   sortRef: RefObject<HTMLDivElement | null>;
   onToggleSort: () => void;
   onCloseSort: () => void;
+  hasActiveFilters: boolean;
+  onOpenFilter: () => void;
+  onClearFilters: () => void;
 };
 
 export type LoadMoreProps = {

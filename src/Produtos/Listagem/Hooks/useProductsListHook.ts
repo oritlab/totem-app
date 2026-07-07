@@ -1,13 +1,14 @@
 import { useState } from "react";
 
 import { filterProductsByCategory } from "../categories";
+import { FilterSelections, filterProductsBySelections } from "../filters";
 import { mockProducts } from "../mocks";
 import { sortProducts } from "../sort";
 import { Category, GridColumns, SortOption } from "../types";
 
 const INITIAL_COUNT = 8;
 
-export default function useProductsListHook(category?: Category) {
+export default function useProductsListHook(category?: Category, selections?: FilterSelections) {
   // 1. States
   const [displayState, setDisplayState] = useState({
     shown: INITIAL_COUNT,
@@ -20,7 +21,8 @@ export default function useProductsListHook(category?: Category) {
   // 3. useEffect — N/A, mock já carregado, sem GET inicial
 
   const categoryProducts = filterProductsByCategory(mockProducts, category?.slug);
-  const visibleProducts = sortProducts(categoryProducts, displayState.sortOption).slice(
+  const filteredProducts = filterProductsBySelections(categoryProducts, selections ?? {});
+  const visibleProducts = sortProducts(filteredProducts, displayState.sortOption).slice(
     0,
     displayState.shown
   );
@@ -30,18 +32,19 @@ export default function useProductsListHook(category?: Category) {
     setDisplayState({ ...displayState, columns });
   }
 
-  function handleSortChange(sortOption: SortOption) {
+  function handleSortChange(sortOption: SortOption | null) {
     setDisplayState({ ...displayState, sortOption });
   }
 
   function handleLoadMore() {
-    setDisplayState({ ...displayState, shown: categoryProducts.length });
+    setDisplayState({ ...displayState, shown: filteredProducts.length });
   }
 
   // 5. return — só o que o componente consome, nunca os setters
   return {
+    categoryProducts,
     visibleProducts,
-    totalCount: categoryProducts.length,
+    totalCount: filteredProducts.length,
     columns: displayState.columns,
     sortOption: displayState.sortOption,
     handleColumnsChange,
