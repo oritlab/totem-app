@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { CarouselItemProps } from "@/src/global/types/produto";
+import { CarouselItemProps } from "../types";
 import useCarouselItemHook from "../Hooks/useCarouselItemHook";
 
 export default function CarouselItem(props: CarouselItemProps) {

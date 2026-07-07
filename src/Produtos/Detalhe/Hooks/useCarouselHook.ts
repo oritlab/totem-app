@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 
-import { DragState } from "@/src/global/types/produto";
+import { DragState } from "../types";
 
 const GAP_PX = 8;
 

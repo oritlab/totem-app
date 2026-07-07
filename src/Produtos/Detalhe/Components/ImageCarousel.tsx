@@ -1,4 +1,4 @@
-import { ImageCarouselProps } from "@/src/global/types/produto";
+import { ImageCarouselProps } from "../types";
 import useCarouselHook from "../Hooks/useCarouselHook";
 import CarouselItem from "./CarouselItem";
 
@@ -18,7 +18,7 @@ export default function ImageCarousel(props: ImageCarouselProps) {
   } = useCarouselHook(images.length, VISIBLE_COUNT);
 
   return (
-    <div className="flex w-full items-center">
+    <div className={`flex w-full items-center ${maxIndex === 0 ? "px-4 sm:px-6" : ""}`}>
       {maxIndex > 0 && (
         <button
           aria-label="Imagem anterior"
@@ -44,7 +44,7 @@ export default function ImageCarousel(props: ImageCarouselProps) {
           }}
         >
           {images.map((image, index) => (
-            <div key={image.src} className="relative aspect-square w-1/3 shrink-0">
+            <div key={`${image.src}-${index}`} className="relative aspect-square w-1/3 shrink-0">
               <CarouselItem media={image} priority={index === 0} />
             </div>
           ))}

@@ -25,6 +25,14 @@ export const mockProducts: Product[] = [
     categories: ["relogios", "marcas-iconicas"],
     imageUrl:
       "https://orit.fbitsstatic.net/img/p/416303/relogio-audemars-piguet-royal-oak-offshore-214934/416303.jpg?w=500&h=500",
+    // mock só tem 1 imagem real pra esse SKU — repetida pra exercitar o
+    // carrossel de mais de 3 itens na página de detalhe (ver Detalhe/useProdutoHook.ts)
+    images: [
+      "https://orit.fbitsstatic.net/img/p/416303/relogio-audemars-piguet-royal-oak-offshore-214934/416303.jpg?w=500&h=500",
+      "https://orit.fbitsstatic.net/img/p/416303/relogio-audemars-piguet-royal-oak-offshore-214934/416303.jpg?w=500&h=500",
+      "https://orit.fbitsstatic.net/img/p/416303/relogio-audemars-piguet-royal-oak-offshore-214934/416303.jpg?w=500&h=500",
+      "https://orit.fbitsstatic.net/img/p/416303/relogio-audemars-piguet-royal-oak-offshore-214934/416303.jpg?w=500&h=500",
+    ],
   },
   {
     sku: "1062883",

@@ -1,4 +1,4 @@
-import { AccordionSectionProps } from "@/src/global/types/produto";
+import { AccordionSectionProps } from "../types";
 
 export default function AccordionSection(props: AccordionSectionProps) {
   const { accordionItems, openIndex, handleToggle } = props;

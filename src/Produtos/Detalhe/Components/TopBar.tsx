@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { TopBarProps } from "@/src/global/types/produto";
+import { TopBarProps } from "../types";
 
 export default function TopBar(props: TopBarProps) {
   const { category, backHref } = props;

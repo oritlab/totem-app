@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import { ProductInfoProps } from "@/src/global/types/produto";
-import Pix from "../../../public/pix.svg";
+import { ProductInfoProps } from "../types";
+import Pix from "@/public/pix.svg";
 
 export default function ProductInfo(props: ProductInfoProps) {
   const { produto } = props;
