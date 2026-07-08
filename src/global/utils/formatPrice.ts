@@ -4,3 +4,8 @@ export function formatBRL(value: number): string {
     currency: "BRL",
   });
 }
+
+export function calculateDiscountPercent(price: number, listPrice?: number): number {
+  if (!listPrice || listPrice <= price) return 0;
+  return Math.round((1 - price / listPrice) * 100);
+}

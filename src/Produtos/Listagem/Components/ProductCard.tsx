@@ -1,19 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { formatBRL } from "@/src/global/utils/formatPrice";
+import { calculateDiscountPercent, formatBRL } from "@/src/global/utils/formatPrice";
 import { ProductCardProps } from "../types";
 
 export default function ProductCard(props: ProductCardProps) {
   const { product } = props;
   const isPromo = !!product.listPrice && product.listPrice > product.price;
+  const discountPercent = calculateDiscountPercent(product.price, product.listPrice);
 
   return (
     <Link href={`/info-product/${product.sku}`} className="flex flex-col gap-2">
-      <div className="relative aspect-square w-full overflow-hidden bg-zinc-50">
+      <div className="relative aspect-square w-full overflow-hidden">
         {isPromo && (
-          <span className="absolute left-2 top-2 z-10 bg-orange-600 px-2 py-1 text-[10px] font-semibold tracking-wide text-white">
-            PROMOÇÃO
+          <span className="absolute left-2 top-2 z-10 bg-orange-600 px-2 py-1 text-[10px] font-semibold rounded-sm tracking-wide text-white">
+            {discountPercent}% OFF
           </span>
         )}
         <Image
@@ -21,7 +22,7 @@ export default function ProductCard(props: ProductCardProps) {
           alt={product.name}
           fill
           sizes="(orientation: landscape) 33vw, 50vw"
-          className="object-contain p-4"
+          className="object-contain"
         />
       </div>
 

@@ -15,7 +15,7 @@ export default function HeroBanner(props: HeroBannerProps) {
 
   if (variant === "split") {
     return (
-      <div className="relative flex w-full items-stretch bg-[#f4f1ec] landscape:aspect-[21/5] portrait:aspect-[4/3]">
+      <div className="relative flex w-full items-stretch bg-[#f4f1ec] landscape:aspect-21/5 portrait:aspect-5/3 portrait:sm:aspect-20/9 portrait:lg:aspect-[2.625/1]">
         <div className="absolute inset-x-0 top-0 z-10">
           <Header theme="dark" handleModal={handleModal} />
         </div>
@@ -37,11 +37,11 @@ export default function HeroBanner(props: HeroBannerProps) {
   }
 
   return (
-    <div className="relative aspect-[3/1] w-full overflow-hidden bg-black landscape:aspect-[21/5] portrait:aspect-[4/3]">
+    <div className="relative aspect-3/1 w-full overflow-hidden bg-black landscape:aspect-21/5 portrait:aspect-5/3 portrait:sm:aspect-20/9 portrait:lg:aspect-[2.625/1]">
       {imageUrl && (
         <>
           <Image src={imageUrl} alt="" fill sizes="100vw" priority className="object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-black/40" />
+          <div className="absolute inset-0 bg-linear-to-r from-transparent via-black/10 to-black/40" />
         </>
       )}
 

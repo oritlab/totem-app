@@ -6,6 +6,7 @@ export type ProdutoImage = {
 export type AccordionItemData = {
   title: string;
   content: string;
+  images?: string[];
 };
 
 export type ProdutoData = {

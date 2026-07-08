@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { AccordionSectionProps } from "../types";
 
 export default function AccordionSection(props: AccordionSectionProps) {
@@ -16,7 +18,21 @@ export default function AccordionSection(props: AccordionSectionProps) {
           </button>
 
           {openIndex === index && (
-            <p className="pb-4 text-sm text-zinc-600">{accordionItem.content}</p>
+            <div className="pb-4">
+              <p className="text-sm text-zinc-600">{accordionItem.content}</p>
+
+              {accordionItem.images && (
+                <div
+                  className={`mt-3 grid gap-3 ${accordionItem.images.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}
+                >
+                  {accordionItem.images.map((image) => (
+                    <div key={image} className="relative aspect-square">
+                      <Image src={image} alt={accordionItem.title} fill sizes="50vw" className="object-contain" />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
         </div>
       ))}
