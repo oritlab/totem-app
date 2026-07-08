@@ -14,7 +14,7 @@ export default function MenuDrawer(props: MenuDrawerProps) {
         onClick={() => handleModal("close")}
       />
 
-      <nav className="relative flex h-full w-[85vw] max-w-90 flex-col overflow-y-auto rounded-bl-[20px] bg-white p-2 sm:rounded-bl-[30px]">
+      <nav className="relative flex h-full w-[85vw] max-w-90 flex-col overflow-y-auto bg-white p-2">
         <button
           className="cursor-pointer px-6 py-4 text-left text-sm tracking-widest text-zinc-800"
           onClick={() => handleModal("close")}
@@ -24,37 +24,37 @@ export default function MenuDrawer(props: MenuDrawerProps) {
 
         <ul className="flex flex-1 flex-col pb-2">
           <li className="border-b border-black">
-            <Link href="/" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               INÍCIO
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="#" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="#" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               SALE ATÉ 30% OFF
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="/produtos/novidades" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/novidades" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               NOVIDADES
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="/produtos/vintage" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/vintage" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               VINTAGE
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="/produtos/diamantes" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/diamantes" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               DIAMANTES
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="/produtos/marcas-iconicas" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/marcas-iconicas" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               MARCAS ICÔNICAS
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="/produtos/relogios" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/relogios" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               RELÓGIOS
             </Link>
           </li>
@@ -98,27 +98,27 @@ export default function MenuDrawer(props: MenuDrawerProps) {
             )}
           </li> */}
           <li className="border-b border-black">
-            <Link href="/produtos/aneis" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/aneis" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               ANÉIS E ALIANÇAS
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="/produtos/brincos" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/brincos" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               BRINCOS
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="/produtos/colares" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/colares" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               COLARES
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="/produtos/pingentes" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/pingentes" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               PINGENTES
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="/produtos/pulseiras" className="block cursor-pointer px-6 py-4 text-sm text-zinc-800">
+            <Link href="/produtos/pulseiras" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               PULSEIRAS
             </Link>
           </li>

@@ -10,7 +10,7 @@ export default function ProductCard(props: ProductCardProps) {
 
   return (
     <Link href={`/info-product/${product.sku}`} className="flex flex-col gap-2">
-      <div className="relative aspect-square w-full overflow-hidden bg-zinc-50">
+      <div className="relative aspect-square w-full overflow-hidden">
         {isPromo && (
           <span className="absolute left-2 top-2 z-10 bg-orange-600 px-2 py-1 text-[10px] font-semibold tracking-wide text-white">
             PROMOÇÃO
@@ -21,7 +21,7 @@ export default function ProductCard(props: ProductCardProps) {
           alt={product.name}
           fill
           sizes="(orientation: landscape) 33vw, 50vw"
-          className="object-contain p-4"
+          className="object-contain"
         />
       </div>
 
