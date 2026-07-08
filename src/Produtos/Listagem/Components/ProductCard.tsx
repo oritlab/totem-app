@@ -9,7 +9,7 @@ export default function ProductCard(props: ProductCardProps) {
   const isPromo = !!product.listPrice && product.listPrice > product.price;
 
   return (
-    <Link href={`/produto/${product.sku}`} className="flex flex-col gap-2">
+    <Link href={`/info-product/${product.sku}`} className="flex flex-col gap-2">
       <div className="relative aspect-square w-full overflow-hidden bg-zinc-50">
         {isPromo && (
           <span className="absolute left-2 top-2 z-10 bg-orange-600 px-2 py-1 text-[10px] font-semibold tracking-wide text-white">
