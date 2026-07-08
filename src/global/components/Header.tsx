@@ -3,6 +3,9 @@ import Link from "next/link";
 
 import { HeaderProps } from "../types/global";
 
+const LOGO_LIGHT_SRC = "https://orit.fbitsstatic.net/sf/img/header/logoorit.png?theme=main&v=202607060824";
+const LOGO_DARK_SRC = "/logo-dark.svg";
+
 export default function Header(props: HeaderProps) {
   const { theme = "light", handleModal } = props;
   const barClassName = theme === "dark" ? "bg-zinc-900" : "bg-white";
@@ -11,7 +14,7 @@ export default function Header(props: HeaderProps) {
     <header className="fixed inset-x-0 top-0 z-20 flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
       <Link href="/">
         <Image
-          src={theme === "dark" ? "/logo-dark.svg" : "/logo.svg"}
+          src={theme === "dark" ? LOGO_DARK_SRC : LOGO_LIGHT_SRC}
           alt="Orit"
           width={100}
           height={100}

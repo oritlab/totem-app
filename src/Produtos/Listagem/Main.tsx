@@ -80,12 +80,9 @@ export default function Main(props: MainProps) {
           <div className="absolute inset-0 bg-black/40" onClick={() => handleFilter("close")} />
 
           {/* Máscara de recorte compartilhada pelos dois drawers — a borda
-              e o canto arredondado vivem aqui, não em cada painel. O
-              overflow-hidden recorta o conjunto (FilterDrawer +
-              FilterOptionsDrawer) na forma arredondada, revelando o que
-              está atrás (o overlay escuro) só naquele canto — sem costura
-              dupla no meio nem "branco sobre branco" invisível. */}
-          <div className="relative flex overflow-hidden rounded-br-[20px] border border-zinc-200 sm:rounded-br-[30px]">
+              vive aqui, não em cada painel. O overflow-hidden recorta o
+              conjunto (FilterDrawer + FilterOptionsDrawer). */}
+          <div className="relative flex overflow-hidden border border-zinc-200">
             <FilterDrawer
               isOpen={isFilterOpen}
               filterGroups={filterGroups}

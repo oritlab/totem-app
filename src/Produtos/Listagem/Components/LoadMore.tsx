@@ -10,7 +10,7 @@ export default function LoadMore(props: LoadMoreProps) {
         <button
           type="button"
           onClick={onLoadMore}
-          className="cursor-pointer border border-zinc-900 px-8 py-2 text-sm text-zinc-900 hover:bg-zinc-900 hover:text-white"
+          className="cursor-pointer border rounded-sm border-zinc-900 px-8 py-2 text-sm text-zinc-900 hover:bg-zinc-900 hover:text-white"
         >
           Ver mais
         </button>
