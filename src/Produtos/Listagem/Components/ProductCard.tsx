@@ -1,15 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { formatBRL } from "@/src/global/utils/formatPrice";
+import { calculateDiscountPercent, formatBRL } from "@/src/global/utils/formatPrice";
 import { ProductCardProps } from "../types";
 
 export default function ProductCard(props: ProductCardProps) {
   const { product } = props;
   const isPromo = !!product.listPrice && product.listPrice > product.price;
-  const discountPercent = isPromo
-    ? Math.round((1 - product.price / (product.listPrice as number)) * 100)
-    : 0;
+  const discountPercent = calculateDiscountPercent(product.price, product.listPrice);
 
   return (
     <Link href={`/info-product/${product.sku}`} className="flex flex-col gap-2">

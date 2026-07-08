@@ -1,4 +1,4 @@
-import { formatBRL } from "@/src/global/utils/formatPrice";
+import { calculateDiscountPercent, formatBRL } from "@/src/global/utils/formatPrice";
 import { getCategoryBySlug } from "@/src/Produtos/Listagem/categories";
 import { mockProducts } from "@/src/Produtos/Listagem/mocks";
 import { ProdutoData } from "../types";
@@ -46,9 +46,7 @@ export default function useProdutoHook(sku: string) {
 
   const product = mockProducts.find((mockProduct) => mockProduct.sku === sku) ?? mockProducts[0];
   const isPromo = !!product.listPrice && product.listPrice > product.price;
-  const discountPercent = isPromo
-    ? Math.round((1 - product.price / (product.listPrice as number)) * 100)
-    : 0;
+  const discountPercent = calculateDiscountPercent(product.price, product.listPrice);
   const category = getCategoryBySlug(product.categories[0]);
 
   const produto: ProdutoData = {
