@@ -72,14 +72,14 @@ export default function FilterDrawer(props: FilterDrawerProps) {
         <button
           type="button"
           onClick={onClearFilters}
-          className="flex-1 cursor-pointer border border-zinc-900 px-4 py-3 text-xs tracking-wide text-zinc-900"
+          className="flex-1 cursor-pointer border rounded-sm border-zinc-900 px-4 py-3 text-xs tracking-wide text-zinc-900"
         >
           LIMPAR FILTRO({totalSelectedCount})
         </button>
         <button
           type="button"
           onClick={onClose}
-          className="flex-1 cursor-pointer bg-black px-4 py-3 text-xs tracking-wide text-white"
+          className="flex-1 cursor-pointer border border-black rounded-sm bg-black px-4 py-3 text-xs tracking-wide text-white"
         >
           APLICAR
         </button>

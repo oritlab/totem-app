@@ -46,12 +46,15 @@ export default function useProdutoHook(sku: string) {
 
   const product = mockProducts.find((mockProduct) => mockProduct.sku === sku) ?? mockProducts[0];
   const isPromo = !!product.listPrice && product.listPrice > product.price;
+  const discountPercent = isPromo
+    ? Math.round((1 - product.price / (product.listPrice as number)) * 100)
+    : 0;
   const category = getCategoryBySlug(product.categories[0]);
 
   const produto: ProdutoData = {
     reference: product.sku,
     badge: "ÚNICA PEÇA",
-    promotionBadge: isPromo ? "PROMOÇÃO" : undefined,
+    promotionBadge: isPromo ? `${discountPercent}% OFF` : undefined,
     brand: product.brand,
     title: product.name,
     category: category?.name ?? "Produtos",

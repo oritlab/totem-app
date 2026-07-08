@@ -11,7 +11,11 @@ export default function Header(props: HeaderProps) {
     <header className="fixed inset-x-0 top-0 z-20 flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
       <Link href="/">
         <Image
-          src={theme === "dark" ? "/logo-dark.svg" : "/logo.svg"}
+          src={
+            theme === "dark"
+              ? "/logo-dark.svg"
+              : "https://orit.fbitsstatic.net/sf/img/header/logoorit.png?theme=main&v=202607060824"
+          }
           alt="Orit"
           width={100}
           height={100}
