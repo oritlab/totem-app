@@ -1,5 +1,4 @@
-import { FilterDrawerProps } from "../filters";
-import { SORT_OPTION_LABELS, SortOption } from "../types";
+import { FilterDrawerProps, SORT_OPTION_LABELS, SortOption } from "../types";
 
 const SORT_ORDER: SortOption[] = ["novidades", "maior-preco", "menor-preco", "nome"];
 

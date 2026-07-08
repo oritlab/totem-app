@@ -6,10 +6,7 @@ import TopBar from "./Components/TopBar";
 import ImageCarousel from "./Components/ImageCarousel";
 import ProductInfo from "./Components/ProductInfo";
 import AccordionSection from "./Components/AccordionSection";
-
-type MainProps = {
-  sku: string;
-};
+import { MainProps } from "./types";
 
 export default function Main(props: MainProps) {
   const { sku } = props;

@@ -56,3 +56,7 @@ export type AccordionSectionProps = {
   openIndex: number | null;
   handleToggle: (index: number) => void;
 };
+
+export type MainProps = {
+  sku: string;
+};

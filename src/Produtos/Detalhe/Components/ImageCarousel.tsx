@@ -43,8 +43,10 @@ export default function ImageCarousel(props: ImageCarouselProps) {
             cursor: maxIndex > 0 ? (dragging ? "grabbing" : "grab") : "default",
           }}
         >
+          {/* images é uma lista estática por produto (nunca reordena), então
+              o índice como key é seguro mesmo com src repetido no mock. */}
           {images.map((image, index) => (
-            <div key={`${image.src}-${index}`} className="relative aspect-square w-1/3 shrink-0">
+            <div key={index} className="relative aspect-square w-1/3 shrink-0">
               <CarouselItem media={image} priority={index === 0} />
             </div>
           ))}

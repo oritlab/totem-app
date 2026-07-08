@@ -7,11 +7,17 @@ import { DragState } from "../types";
 const GAP_PX = 8;
 
 export default function useCarouselHook(total: number, visibleCount: number) {
+  // 1. States
   const maxIndex = Math.max(0, total - visibleCount);
   const [index, setIndex] = useState(0);
   const [dragState, setDragState] = useState<DragState>({ dragging: false, startX: 0, offset: 0 });
   const trackRef = useRef<HTMLDivElement>(null);
 
+  // 2. Funções de API — N/A
+
+  // 3. useEffect — N/A
+
+  // 4. Handlers
   function handleNavigate(action: string) {
     if (action === "next") setIndex((prev) => Math.min(prev + 1, maxIndex));
     if (action === "prev") setIndex((prev) => Math.max(prev - 1, 0));
@@ -43,6 +49,7 @@ export default function useCarouselHook(total: number, visibleCount: number) {
   const dragOffsetPx = dragState.dragging ? dragState.offset : 0;
   const translatePx = dragOffsetPx - index * stepPx;
 
+  // 5. return — só o que o componente consome, nunca os setters
   return {
     maxIndex,
     trackRef,

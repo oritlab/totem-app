@@ -9,22 +9,10 @@ import FilterOptionsDrawer from "./Components/FilterOptionsDrawer";
 import HeroBanner from "./Components/HeroBanner";
 import LoadMore from "./Components/LoadMore";
 import ProductGrid from "./Components/ProductGrid";
-import { countTotalSelections, getFilterGroupsForCategory } from "./filters";
 import useProductFiltersHook from "./Hooks/useProductFiltersHook";
 import useProductsListHook from "./Hooks/useProductsListHook";
 import useSortDropdownHook from "./Hooks/useSortDropdownHook";
-import { Category, CategoryBanner } from "./types";
-
-const DEFAULT_BANNER: CategoryBanner = {
-  title: "Catálogo",
-  subtitle: "",
-  variant: "cover",
-  align: "right",
-};
-
-type MainProps = {
-  category?: Category;
-};
+import { MainProps } from "./types";
 
 // Quem renderiza este componente precisa passar key={category?.slug} —
 // é isso que faz o React remontar o hook (e reiniciar paginação/colunas/
@@ -36,6 +24,7 @@ export default function Main(props: MainProps) {
     isFilterOpen,
     activeGroupKey,
     selections,
+    totalSelectedCount,
     handleFilter,
     handleGroup,
     handleToggleOption,
@@ -43,30 +32,28 @@ export default function Main(props: MainProps) {
   } = useProductFiltersHook();
 
   const {
-    categoryProducts,
+    banner,
     visibleProducts,
     totalCount,
     columns,
     sortOption,
+    filterGroups,
+    activeGroup,
     handleColumnsChange,
     handleSortChange,
     handleLoadMore,
-  } = useProductsListHook(category, selections);
+  } = useProductsListHook(category, selections, activeGroupKey);
 
   const { isOpen: isSortOpen, dropdownRef: sortRef, handleToggle: handleToggleSort, handleClose: handleCloseSort } =
     useSortDropdownHook();
 
   const { modalMenu, handleModal } = useMenuHook();
 
-  const filterGroups = getFilterGroupsForCategory(category?.slug, categoryProducts);
-  const totalSelectedCount = countTotalSelections(selections);
-  const activeGroup = filterGroups.find((group) => group.key === activeGroupKey) ?? null;
-
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <MenuDrawer modalMenu={modalMenu} handleModal={handleModal} />
 
-      <HeroBanner {...(category?.banner ?? DEFAULT_BANNER)} handleModal={handleModal} />
+      <HeroBanner banner={banner} handleModal={handleModal} />
 
       <FilterBar
         columns={columns}

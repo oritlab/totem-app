@@ -1,14 +1,18 @@
 import { useState } from "react";
 
-import { filterProductsByCategory } from "../categories";
-import { FilterSelections, filterProductsBySelections } from "../filters";
+import { DEFAULT_BANNER, filterProductsByCategory } from "../categories";
+import { filterProductsBySelections, getFilterGroupsForCategory } from "../filters";
 import { mockProducts } from "../mocks";
 import { sortProducts } from "../sort";
-import { Category, GridColumns, SortOption } from "../types";
+import { Category, FilterGroupKey, FilterSelections, GridColumns, SortOption } from "../types";
 
 const INITIAL_COUNT = 8;
 
-export default function useProductsListHook(category?: Category, selections?: FilterSelections) {
+export default function useProductsListHook(
+  category?: Category,
+  selections?: FilterSelections,
+  activeGroupKey?: FilterGroupKey | null
+) {
   // 1. States
   const [displayState, setDisplayState] = useState({
     shown: INITIAL_COUNT,
@@ -26,6 +30,9 @@ export default function useProductsListHook(category?: Category, selections?: Fi
     0,
     displayState.shown
   );
+  const filterGroups = getFilterGroupsForCategory(category?.slug, categoryProducts);
+  const activeGroup = filterGroups.find((group) => group.key === activeGroupKey) ?? null;
+  const banner = category?.banner ?? DEFAULT_BANNER;
 
   // 4. Handlers
   function handleColumnsChange(columns: GridColumns) {
@@ -42,11 +49,13 @@ export default function useProductsListHook(category?: Category, selections?: Fi
 
   // 5. return — só o que o componente consome, nunca os setters
   return {
-    categoryProducts,
+    banner,
     visibleProducts,
     totalCount: filteredProducts.length,
     columns: displayState.columns,
     sortOption: displayState.sortOption,
+    filterGroups,
+    activeGroup,
     handleColumnsChange,
     handleSortChange,
     handleLoadMore,

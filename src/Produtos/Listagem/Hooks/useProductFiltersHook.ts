@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import { FilterGroupKey, FilterSelections } from "../filters";
+import { countTotalSelections } from "../filters";
+import { FilterGroupKey, FilterSelections } from "../types";
 
 export default function useProductFiltersHook() {
   // 1. States
@@ -13,6 +14,8 @@ export default function useProductFiltersHook() {
   // 2. Funções de API — N/A
 
   // 3. useEffect — N/A
+
+  const totalSelectedCount = countTotalSelections(filterState.selections);
 
   // 4. Handlers
   function handleFilter(action: "open" | "close") {
@@ -42,6 +45,7 @@ export default function useProductFiltersHook() {
     isFilterOpen: filterState.isOpen,
     activeGroupKey: filterState.activeGroupKey,
     selections: filterState.selections,
+    totalSelectedCount,
     handleFilter,
     handleGroup,
     handleToggleOption,

@@ -19,6 +19,12 @@ const FALLBACK_ACCORDION_ITEMS = [
 ];
 
 export default function useProdutoHook(sku: string) {
+  // 1. States — N/A, derivado direto do mock
+
+  // 2. Funções de API — N/A, dados ainda são mock (ver Context/Integracao-Backend.md)
+
+  // 3. useEffect — N/A
+
   const product = mockProducts.find((mockProduct) => mockProduct.sku === sku) ?? mockProducts[0];
   const isPromo = !!product.listPrice && product.listPrice > product.price;
   const category = getCategoryBySlug(product.categories[0]);
@@ -38,5 +44,6 @@ export default function useProdutoHook(sku: string) {
     accordionItems: FALLBACK_ACCORDION_ITEMS,
   };
 
+  // 5. return
   return { produto };
 }
