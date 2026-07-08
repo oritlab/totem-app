@@ -9,6 +9,7 @@ export type Product = {
   name: string;
   brand: string;
   imageUrl: string;
+  images?: string[];
   price: number;
   listPrice?: number;
   categories: string[];
@@ -72,4 +73,45 @@ export type LoadMoreProps = {
   shown: number;
   total: number;
   onLoadMore: () => void;
+};
+
+export type FilterGroupKey =
+  | "marcas"
+  | "genero"
+  | "material-caixa"
+  | "tamanho-caixa"
+  | "material-pulseira"
+  | "tamanho-pulseira"
+  | "faixa-preco";
+
+export type FilterGroup = {
+  key: FilterGroupKey;
+  label: string;
+  options: string[];
+};
+
+export type FilterSelections = Record<string, string[]>;
+
+export type FilterDrawerProps = {
+  isOpen: boolean;
+  filterGroups: FilterGroup[];
+  selections: FilterSelections;
+  activeGroupKey: FilterGroupKey | null;
+  totalSelectedCount: number;
+  sortOption: SortOption | null;
+  onClose: () => void;
+  onOpenGroup: (groupKey: FilterGroupKey) => void;
+  onSortChange: (sortOption: SortOption) => void;
+  onClearFilters: () => void;
+};
+
+export type FilterOptionsDrawerProps = {
+  group: FilterGroup | null;
+  selectedOptions: string[];
+  onClose: () => void;
+  onToggleOption: (option: string) => void;
+};
+
+export type MainProps = {
+  category?: Category;
 };

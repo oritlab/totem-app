@@ -1,20 +1,15 @@
 import Image from "next/image";
+import Link from "next/link";
 
+import { formatBRL } from "@/src/global/utils/formatPrice";
 import { ProductCardProps } from "../types";
-
-function formatBRL(value: number): string {
-  return value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-}
 
 export default function ProductCard(props: ProductCardProps) {
   const { product } = props;
   const isPromo = !!product.listPrice && product.listPrice > product.price;
 
   return (
-    <div className="flex flex-col gap-2">
+    <Link href={`/info-product/${product.sku}`} className="flex flex-col gap-2">
       <div className="relative aspect-square w-full overflow-hidden bg-zinc-50">
         {isPromo && (
           <span className="absolute left-2 top-2 z-10 bg-orange-600 px-2 py-1 text-[10px] font-semibold tracking-wide text-white">
@@ -51,6 +46,6 @@ export default function ProductCard(props: ProductCardProps) {
           </span>
         )}
       </div>
-    </div>
+    </Link>
   );
 }

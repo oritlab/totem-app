@@ -1,4 +1,4 @@
-import { FilterOptionsDrawerProps } from "../filters";
+import { FilterOptionsDrawerProps } from "../types";
 
 // Painel independente do FilterDrawer — sobe/desce seu próprio estado
 // (activeGroupKey), sem afetar isFilterOpen. Fica ao lado do FilterDrawer

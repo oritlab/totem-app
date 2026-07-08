@@ -1,4 +1,4 @@
-import { Category, Product } from "./types";
+import { Category, CategoryBanner, Product } from "./types";
 
 // Config central de categorias — nome, slug (usado na URL /produtos/[slug])
 // e banner. Único lugar a editar quando a arte/texto definitivo de cada
@@ -44,6 +44,15 @@ function placeholderBanner(name: string): Category["banner"] {
     align: "right",
   };
 }
+
+// Banner padrão da vitrine quando a categoria não define o próprio (ex:
+// "novidades", que agrega tudo em vez de ser uma categoria de verdade).
+export const DEFAULT_BANNER: CategoryBanner = {
+  title: "Catálogo",
+  subtitle: "",
+  variant: "cover",
+  align: "right",
+};
 
 export function getCategoryBySlug(slug: string): Category | undefined {
   return CATEGORIES.find((category) => category.slug === slug);

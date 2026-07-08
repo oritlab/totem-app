@@ -1,45 +1,7 @@
-import { Product } from "./types";
+import { FilterGroup, FilterSelections, Product } from "./types";
 
-// Módulo dos filtros de produto — tipos e lógica ficam juntos aqui (em vez
-// de types.ts) porque dependem de Product; types.ts não importa daqui, pra
-// não criar ciclo de import.
-
-export type FilterGroupKey =
-  | "marcas"
-  | "genero"
-  | "material-caixa"
-  | "tamanho-caixa"
-  | "material-pulseira"
-  | "tamanho-pulseira"
-  | "faixa-preco";
-
-export type FilterGroup = {
-  key: FilterGroupKey;
-  label: string;
-  options: string[];
-};
-
-export type FilterSelections = Record<string, string[]>;
-
-export type FilterDrawerProps = {
-  isOpen: boolean;
-  filterGroups: FilterGroup[];
-  selections: FilterSelections;
-  activeGroupKey: FilterGroupKey | null;
-  totalSelectedCount: number;
-  sortOption: import("./types").SortOption | null;
-  onClose: () => void;
-  onOpenGroup: (groupKey: FilterGroupKey) => void;
-  onSortChange: (sortOption: import("./types").SortOption) => void;
-  onClearFilters: () => void;
-};
-
-export type FilterOptionsDrawerProps = {
-  group: FilterGroup | null;
-  selectedOptions: string[];
-  onClose: () => void;
-  onToggleOption: (option: string) => void;
-};
+// Lógica dos filtros de produto — deriva os grupos de filtro disponíveis
+// pra categoria e aplica as seleções sobre a lista de produtos.
 
 const PRICE_RANGES = [
   "Até R$ 1.000",

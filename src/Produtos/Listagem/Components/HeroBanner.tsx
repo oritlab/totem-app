@@ -4,10 +4,13 @@ import Header from "@/src/global/components/Header";
 
 import { CategoryBanner, HeaderProps } from "../types";
 
-type HeroBannerProps = CategoryBanner & Pick<HeaderProps, "handleModal">;
+type HeroBannerProps = {
+  banner: CategoryBanner;
+} & Pick<HeaderProps, "handleModal">;
 
 export default function HeroBanner(props: HeroBannerProps) {
-  const { imageUrl, title, subtitle, variant, align, handleModal } = props;
+  const { banner, handleModal } = props;
+  const { imageUrl, title, subtitle, variant, align } = banner;
   const textOnRight = align === "right";
 
   if (variant === "split") {
