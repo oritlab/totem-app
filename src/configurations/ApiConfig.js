@@ -11,5 +11,8 @@ export const ApiConfig = {
     TotemVideo: function (name) {
       return ApiConfig.Host.totemVideos + name + ".mp4";
     },
+    ProductDetails: function (sku) {
+      return "/products/" + sku;
+    },
   },
 };

@@ -6,6 +6,11 @@ export type MenuState = {
   open: boolean;
 };
 
+export type RequestStatus = {
+  loading: boolean;
+  error: string | null;
+};
+
 export type HeaderProps = {
   // "light" (padrão) = logo/hambúrguer brancos, pra ficar sobre fundo escuro.
   // "dark" = logo/hambúrguer escuros, pra ficar sobre fundo claro (ex:

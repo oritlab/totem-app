@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import useProdutoHook from "./Hooks/useProdutoHook";
 import useAccordionHook from "./Hooks/useAccordionHook";
 import TopBar from "./Components/TopBar";
@@ -10,8 +12,27 @@ import { MainProps } from "./types";
 
 export default function Main(props: MainProps) {
   const { sku } = props;
-  const { produto } = useProdutoHook(sku);
+  const { produto, requestStatus } = useProdutoHook(sku);
   const { openIndex, handleToggle } = useAccordionHook();
+
+  if (requestStatus.loading) {
+    return (
+      <div className="flex min-h-screen w-full items-center justify-center bg-white p-4">
+        <span className="text-sm text-[#626262]">Carregando produto...</span>
+      </div>
+    );
+  }
+
+  if (requestStatus.error || !produto) {
+    return (
+      <div className="flex min-h-screen w-full flex-col items-center justify-center gap-4 bg-white p-4">
+        <span className="text-sm text-[#626262]">{requestStatus.error ?? "Não encontramos esse produto."}</span>
+        <Link href="/produtos" className="text-sm font-medium text-black underline">
+          Voltar para produtos
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-white p-4">

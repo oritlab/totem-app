@@ -19,7 +19,10 @@ export default function AccordionSection(props: AccordionSectionProps) {
 
           {openIndex === index && (
             <div className="pb-4">
-              <p className="text-sm text-zinc-600">{accordionItem.content}</p>
+              <div
+                className="text-sm text-zinc-600"
+                dangerouslySetInnerHTML={{ __html: accordionItem.content }}
+              />
 
               {accordionItem.images && (
                 <div
