@@ -13,7 +13,7 @@ export const CATEGORIES: Category[] = [
       align: "right",
     },
   },
-  { slug: "sale", name: "Sale", banner: placeholderBanner("Sale") },
+  { slug: "sale", name: "Sale", banner: imageBanner("Sale", "PROMOCAO") },
   { slug: "novidades", name: "Novidades", banner: imageBanner("Novidades", "NOVIDADES") },
   { slug: "vintage", name: "Vintage", banner: imageBanner("Vintage", "VINTAGE") },
   { slug: "diamantes", name: "Diamantes", banner: imageBanner("Diamantes", "DIAMANTES") },
@@ -23,7 +23,7 @@ export const CATEGORIES: Category[] = [
     banner: imageBanner("Marcas Icônicas", "MARCAS ICONICAS"),
   },
   { slug: "joias", name: "Joias", banner: placeholderBanner("Joias") },
-  { slug: "aneis", name: "Anéis e Alianças", banner: imageBanner("Anéis", "ANEIS") },
+  { slug: "aneis", name: "Anéis", banner: imageBanner("Anéis", "ANEIS") },
   { slug: "brincos", name: "Brincos", banner: imageBanner("Brincos", "BRINCOS") },
   { slug: "colares", name: "Colares", banner: imageBanner("Colares", "COLARES") },
   { slug: "pingentes", name: "Pingentes", banner: imageBanner("Pingentes", "PINGENTES") },
@@ -72,8 +72,6 @@ export function getCategoryByName(name: string): Category | undefined {
   return CATEGORIES.find((category) => normalizeCategoryName(category.name) === normalized);
 }
 
-// GET /api/v1/categories devolve { id, name }, sem slug — casamos o nome
-// remoto contra CATEGORIES (mesma normalização de getCategoryByName) pra
 // achar o id real a partir do slug da URL.
 export function getCategoryIdBySlug(
   categorySlug: string,
