@@ -35,7 +35,7 @@ export default function ProductInfo(props: ProductInfoProps) {
         <span className="text-2xl font-normal text-black">{produto.price}</span>
         <span className="text-sm text-black">{produto.installment}</span>
         <span className="flex items-center gap-1 text-sm text-black">
-          ou 7% de OFF no Pix
+          ou {produto.pixPercent}% de OFF no Pix
           <Image src={Pix} width={15} height={15} alt="pix" />
           <span className="font-bold text-black">{produto.pixPrice}</span>
         </span>

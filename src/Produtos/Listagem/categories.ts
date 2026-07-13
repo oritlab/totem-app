@@ -58,6 +58,19 @@ export function getCategoryBySlug(slug: string): Category | undefined {
   return CATEGORIES.find((category) => category.slug === slug);
 }
 
+const COMBINING_DIACRITICS = new RegExp("[\\u0300-\\u036f]", "g");
+
+function normalizeCategoryName(name: string): string {
+  return name.normalize("NFD").replace(COMBINING_DIACRITICS, "").toLowerCase().trim();
+}
+
+// A API de detalhe do produto só devolve o nome da categoria (não o slug),
+// então casamos por nome normalizado (sem acento/caixa) contra CATEGORIES.
+export function getCategoryByName(name: string): Category | undefined {
+  const normalized = normalizeCategoryName(name);
+  return CATEGORIES.find((category) => normalizeCategoryName(category.name) === normalized);
+}
+
 // "novidades" não é uma categoria de produto de fato — é uma vitrine com
 // tudo, então não filtra por slug. "joias" agrega as 5 sub-categorias de
 // JOIAS_SLUGS, em vez de filtrar por um slug "joias" que nenhum produto tem.
