@@ -23,17 +23,16 @@ function buildAccordionItems(
   categorySlug: string | undefined,
   eligible360: boolean
 ): AccordionItemData[] {
-  const items: AccordionItemData[] = [
-    {
-      title: "Informações",
-      content: description || "Peça seminova, revisada e certificada pela equipe Orit.",
-    },
-    {
-      title: "Guia de Medidas",
-      content: "Diâmetro da caixa: 38mm. Comprimento da pulseira: 20cm.",
-      images: categorySlug ? MEASURES_IMAGES_BY_CATEGORY_SLUG[categorySlug] : undefined,
-    },
-  ];
+  const items: AccordionItemData[] = [];
+
+  if (description) {
+    items.push({ title: "Informações", content: description });
+  }
+
+  const measuresImages = categorySlug ? MEASURES_IMAGES_BY_CATEGORY_SLUG[categorySlug] : undefined;
+  if (measuresImages) {
+    items.push({ title: "Guia de Medidas", content: "", images: measuresImages });
+  }
 
   if (eligible360) {
     items.push({
@@ -46,7 +45,10 @@ function buildAccordionItems(
 }
 
 export function mapResponseToProduto(response: ProductDetailResponse): ProdutoData {
-  const category = response.categories[0];
+  // A API retorna várias categorias (ex: "SALE", "RELÓGIOS") sem indicar
+  // qual é a categoria de produto de fato — casamos contra CATEGORIES para
+  // achar a primeira que corresponde, em vez de assumir a de índice 0.
+  const category = response.categories.find((category) => getCategoryByName(category.name));
   const categorySlug = category ? getCategoryByName(category.name)?.slug : undefined;
   const discountPercent = calculateDiscountPercent(response.price, response.listPrice);
 

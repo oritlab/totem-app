@@ -20,7 +20,12 @@ export default function AccordionSection(props: AccordionSectionProps) {
           {openIndex === index && (
             <div className="pb-4">
               <div
-                className="text-sm text-zinc-600"
+                className="text-sm text-zinc-600
+                  [&_p]:mt-4 [&_p]:mb-2 [&_p]:font-medium [&_p]:text-zinc-900 [&_p:first-child]:mt-0
+                  [&_li]:mb-1 [&_li]:leading-relaxed
+                  [&_li_span:first-child]:font-medium [&_li_span:first-child]:text-zinc-900
+                  [&_#color-warning]:mt-2 [&_#color-warning]:text-xs [&_#color-warning]:font-normal [&_#color-warning]:text-zinc-400
+                  [&_#used-warning]:mt-2 [&_#used-warning]:text-xs [&_#used-warning]:font-normal [&_#used-warning]:text-zinc-400"
                 dangerouslySetInnerHTML={{ __html: accordionItem.content }}
               />
 
