@@ -3,18 +3,12 @@ import { AxiosError } from "axios";
 import api from "@/src/services/api";
 import { ApiConfig } from "@/src/configurations/ApiConfig";
 
-import { normalizeCategoryName } from "../categories";
 import { BackendProductListItem, mapToProduct } from "../Hooks/functions/mapToProduct";
 import { Pagination, Product, ProductSortOption, RequestStatus } from "../types";
 
 type CategoryProductsResponse = {
   items: BackendProductListItem[];
   metadata: { pageNumber: number; pageSize: number; showing: number; total: number };
-};
-
-type BackendCategory = {
-  id: number;
-  name: string;
 };
 
 function extractErrorMessage(error: AxiosError<{ message?: string }>): string {
@@ -24,25 +18,6 @@ function extractErrorMessage(error: AxiosError<{ message?: string }>): string {
     return "Ocorreu um erro interno. Por favor, entre em contato com o suporte.";
   }
   return error.response?.data?.message || "Ocorreu um erro inesperado.";
-}
-
-export async function GETCategoryId(
-  categoryName: string,
-  setRequestStatus: (status: RequestStatus) => void
-): Promise<number | null> {
-  try {
-    const response = await api.get<BackendCategory[]>(ApiConfig.Router.Categories());
-    const match = response.data.find(
-      (category) => normalizeCategoryName(category.name) === normalizeCategoryName(categoryName)
-    );
-    return match?.id ?? null;
-  } catch (error) {
-    setRequestStatus({
-      loading: false,
-      error: extractErrorMessage(error as AxiosError<{ message?: string }>),
-    });
-    return null;
-  }
 }
 
 export async function GETCategoryProducts(

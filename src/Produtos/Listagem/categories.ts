@@ -1,5 +1,5 @@
 import { ApiConfig } from "../../configurations/ApiConfig";
-import { Category, CategoryBanner, Product } from "./types";
+import { Category, CategoryBanner, CategoryResponse } from "./types";
 
 export const CATEGORIES: Category[] = [
   {
@@ -29,8 +29,6 @@ export const CATEGORIES: Category[] = [
   { slug: "pingentes", name: "Pingentes", banner: imageBanner("Pingentes", "PINGENTES") },
   { slug: "pulseiras", name: "Pulseiras", banner: imageBanner("Pulseiras", "PULSEIRAS") },
 ];
-
-const JOIAS_SLUGS = ["aneis", "brincos", "colares", "pingentes", "pulseiras"];
 
 // Sem imageUrl, o HeroBanner cai num fundo escuro liso (ver Components/HeroBanner.tsx).
 function placeholderBanner(name: string): Category["banner"] {
@@ -74,12 +72,13 @@ export function getCategoryByName(name: string): Category | undefined {
   return CATEGORIES.find((category) => normalizeCategoryName(category.name) === normalized);
 }
 
-export function filterProductsByCategory(products: Product[], categorySlug?: string): Product[] {
-  if (!categorySlug || categorySlug === "novidades") return products;
-  if (categorySlug === "joias") {
-    return products.filter((product) =>
-      product.categories.some((slug) => JOIAS_SLUGS.includes(slug))
-    );
-  }
-  return products.filter((product) => product.categories.includes(categorySlug));
+// GET /api/v1/categories devolve { id, name }, sem slug — casamos o nome
+// remoto contra CATEGORIES (mesma normalização de getCategoryByName) pra
+// achar o id real a partir do slug da URL.
+export function getCategoryIdBySlug(
+  categorySlug: string,
+  remoteCategories: CategoryResponse[]
+): number | undefined {
+  return remoteCategories.find((remoteCategory) => getCategoryByName(remoteCategory.name)?.slug === categorySlug)
+    ?.id;
 }

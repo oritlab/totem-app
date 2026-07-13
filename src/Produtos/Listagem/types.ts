@@ -35,6 +35,13 @@ export type Category = {
   banner: CategoryBanner;
 };
 
+// Contrato de GET /api/v1/categories — array direto (sem envelope de
+// paginação), pode vir vazio ([]) quando não há categorias.
+export type CategoryResponse = {
+  id: number;
+  name: string;
+};
+
 export type ProductCardProps = {
   product: Product;
 };

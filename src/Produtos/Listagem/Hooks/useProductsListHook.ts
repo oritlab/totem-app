@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { GETCategoryId, GETCategoryProducts } from "../API/ProductsAPI";
-import { DEFAULT_BANNER } from "../categories";
+import { GETCategoryProducts } from "../API/ProductsAPI";
+import { DEFAULT_BANNER, getCategoryIdBySlug } from "../categories";
+import useCategoriesHook from "./useCategoriesHook";
 import {
   Category,
   GridColumns,
@@ -39,9 +40,11 @@ export default function useProductsListHook(category?: Category) {
   });
 
   // 2. Funções de API
+  const { categories: remoteCategories } = useCategoriesHook();
+  const categoryId = category ? getCategoryIdBySlug(category.slug, remoteCategories) : undefined;
+
   async function fetchPage(pageNumber: number, sortOption: SortOption | null) {
-    const categoryId = await GETCategoryId(category?.name ?? "", setRequestStatus);
-    if (categoryId === null) return;
+    if (categoryId === undefined) return;
 
     const backendSort = sortOption ? SORT_MAP[sortOption] : "recentes";
     await GETCategoryProducts(
@@ -54,12 +57,17 @@ export default function useProductsListHook(category?: Category) {
     );
   }
 
-  // 3. useEffect — só a busca inicial; troca de categoria remonta o hook via
-  // key={category?.slug} em Main.tsx, por isso não precisa de deps aqui.
-  useEffect(function () {
-    fetchPage(1, displayState.sortOption);
+  // 3. useEffect — busca a primeira página assim que o id remoto da
+  // categoria resolver (GET /categories carrega em paralelo, via
+  // useCategoriesHook); troca de categoria remonta o hook via
+  // key={category?.slug} em Main.tsx, então não precisa de mais nada aqui.
+  useEffect(
+    function () {
+      fetchPage(1, displayState.sortOption);
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    [categoryId]
+  );
 
   // 4. Handlers
   function handleColumnsChange(columns: GridColumns) {
