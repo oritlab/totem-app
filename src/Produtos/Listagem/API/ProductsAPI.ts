@@ -24,13 +24,14 @@ export async function GETCategoryProducts(
   categoryId: number,
   pageNumber: number,
   sort: ProductSortOption,
+  filterParams: Record<string, string | string[]>,
   setProducts: (updater: (previous: Product[]) => Product[]) => void,
   setPagination: (pagination: Pagination) => void,
   setRequestStatus: (status: RequestStatus) => void
 ): Promise<void> {
   setRequestStatus({ loading: true, error: null });
 
-  const params = { pageNumber: String(pageNumber), pageSize: "9", sort };
+  const params = { pageNumber: String(pageNumber), pageSize: "9", sort, ...filterParams };
 
   return api
     .get<CategoryProductsResponse>(ApiConfig.Router.CategoryProducts(categoryId, params))

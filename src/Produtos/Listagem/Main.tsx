@@ -44,7 +44,7 @@ export default function Main(props: MainProps) {
     handleSortChange,
     handleLoadMore,
     requestStatus,
-  } = useProductsListHook(category);
+  } = useProductsListHook(category, selections, activeGroupKey);
 
   const { isOpen: isSortOpen, dropdownRef: sortRef, handleToggle: handleToggleSort, handleClose: handleCloseSort } =
     useSortDropdownHook();

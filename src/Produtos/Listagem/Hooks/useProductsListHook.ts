@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
 
+import { RequestStatus } from "@/src/global/types/global";
+
+import { GETCategoryFilters } from "../API/FiltersAPI";
 import { GETCategoryProducts } from "../API/ProductsAPI";
 import { DEFAULT_BANNER, getCategoryIdBySlug } from "../categories";
+import { buildFilterGroups, buildFilterQueryParams } from "../filters";
 import useCategoriesHook from "./useCategoriesHook";
 import {
   Category,
+  CategoryFiltersResponse,
+  FilterGroupKey,
+  FilterSelections,
   GridColumns,
   Pagination,
   Product,
   ProductSortOption,
-  RequestStatus,
   SortOption,
 } from "../types";
 
@@ -22,7 +28,11 @@ const SORT_MAP: Record<Exclude<SortOption, null>, ProductSortOption> = {
   "maior-preco": "maior_preco",
 };
 
-export default function useProductsListHook(category?: Category) {
+export default function useProductsListHook(
+  category: Category | undefined,
+  selections: FilterSelections,
+  activeGroupKey: FilterGroupKey | null
+) {
   // 1. States
   const [products, setProducts] = useState<Product[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
@@ -31,6 +41,11 @@ export default function useProductsListHook(category?: Category) {
     total: 0,
   });
   const [requestStatus, setRequestStatus] = useState<RequestStatus>({
+    loading: false,
+    error: null,
+  });
+  const [filtersData, setFiltersData] = useState<CategoryFiltersResponse | null>(null);
+  const [filtersStatus, setFiltersStatus] = useState<RequestStatus>({
     loading: false,
     error: null,
   });
@@ -43,55 +58,61 @@ export default function useProductsListHook(category?: Category) {
   const { categories: remoteCategories } = useCategoriesHook();
   const categoryId = category ? getCategoryIdBySlug(category.slug, remoteCategories) : undefined;
 
-  async function fetchPage(pageNumber: number, sortOption: SortOption | null) {
+  async function fetchPage(pageNumber: number, sortOption: SortOption | null, filterSelections: FilterSelections) {
     if (categoryId === undefined) return;
 
     const backendSort = sortOption ? SORT_MAP[sortOption] : "recentes";
+    const filterParams = buildFilterQueryParams(filterSelections, filtersData);
     await GETCategoryProducts(
       categoryId,
       pageNumber,
       backendSort,
+      filterParams,
       setProducts,
       setPagination,
       setRequestStatus
     );
   }
 
-  // 3. useEffect — busca a primeira página assim que o id remoto da
-  // categoria resolver (GET /categories carrega em paralelo, via
-  // useCategoriesHook); troca de categoria remonta o hook via
-  // key={category?.slug} em Main.tsx, então não precisa de mais nada aqui.
+  async function fetchFilters(filterSelections: FilterSelections) {
+    if (categoryId === undefined) return;
+    await GETCategoryFilters(categoryId, filterSelections, filtersData, setFiltersData, setFiltersStatus);
+  }
+
   useEffect(
     function () {
-      fetchPage(1, displayState.sortOption);
+      fetchPage(1, displayState.sortOption, selections);
+      fetchFilters(selections);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [categoryId]
+    [categoryId, selections]
   );
 
-  // 4. Handlers
   function handleColumnsChange(columns: GridColumns) {
     setDisplayState({ ...displayState, columns });
   }
 
   function handleSortChange(sortOption: SortOption | null) {
     setDisplayState({ ...displayState, sortOption });
-    fetchPage(1, sortOption);
+    fetchPage(1, sortOption, selections);
   }
 
   function handleLoadMore() {
-    fetchPage(pagination.pageNumber + 1, displayState.sortOption);
+    fetchPage(pagination.pageNumber + 1, displayState.sortOption, selections);
   }
 
   // 5. return
+  const filterGroups = buildFilterGroups(filtersData);
+  const activeGroup = filterGroups.find((group) => group.key === activeGroupKey) ?? null;
+
   return {
     banner: category?.banner ?? DEFAULT_BANNER,
     visibleProducts: products,
     totalCount: pagination.total,
     columns: displayState.columns,
     sortOption: displayState.sortOption,
-    filterGroups: [],
-    activeGroup: null,
+    filterGroups,
+    activeGroup,
+    filtersStatus,
     handleColumnsChange,
     handleSortChange,
     handleLoadMore,
