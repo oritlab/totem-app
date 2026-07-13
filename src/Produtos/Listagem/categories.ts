@@ -1,41 +1,38 @@
+import { ApiConfig } from "../../configurations/ApiConfig";
 import { Category, CategoryBanner, Product } from "./types";
 
-// Config central de categorias — nome, slug (usado na URL /produtos/[slug])
-// e banner. Único lugar a editar quando a arte/texto definitivo de cada
-// categoria chegar do design. "Relógios" é a única com conteúdo real hoje;
-// as demais usam o mesmo tratamento visual (cover, escuro, alinhado à
-// direita) como placeholder até termos a arte de cada uma.
 export const CATEGORIES: Category[] = [
   {
     slug: "relogios",
     name: "Relógios",
     banner: {
-      imageUrl: "https://vender.orit.com.br/totem-images/orit-relogios.jpg",
+      imageUrl: ApiConfig.Router.TotemImage("RELÓGIOS"),
       title: "Porta-joias\ninfinito",
       subtitle: "Use o quanto quiser, e troque em até 360 dias",
       variant: "cover",
       align: "right",
     },
   },
-  { slug: "novidades", name: "Novidades", banner: placeholderBanner("Novidades") },
-  { slug: "vintage", name: "Vintage", banner: placeholderBanner("Vintage") },
-  { slug: "diamantes", name: "Diamantes", banner: placeholderBanner("Diamantes") },
-  { slug: "marcas-iconicas", name: "Marcas Icônicas", banner: placeholderBanner("Marcas Icônicas") },
+  { slug: "sale", name: "Sale", banner: placeholderBanner("Sale") },
+  { slug: "novidades", name: "Novidades", banner: imageBanner("Novidades", "NOVIDADES") },
+  { slug: "vintage", name: "Vintage", banner: imageBanner("Vintage", "VINTAGE") },
+  { slug: "diamantes", name: "Diamantes", banner: imageBanner("Diamantes", "DIAMANTES") },
+  {
+    slug: "marcas-iconicas",
+    name: "Marcas Icônicas",
+    banner: imageBanner("Marcas Icônicas", "MARCAS ICONICAS"),
+  },
   { slug: "joias", name: "Joias", banner: placeholderBanner("Joias") },
-  { slug: "aneis", name: "Anéis e Alianças", banner: placeholderBanner("Anéis") },
-  { slug: "brincos", name: "Brincos", banner: placeholderBanner("Brincos") },
-  { slug: "colares", name: "Colares", banner: placeholderBanner("Colares") },
-  { slug: "pingentes", name: "Pingentes", banner: placeholderBanner("Pingentes") },
-  { slug: "pulseiras", name: "Pulseiras", banner: placeholderBanner("Pulseiras") },
+  { slug: "aneis", name: "Anéis e Alianças", banner: imageBanner("Anéis", "ANEIS") },
+  { slug: "brincos", name: "Brincos", banner: imageBanner("Brincos", "BRINCOS") },
+  { slug: "colares", name: "Colares", banner: imageBanner("Colares", "COLARES") },
+  { slug: "pingentes", name: "Pingentes", banner: imageBanner("Pingentes", "PINGENTES") },
+  { slug: "pulseiras", name: "Pulseiras", banner: imageBanner("Pulseiras", "PULSEIRAS") },
 ];
 
-// Sub-categorias que compõem a vitrine agregada de "joias" (ver
-// filterProductsByCategory) — mesmos slugs usados no menu (Header.tsx, que
-// mantém sua própria lista local, sem depender deste arquivo).
 const JOIAS_SLUGS = ["aneis", "brincos", "colares", "pingentes", "pulseiras"];
 
-// Banner provisório pra categoria sem arte/texto definitivo ainda — sem
-// imageUrl, o HeroBanner cai num fundo escuro liso (ver Components/HeroBanner.tsx).
+// Sem imageUrl, o HeroBanner cai num fundo escuro liso (ver Components/HeroBanner.tsx).
 function placeholderBanner(name: string): Category["banner"] {
   return {
     title: name,
@@ -45,8 +42,16 @@ function placeholderBanner(name: string): Category["banner"] {
   };
 }
 
-// Banner padrão da vitrine quando a categoria não define o próprio (ex:
-// "novidades", que agrega tudo em vez de ser uma categoria de verdade).
+function imageBanner(name: string, imageName: string): Category["banner"] {
+  return {
+    imageUrl: ApiConfig.Router.TotemImage(imageName),
+    title: name,
+    subtitle: "",
+    variant: "cover",
+    align: "right",
+  };
+}
+
 export const DEFAULT_BANNER: CategoryBanner = {
   title: "Catálogo",
   subtitle: "",
@@ -64,16 +69,11 @@ export function normalizeCategoryName(name: string): string {
   return name.normalize("NFD").replace(COMBINING_DIACRITICS, "").toLowerCase().trim();
 }
 
-// A API de detalhe do produto só devolve o nome da categoria (não o slug),
-// então casamos por nome normalizado (sem acento/caixa) contra CATEGORIES.
 export function getCategoryByName(name: string): Category | undefined {
   const normalized = normalizeCategoryName(name);
   return CATEGORIES.find((category) => normalizeCategoryName(category.name) === normalized);
 }
 
-// "novidades" não é uma categoria de produto de fato — é uma vitrine com
-// tudo, então não filtra por slug. "joias" agrega as 5 sub-categorias de
-// JOIAS_SLUGS, em vez de filtrar por um slug "joias" que nenhum produto tem.
 export function filterProductsByCategory(products: Product[], categorySlug?: string): Product[] {
   if (!categorySlug || categorySlug === "novidades") return products;
   if (categorySlug === "joias") {

@@ -38,7 +38,7 @@ export default function useProductsListHook(category?: Category) {
     sortOption: null as SortOption | null,
   });
 
-  // 2. Funções de API — ver API/ProductsAPI.ts
+  // 2. Funções de API
   async function fetchPage(pageNumber: number, sortOption: SortOption | null) {
     const categoryId = await GETCategoryId(category?.name ?? "", setRequestStatus);
     if (categoryId === null) return;
@@ -54,11 +54,9 @@ export default function useProductsListHook(category?: Category) {
     );
   }
 
-  // 3. useEffect — só a busca inicial (página 1); troca de categoria remonta
-  // o hook via key={category?.slug} em Main.tsx, então não precisa de
-  // category/sortOption/fetchPage nas deps aqui (ver Context/Arquitetura-
-  // React-Next.md, "useEffect é só pro GET inicial").
-  useEffect(() => {
+  // 3. useEffect — só a busca inicial; troca de categoria remonta o hook via
+  // key={category?.slug} em Main.tsx, por isso não precisa de deps aqui.
+  useEffect(function () {
     fetchPage(1, displayState.sortOption);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -77,7 +75,7 @@ export default function useProductsListHook(category?: Category) {
     fetchPage(pagination.pageNumber + 1, displayState.sortOption);
   }
 
-  // 5. return — só o que o componente consome, nunca os setters
+  // 5. return
   return {
     banner: category?.banner ?? DEFAULT_BANNER,
     visibleProducts: products,
