@@ -60,7 +60,7 @@ export function getCategoryBySlug(slug: string): Category | undefined {
 
 const COMBINING_DIACRITICS = new RegExp("[\\u0300-\\u036f]", "g");
 
-function normalizeCategoryName(name: string): string {
+export function normalizeCategoryName(name: string): string {
   return name.normalize("NFD").replace(COMBINING_DIACRITICS, "").toLowerCase().trim();
 }
 

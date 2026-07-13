@@ -14,5 +14,12 @@ export const ApiConfig = {
     ProductDetails: function (sku) {
       return "/products/" + sku;
     },
+    Categories: function () {
+      return "/v1/categories";
+    },
+    CategoryProducts: function (categoryId, params) {
+      const query = new URLSearchParams(params).toString();
+      return "/v1/categories/" + categoryId + "/products?" + query;
+    },
   },
 };

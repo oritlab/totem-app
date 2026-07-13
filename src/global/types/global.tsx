@@ -23,3 +23,13 @@ export type MenuDrawerProps = {
   modalMenu: MenuState;
   handleModal: (action: string) => void;
 };
+
+export type Pagination = {
+  pageNumber: number;
+  pageSize: number;
+  total: number;
+};
+
+// Vocabulário de ordenação do backend (ProductsRepository, totem-api) —
+// diferente de propósito do SortOption de UI de cada página.
+export type ProductSortOption = "recentes" | "maior_preco" | "menor_preco" | "a_a_z";
