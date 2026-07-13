@@ -14,5 +14,11 @@ export const ApiConfig = {
     ProductDetails: function (sku) {
       return "/products/" + sku;
     },
+    Categories: function () {
+      return "/categories";
+    },
+    CategoryProducts: function (categoryId) {
+      return "/categories/" + categoryId + "/products";
+    },
   },
 };

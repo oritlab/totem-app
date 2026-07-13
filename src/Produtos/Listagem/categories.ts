@@ -1,4 +1,4 @@
-import { Category, CategoryBanner, Product } from "./types";
+import { Category, CategoryBanner, CategoryResponse, Product } from "./types";
 
 // Config central de categorias — nome, slug (usado na URL /produtos/[slug])
 // e banner. Único lugar a editar quando a arte/texto definitivo de cada
@@ -69,6 +69,18 @@ function normalizeCategoryName(name: string): string {
 export function getCategoryByName(name: string): Category | undefined {
   const normalized = normalizeCategoryName(name);
   return CATEGORIES.find((category) => normalizeCategoryName(category.name) === normalized);
+}
+
+// GET /api/v1/categories devolve { id, name } — sem slug. Pra manter a URL
+// amigável (/produtos/relogios), casamos o nome remoto contra CATEGORIES
+// (mesma normalização de getCategoryByName) e usamos o id só internamente,
+// pra chamar GET /api/v1/categories/{id}/products.
+export function getCategoryIdBySlug(
+  categorySlug: string,
+  remoteCategories: CategoryResponse[]
+): number | undefined {
+  return remoteCategories.find((remoteCategory) => getCategoryByName(remoteCategory.name)?.slug === categorySlug)
+    ?.id;
 }
 
 // "novidades" não é uma categoria de produto de fato — é uma vitrine com

@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-import { DEFAULT_BANNER, filterProductsByCategory } from "../categories";
+import { DEFAULT_BANNER, filterProductsByCategory, getCategoryIdBySlug } from "../categories";
 import { filterProductsBySelections, getFilterGroupsForCategory } from "../filters";
+import useCategoriesHook from "./useCategoriesHook";
 import { mockProducts } from "../mocks";
 import { sortProducts } from "../sort";
 import { Category, FilterGroupKey, FilterSelections, GridColumns, SortOption } from "../types";
@@ -20,7 +21,12 @@ export default function useProductsListHook(
     sortOption: null as SortOption | null,
   });
 
-  // 2. Funções de API — N/A, dados ainda são mock (ver Context/Integracao-Backend.md)
+  // 2. Funções de API — GETCategories (ver Hooks/useCategoriesHook.ts). Já
+  // resolve o id remoto da categoria atual; a troca do mock por
+  // GET /api/v1/categories/{id}/products entra assim que o contrato de
+  // resposta desse endpoint estiver definido (ver Context/Integracao-Backend.md).
+  const { categories: remoteCategories } = useCategoriesHook();
+  const categoryId = category ? getCategoryIdBySlug(category.slug, remoteCategories) : undefined;
 
   // 3. useEffect — N/A, mock já carregado, sem GET inicial
 
@@ -50,6 +56,7 @@ export default function useProductsListHook(
   // 5. return — só o que o componente consome, nunca os setters
   return {
     banner,
+    categoryId,
     visibleProducts,
     totalCount: filteredProducts.length,
     columns: displayState.columns,
