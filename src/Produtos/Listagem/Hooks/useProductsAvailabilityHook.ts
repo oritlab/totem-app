@@ -1,6 +1,6 @@
 "use client";
 
-import useAvailabilityStreamHook from "@/src/Produtos/Detalhe/Hooks/useAvailabilityStreamHook";
+import useAvailabilityStreamHook from "@/src/global/hooks/useAvailabilityStreamHook";
 import { AvailabilityEvent, Product } from "../types";
 
 export default function useProductsAvailabilityHook(products: Product[], onUnavailable: () => void) {

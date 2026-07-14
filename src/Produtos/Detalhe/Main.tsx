@@ -17,7 +17,7 @@ export default function Main(props: MainProps) {
   const router = useRouter();
   const { produto, requestStatus } = useProdutoHook(sku);
   const { openIndex, handleToggle } = useAccordionHook();
-  const { unavailable } = useAvailabilityHook(sku);
+  const { unavailable, handleRedirect } = useAvailabilityHook(sku);
 
   if (requestStatus.loading) {
     return (
@@ -48,7 +48,7 @@ export default function Main(props: MainProps) {
 
       <AccordionSection accordionItems={produto.accordionItems} openIndex={openIndex} handleToggle={handleToggle} />
 
-      <AvailabilityModal open={unavailable} />
+      <AvailabilityModal open={unavailable} handleRedirect={handleRedirect} />
     </div>
   );
 }

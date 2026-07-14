@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 import { ApiConfig } from "@/src/configurations/ApiConfig";
-import { AvailabilityEvent } from "../types";
+import { AvailabilityEvent } from "@/src/global/types/global";
 
 export default function useAvailabilityStreamHook(onEvent: (event: AvailabilityEvent) => void) {
   const onEventRef = useRef(onEvent);

@@ -102,4 +102,5 @@ export type MainProps = {
 
 export type AvailabilityModalProps = {
   open: boolean;
+  handleRedirect: () => void;
 };

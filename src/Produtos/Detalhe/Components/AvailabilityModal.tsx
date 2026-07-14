@@ -1,31 +1,7 @@
-"use client";
-
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-
 import { AvailabilityModalProps } from "../types";
 
-// Configurável: tempo até o redirecionamento automático, caso o cliente não toque no botão.
-const REDIRECT_DELAY_MS = 15000;
-
 export default function AvailabilityModal(props: AvailabilityModalProps) {
-  const { open } = props;
-  const router = useRouter();
-
-  useEffect(
-    function () {
-      if (!open) return;
-
-      const timeoutId = setTimeout(function () {
-        router.back();
-      }, REDIRECT_DELAY_MS);
-
-      return function () {
-        clearTimeout(timeoutId);
-      };
-    },
-    [open, router]
-  );
+  const { open, handleRedirect } = props;
 
   if (!open) return null;
 
@@ -39,7 +15,7 @@ export default function AvailabilityModal(props: AvailabilityModalProps) {
 
         <button
           className="w-full cursor-pointer rounded-sm bg-black px-6 py-3 text-xs tracking-widest text-white"
-          onClick={() => router.back()}
+          onClick={handleRedirect}
         >
           VOLTAR PARA O CATÁLOGO
         </button>
