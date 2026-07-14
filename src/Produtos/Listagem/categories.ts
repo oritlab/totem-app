@@ -7,8 +7,8 @@ export const CATEGORIES: Category[] = [
     name: "Relógios",
     banner: {
       imageUrl: ApiConfig.Router.TotemImage("RELÓGIOS"),
-      title: "Porta-joias\ninfinito",
-      subtitle: "Use o quanto quiser, e troque em até 360 dias",
+      title: "Relógios",
+      subtitle: "",
       variant: "cover",
       align: "right",
     },
