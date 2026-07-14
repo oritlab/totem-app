@@ -7,7 +7,6 @@ import { AvailabilityModalProps } from "../types";
 
 // Configurável: tempo até o redirecionamento automático, caso o cliente não toque no botão.
 const REDIRECT_DELAY_MS = 15000;
-const CATALOG_HREF = "/produtos";
 
 export default function AvailabilityModal(props: AvailabilityModalProps) {
   const { open } = props;
@@ -18,7 +17,7 @@ export default function AvailabilityModal(props: AvailabilityModalProps) {
       if (!open) return;
 
       const timeoutId = setTimeout(function () {
-        router.push(CATALOG_HREF);
+        router.back();
       }, REDIRECT_DELAY_MS);
 
       return function () {
@@ -40,7 +39,7 @@ export default function AvailabilityModal(props: AvailabilityModalProps) {
 
         <button
           className="w-full cursor-pointer rounded-sm bg-black px-6 py-3 text-xs tracking-widest text-white"
-          onClick={() => router.push(CATALOG_HREF)}
+          onClick={() => router.back()}
         >
           VOLTAR PARA O CATÁLOGO
         </button>
