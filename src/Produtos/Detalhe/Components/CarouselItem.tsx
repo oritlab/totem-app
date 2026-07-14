@@ -5,7 +5,9 @@ import useCarouselItemHook from "../Hooks/useCarouselItemHook";
 
 export default function CarouselItem(props: CarouselItemProps) {
   const { media, priority } = props;
-  const { videoRef, isPlaying, isVideo, handleToggle, handleEnded } = useCarouselItemHook(media.src);
+  const { videoRef, isPlaying, isVideo, loaded, handleToggle, handleEnded, handleImage } = useCarouselItemHook(
+    media.src
+  );
 
   if (isVideo) {
     return (
@@ -37,14 +39,21 @@ export default function CarouselItem(props: CarouselItemProps) {
   }
 
   return (
-    <Image
-      src={media.src}
-      alt={media.alt}
-      fill
-      sizes="33vw"
-      priority={priority}
-      draggable={false}
-      className="pointer-events-none object-cover"
-    />
+    <>
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-linear-to-br from-zinc-100 via-zinc-200 to-zinc-100" />
+      )}
+      <Image
+        src={media.src}
+        alt={media.alt}
+        fill
+        sizes="33vw"
+        priority={priority}
+        draggable={false}
+        className={`pointer-events-none object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
+        onLoad={() => handleImage("load")}
+        onError={() => handleImage("error")}
+      />
+    </>
   );
 }

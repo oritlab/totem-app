@@ -65,6 +65,7 @@ export type ProblemDetails = {
 
 export type TopBarProps = {
   category: string;
+  handleRedirect: () => void;
 };
 
 export type ImageCarouselProps = {
