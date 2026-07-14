@@ -1,8 +1,4 @@
 export function capitalizeFirst(text: string): string {
   if (!text) return text;
-  return text
-    .toLowerCase()
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  return text.toLowerCase().replace(/(^|[\s.\-/])([a-zà-ú])/g, (_, boundary, letter) => boundary + letter.toUpperCase());
 }
