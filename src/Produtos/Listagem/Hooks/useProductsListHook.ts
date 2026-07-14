@@ -20,7 +20,7 @@ import {
   SortOption,
 } from "../types";
 
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 12;
 
 const SORT_MAP: Record<Exclude<SortOption, null>, ProductSortOption> = {
   "novidades": "recentes",
@@ -91,6 +91,7 @@ export default function useProductsListHook(
       fetchPage(1, displayState.sortOption, selections);
       fetchFilters(selections);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [categoryId, selections]
   );
 
