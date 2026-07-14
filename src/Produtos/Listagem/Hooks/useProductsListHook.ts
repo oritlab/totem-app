@@ -7,6 +7,7 @@ import { GETCategoryProducts } from "../API/ProductsAPI";
 import { DEFAULT_BANNER, getCategoryIdBySlug } from "../categories";
 import { buildFilterGroups, buildFilterQueryParams } from "../filters";
 import useCategoriesHook from "./useCategoriesHook";
+import useProductsAvailabilityHook from "./useProductsAvailabilityHook";
 import {
   Category,
   CategoryFiltersResponse,
@@ -58,7 +59,12 @@ export default function useProductsListHook(
   const { categories: remoteCategories } = useCategoriesHook();
   const categoryId = category ? getCategoryIdBySlug(category.slug, remoteCategories) : undefined;
 
-  async function fetchPage(pageNumber: number, sortOption: SortOption | null, filterSelections: FilterSelections) {
+  async function fetchPage(
+    pageNumber: number,
+    sortOption: SortOption | null,
+    filterSelections: FilterSelections,
+    pageSize: number = PAGE_SIZE
+  ) {
     if (categoryId === undefined) return;
 
     const backendSort = sortOption ? SORT_MAP[sortOption] : "recentes";
@@ -66,6 +72,7 @@ export default function useProductsListHook(
     await GETCategoryProducts(
       categoryId,
       pageNumber,
+      pageSize,
       backendSort,
       filterParams,
       setProducts,
@@ -96,9 +103,19 @@ export default function useProductsListHook(
     fetchPage(1, sortOption, selections);
   }
 
+  // First-K crescente, não pageNumber+1 com pageSize fixo — depois de um
+  // refresh mudar o pageSize, pageNumber+1 fixo duplicaria cards já vistos.
   function handleLoadMore() {
-    fetchPage(pagination.pageNumber + 1, displayState.sortOption, selections);
+    fetchPage(1, displayState.sortOption, selections, products.length + PAGE_SIZE);
   }
+
+  // Re-busca o intervalo já carregado inteiro numa query só, não um patch
+  // de card, pra refletir o backend quando um produto em vista some.
+  function refresh() {
+    fetchPage(1, displayState.sortOption, selections, Math.max(products.length, PAGE_SIZE));
+  }
+
+  useProductsAvailabilityHook(products, refresh);
 
   // 5. return
   const filterGroups = buildFilterGroups(filtersData);
