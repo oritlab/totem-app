@@ -33,3 +33,11 @@ export type Pagination = {
 // Vocabulário de ordenação do backend (ProductsRepository, totem-api) —
 // diferente de propósito do SortOption de UI de cada página.
 export type ProductSortOption = "recentes" | "maior_preco" | "menor_preco" | "a_a_z";
+
+// Payload de GET /products/availability/stream (event: availability)
+// consumido pela Detalhe (modal) e pela Listagem (refresh da lista).
+export type AvailabilityEvent = {
+  productId: number;
+  sku: string;
+  available: boolean;
+};

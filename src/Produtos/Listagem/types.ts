@@ -1,8 +1,8 @@
 import { RefObject } from "react";
 
-import { HeaderProps, Pagination, ProductSortOption, RequestStatus } from "../../global/types/global";
+import { AvailabilityEvent, HeaderProps, Pagination, ProductSortOption, RequestStatus } from "../../global/types/global";
 
-export type { HeaderProps, Pagination, ProductSortOption, RequestStatus };
+export type { AvailabilityEvent, HeaderProps, Pagination, ProductSortOption, RequestStatus };
 
 export type Product = {
   sku: string;

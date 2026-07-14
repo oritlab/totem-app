@@ -14,6 +14,9 @@ export const ApiConfig = {
     ProductDetails: function (sku) {
       return "/products/" + sku;
     },
+    AvailabilityStream: function () {
+      return "/products/availability/stream";
+    },
     Categories: function () {
       return "/categories";
     },

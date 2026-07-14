@@ -23,6 +23,7 @@ function extractErrorMessage(error: AxiosError<{ message?: string }>): string {
 export async function GETCategoryProducts(
   categoryId: number,
   pageNumber: number,
+  pageSize: number,
   sort: ProductSortOption,
   filterParams: Record<string, string | string[]>,
   setProducts: (updater: (previous: Product[]) => Product[]) => void,
@@ -31,7 +32,7 @@ export async function GETCategoryProducts(
 ): Promise<void> {
   setRequestStatus({ loading: true, error: null });
 
-  const params = { pageNumber: String(pageNumber), pageSize: "9", sort, ...filterParams };
+  const params = { pageNumber: String(pageNumber), pageSize: String(pageSize), sort, ...filterParams };
 
   return api
     .get<CategoryProductsResponse>(ApiConfig.Router.CategoryProducts(categoryId, params))
