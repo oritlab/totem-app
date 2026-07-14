@@ -1,16 +1,14 @@
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 import { TopBarProps } from "../types";
 
 export default function TopBar(props: TopBarProps) {
-  const { category } = props;
-  const router = useRouter();
+  const { category, handleRedirect } = props;
 
   return (
     <div className="flex items-center justify-between px-4 py-3 text-xs sm:px-6 sm:text-sm">
       <div className="flex items-center gap-6 text-[#626262] font-medium">
-        <button type="button" onClick={() => router.back()} className="cursor-pointer">
+        <button type="button" onClick={handleRedirect} className="cursor-pointer">
           Voltar
         </button>
         <span className="text-black">|</span>
