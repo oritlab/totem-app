@@ -1,5 +1,5 @@
-import { RequestStatus } from "@/src/global/types/global";
-export type { RequestStatus };
+import { AvailabilityEvent, RequestStatus } from "@/src/global/types/global";
+export type { AvailabilityEvent, RequestStatus };
 
 export type ProdutoImage = {
   src: string;
@@ -98,13 +98,6 @@ export type AccordionSectionProps = {
 
 export type MainProps = {
   sku: string;
-};
-
-// Payload de GET /products/availability/stream (event: availability, ver docs/sse-availability.md no totem-api)
-export type AvailabilityEvent = {
-  productId: number;
-  sku: string;
-  available: boolean;
 };
 
 export type AvailabilityModalProps = {
