@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { TopBarProps } from "../types";
+import { capitalizeFirst } from "@/src/global/utils/formatText";
 
 export default function TopBar(props: TopBarProps) {
   const { category, handleRedirect } = props;
@@ -12,7 +13,7 @@ export default function TopBar(props: TopBarProps) {
           Voltar
         </button>
         <span className="text-black">|</span>
-        <span>{category}</span>
+        <span>{capitalizeFirst(category)}</span>
       </div>
 
       <div className="flex items-center gap-4 sm:gap-6">
