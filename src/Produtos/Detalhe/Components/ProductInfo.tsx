@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { ProductInfoProps } from "../types";
 import Pix from "@/public/pix.svg";
+import { capitalizeFirst } from "@/src/global/utils/formatText";
 
 export default function ProductInfo(props: ProductInfoProps) {
   const { produto } = props;
@@ -22,8 +23,10 @@ export default function ProductInfo(props: ProductInfoProps) {
             </span>
           )}
         </div>
-        <span className="text-md text-[#626262]">{produto.brand}</span>
-        <span className="text-md font-medium text-black">{produto.title}</span>
+        <span className="text-md text-[#626262]">{capitalizeFirst(produto.brand)}</span>
+        <span className="text-md font-medium text-black">
+          {capitalizeFirst(produto.title)}
+        </span>
       </div>
 
       <div className="flex flex-col gap-1 text-right">

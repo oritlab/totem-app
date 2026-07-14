@@ -37,7 +37,12 @@ function buildAccordionItems(
   if (eligible360) {
     items.push({
       title: "Troque com Orit 360",
-      content: "Ao comprar uma peça na Orit, se elegivel, você já estará participando do Orit 360. O que isso significa? Em até 360 dias você poderá trocar sua peça por uma nova. Isso mesmo! Você usa muito sua peça e, depois, é só trocar. A Orit receberá sua peça pelo mesmo valor da compra, e sua nova compra só deverá ter um valor 10% superior à peça que está sendo trocada.",
+      content:
+        "Até 360 dias para trocar sua joia ou relógio de luxo sem desvalorizar o preço? Agora é possível! Isso é <strong>Orit 360</strong>!" +
+        "<br /><br />" +
+        "Ao comprar uma peça na Orit, se elegivel, você já estará participando do Orit 360. O que isso significa?" +
+        "<br />" +
+        "Em até 360 dias você poderá trocar sua peça por uma nova. Isso mesmo! Você usa muito sua peça e, depois, é só trocar. A Orit receberá sua peça pelo mesmo valor da compra, e sua nova compra só deverá ter um valor 10% superior à peça que está sendo trocada.",
     });
   }
 
