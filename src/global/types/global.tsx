@@ -6,6 +6,11 @@ export type MenuState = {
   open: boolean;
 };
 
+export type RequestStatus = {
+  loading: boolean;
+  error: string | null;
+};
+
 export type HeaderProps = {
   // "light" (padrão) = logo/hambúrguer brancos, pra ficar sobre fundo escuro.
   // "dark" = logo/hambúrguer escuros, pra ficar sobre fundo claro (ex:
@@ -18,3 +23,13 @@ export type MenuDrawerProps = {
   modalMenu: MenuState;
   handleModal: (action: string) => void;
 };
+
+export type Pagination = {
+  pageNumber: number;
+  pageSize: number;
+  total: number;
+};
+
+// Vocabulário de ordenação do backend (ProductsRepository, totem-api) —
+// diferente de propósito do SortOption de UI de cada página.
+export type ProductSortOption = "recentes" | "maior_preco" | "menor_preco" | "a_a_z";

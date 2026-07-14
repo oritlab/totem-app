@@ -28,11 +28,21 @@ export default function useProductFiltersHook() {
     if (action === "close") setFilterState({ ...filterState, activeGroupKey: null });
   }
 
+  // "faixa-preco" é seleção única (o backend só aceita um par
+  // priceMin/priceMax por request) — as demais chaves são multi-seleção.
   function handleToggleOption(groupKey: string, option: string) {
     const current = filterState.selections[groupKey] ?? [];
-    const next = current.includes(option)
-      ? current.filter((value) => value !== option)
-      : [...current, option];
+    const isSelected = current.includes(option);
+
+    const next =
+      groupKey === "faixa-preco"
+        ? isSelected
+          ? []
+          : [option]
+        : isSelected
+          ? current.filter((value) => value !== option)
+          : [...current, option];
+
     setFilterState({ ...filterState, selections: { ...filterState.selections, [groupKey]: next } });
   }
 

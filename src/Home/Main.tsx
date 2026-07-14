@@ -1,6 +1,7 @@
 "use client";
 
 import MenuDrawer from "@/src/global/components/MenuDrawer";
+import useCategoriesHook from "@/src/Produtos/Listagem/Hooks/useCategoriesHook";
 
 import useMenuHook from "./Hooks/useMenuHook";
 import useHomeMediaHook from "./Hooks/useHomeMediaHook";
@@ -10,6 +11,12 @@ import PromoBanner from "./Components/PromoBanner";
 
 export default function Main() {
   const { modalMenu, handleModal } = useMenuHook();
+  // Só prefetch: aquece o cache de GET /api/v1/categories (ver
+  // Produtos/Listagem/API/CategoriesAPI.ts) pra tela de listagem não
+  // precisar esperar essa chamada de novo ao tocar num tile. O grid
+  // continua 100% curado (imagens/posições/SALE/promo banners) — não
+  // renderiza nada a partir dessa lista.
+  useCategoriesHook();
   const {
     bannerVideo,
     imageSale,
@@ -34,7 +41,7 @@ export default function Main() {
       <Hero videoSrc={bannerVideo} handleModal={handleModal} />
 
       <main className="grid grid-cols-3">
-        <Tile label="SALE" subtitle="ATÉ 30% OFF" imageSrc={imageSale} href="#" />
+        <Tile label="SALE" subtitle="ATÉ 30% OFF" imageSrc={imageSale} href="/produtos/sale" />
         <Tile label="RELÓGIOS" imageSrc={imageWatch} href="/produtos/relogios" />
         <Tile label="NOVIDADES" imageSrc={imageNews} href="/produtos/novidades" />
 
