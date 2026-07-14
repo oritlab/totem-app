@@ -65,7 +65,6 @@ export type ProblemDetails = {
 
 export type TopBarProps = {
   category: string;
-  backHref: string;
 };
 
 export type ImageCarouselProps = {

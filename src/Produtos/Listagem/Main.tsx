@@ -9,6 +9,7 @@ import FilterOptionsDrawer from "./Components/FilterOptionsDrawer";
 import HeroBanner from "./Components/HeroBanner";
 import LoadMore from "./Components/LoadMore";
 import ProductGrid from "./Components/ProductGrid";
+import ProductGridSkeleton from "./Components/ProductGridSkeleton";
 import useProductFiltersHook from "./Hooks/useProductFiltersHook";
 import useProductsListHook from "./Hooks/useProductsListHook";
 import useSortDropdownHook from "./Hooks/useSortDropdownHook";
@@ -42,6 +43,7 @@ export default function Main(props: MainProps) {
     handleColumnsChange,
     handleSortChange,
     handleLoadMore,
+    requestStatus,
   } = useProductsListHook(category, selections, activeGroupKey);
 
   const { isOpen: isSortOpen, dropdownRef: sortRef, handleToggle: handleToggleSort, handleClose: handleCloseSort } =
@@ -68,12 +70,29 @@ export default function Main(props: MainProps) {
         onOpenFilter={() => handleFilter("open")}
         onClearFilters={handleClearFilters}
       />
-      <ProductGrid products={visibleProducts} columns={columns} />
-      <LoadMore
-        shown={visibleProducts.length}
-        total={totalCount}
-        onLoadMore={handleLoadMore}
-      />
+      {requestStatus.loading && visibleProducts.length === 0 && (
+        <ProductGridSkeleton columns={columns} />
+      )}
+      {requestStatus.error && (
+        <p role="alert" className="px-4 py-8 text-center text-sm text-red-600">
+          {requestStatus.error}
+        </p>
+      )}
+      {!requestStatus.loading && !requestStatus.error && visibleProducts.length === 0 && (
+        <p className="px-4 py-8 text-center text-sm text-zinc-500">
+          Nenhum produto encontrado.
+        </p>
+      )}
+      {visibleProducts.length > 0 && (
+        <>
+          <ProductGrid products={visibleProducts} columns={columns} />
+          <LoadMore
+            shown={visibleProducts.length}
+            total={totalCount}
+            onLoadMore={handleLoadMore}
+          />
+        </>
+      )}
 
       {isFilterOpen && (
         <div className="fixed inset-0 z-50 flex">
