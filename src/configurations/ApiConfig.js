@@ -15,15 +15,15 @@ export const ApiConfig = {
       return "/products/" + sku;
     },
     Categories: function () {
-      return "/v1/categories";
+      return "/categories";
     },
     CategoryProducts: function (categoryId, params) {
       const query = buildQueryString(params);
-      return "/v1/categories/" + categoryId + "/products?" + query;
+      return "/categories/" + categoryId + "/products?" + query;
     },
     CategoryFilters: function (categoryId, params) {
       const query = buildQueryString(params);
-      return "/v1/categories/" + categoryId + "/filters?" + query;
+      return "/categories/" + categoryId + "/filters?" + query;
     },
   },
 };
