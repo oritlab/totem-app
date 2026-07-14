@@ -37,7 +37,7 @@ export default function ProductCard(props: ProductCardProps) {
       </div>
 
       <div className="flex flex-col gap-3 font-outfit">
-        <span className="text-sm text-[#626262]">{product.brand}</span>
+        <span className="text-sm text-[#626262]">{capitalizeFirst(product.brand)}</span>
         <span className="text-sm font-semibold text-zinc-900" style={{ color: "#000000" }}>
           {capitalizeFirst(product.name)}
         </span>
