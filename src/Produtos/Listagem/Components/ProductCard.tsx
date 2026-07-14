@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { calculateDiscountPercent, formatBRL } from "@/src/global/utils/formatPrice";
-import { capitalizeFirst } from "@/src/global/utils/formatText";
+import { capitalizeFirst, formatBrandName } from "@/src/global/utils/formatText";
 import useProductImageHook from "../Hooks/useProductImageHook";
 import { ProductCardProps } from "../types";
 
@@ -37,7 +37,7 @@ export default function ProductCard(props: ProductCardProps) {
       </div>
 
       <div className="flex flex-col gap-3 font-outfit">
-        <span className="text-sm text-[#626262]">{capitalizeFirst(product.brand)}</span>
+        <span className="text-sm text-[#626262]">{formatBrandName(product.brand)}</span>
         <span className="text-sm font-semibold text-zinc-900" style={{ color: "#000000" }}>
           {capitalizeFirst(product.name)}
         </span>
