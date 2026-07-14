@@ -1,5 +1,5 @@
 import { AttributeFilterKey, CategoryFiltersResponse, FilterGroup, FilterSelections } from "./types";
-
+import { formatBrandName } from "@/src/global/utils/formatText";
 
 const ATTRIBUTE_LABELS: Record<AttributeFilterKey, string> = {
   gender: "Gênero",
@@ -24,7 +24,7 @@ export function buildFilterGroups(response: CategoryFiltersResponse | null): Fil
     groups.push({
       key: "marcas",
       label: "Marcas",
-      options: response.brands.map((brand) => brand.name),
+      options: response.brands.map((brand) => formatBrandName(brand.name).toUpperCase()),
     });
   }
 
@@ -65,7 +65,7 @@ export function buildFilterQueryParams(
   const brandNames = selections.marcas;
   if (brandNames?.length) {
     const brandIds = brandNames
-      .map((name) => response.brands.find((brand) => brand.name === name)?.id)
+      .map((name) => response.brands.find((brand) => formatBrandName(brand.name).toUpperCase() === name)?.id)
       .filter((id): id is number => id !== undefined)
       .map(String);
     if (brandIds.length) params.brandIds = brandIds;
