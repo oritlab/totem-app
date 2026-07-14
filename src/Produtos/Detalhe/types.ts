@@ -1,5 +1,5 @@
-import { RequestStatus } from "@/src/global/types/global";
-export type { RequestStatus };
+import { AvailabilityEvent, RequestStatus } from "@/src/global/types/global";
+export type { AvailabilityEvent, RequestStatus };
 
 export type ProdutoImage = {
   src: string;
@@ -98,4 +98,9 @@ export type AccordionSectionProps = {
 
 export type MainProps = {
   sku: string;
+};
+
+export type AvailabilityModalProps = {
+  open: boolean;
+  handleRedirect: () => void;
 };
