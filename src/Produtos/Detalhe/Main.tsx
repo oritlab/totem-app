@@ -4,16 +4,19 @@ import Link from "next/link";
 
 import useProdutoHook from "./Hooks/useProdutoHook";
 import useAccordionHook from "./Hooks/useAccordionHook";
+import useAvailabilityHook from "./Hooks/useAvailabilityHook";
 import TopBar from "./Components/TopBar";
 import ImageCarousel from "./Components/ImageCarousel";
 import ProductInfo from "./Components/ProductInfo";
 import AccordionSection from "./Components/AccordionSection";
+import AvailabilityModal from "./Components/AvailabilityModal";
 import { MainProps } from "./types";
 
 export default function Main(props: MainProps) {
   const { sku } = props;
   const { produto, requestStatus } = useProdutoHook(sku);
   const { openIndex, handleToggle } = useAccordionHook();
+  const { unavailable } = useAvailabilityHook(sku);
 
   if (requestStatus.loading) {
     return (
@@ -43,6 +46,8 @@ export default function Main(props: MainProps) {
       <ProductInfo produto={produto} />
 
       <AccordionSection accordionItems={produto.accordionItems} openIndex={openIndex} handleToggle={handleToggle} />
+
+      <AvailabilityModal open={unavailable} />
     </div>
   );
 }

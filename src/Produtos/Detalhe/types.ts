@@ -100,3 +100,14 @@ export type AccordionSectionProps = {
 export type MainProps = {
   sku: string;
 };
+
+// Payload de GET /products/availability/stream (event: availability, ver docs/sse-availability.md no totem-api)
+export type AvailabilityEvent = {
+  productId: number;
+  sku: string;
+  available: boolean;
+};
+
+export type AvailabilityModalProps = {
+  open: boolean;
+};
