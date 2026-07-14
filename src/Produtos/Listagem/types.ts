@@ -1,8 +1,8 @@
 import { RefObject } from "react";
 
-import { HeaderProps } from "../../global/types/global";
+import { HeaderProps, Pagination, ProductSortOption, RequestStatus } from "../../global/types/global";
 
-export type { HeaderProps };
+export type { HeaderProps, Pagination, ProductSortOption, RequestStatus };
 
 export type Product = {
   sku: string;
@@ -82,19 +82,48 @@ export type LoadMoreProps = {
   onLoadMore: () => void;
 };
 
-export type FilterGroupKey =
-  | "marcas"
-  | "genero"
-  | "material-caixa"
-  | "tamanho-caixa"
-  | "material-pulseira"
-  | "tamanho-pulseira"
-  | "faixa-preco";
+export type AttributeFilterKey =
+  | "gender"
+  | "watchboxShape"
+  | "watchboxMaterial"
+  | "watchboxSize"
+  | "watchbandSize"
+  | "metal"
+  | "gems"
+  | "carat"
+  | "ringSize"
+  | "ringSizeAdjustment"
+  | "size";
+
+export type FilterGroupKey = "marcas" | "faixa-preco" | AttributeFilterKey;
 
 export type FilterGroup = {
   key: FilterGroupKey;
   label: string;
   options: string[];
+};
+
+export type BrandFilterOption = {
+  id: number;
+  name: string;
+};
+
+export type AttributeFacet = {
+  key: AttributeFilterKey;
+  values: string[];
+};
+
+export type PriceBucket = {
+  label: string;
+  min: number | null;
+  max: number | null;
+  available: boolean;
+};
+
+export type CategoryFiltersResponse = {
+  brands: BrandFilterOption[];
+  attributes: AttributeFacet[];
+  price: PriceBucket[];
 };
 
 export type FilterSelections = Record<string, string[]>;
