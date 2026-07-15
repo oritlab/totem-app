@@ -27,6 +27,7 @@ export type CategoryBanner = {
   subtitle: string;
   variant: BannerVariant;
   align: BannerAlign;
+  imageClassName?: string; // classes extras aplicadas na imagem (ex: ajuste fino de posição)
 };
 
 export type Category = {
