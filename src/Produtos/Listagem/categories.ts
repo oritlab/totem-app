@@ -2,32 +2,29 @@ import { ApiConfig } from "../../configurations/ApiConfig";
 import { Category, CategoryBanner, CategoryResponse } from "./types";
 
 export const CATEGORIES: Category[] = [
-  {
-    slug: "relogios",
-    name: "Relógios",
-    banner: {
-      imageUrl: ApiConfig.Router.TotemImage("RELÓGIOS"),
-      title: "Relógios",
-      subtitle: "",
-      variant: "cover",
-      align: "right",
-    },
-  },
-  { slug: "sale", name: "Sale", banner: imageBanner("Sale", "PROMOCAO") },
-  { slug: "novidades", name: "Novidades", banner: imageBanner("Novidades", "NOVIDADES") },
-  { slug: "vintage", name: "Vintage", banner: imageBanner("Vintage", "VINTAGE") },
-  { slug: "diamantes", name: "Diamantes", banner: imageBanner("Diamantes", "DIAMANTES") },
+  { slug: "relogios", name: "Relógios", banner: imageBanner("Relógios", "relogios-categoria") },
+  { slug: "sale", name: "Sale", banner: imageBanner("Sale", "campanha-categoria") },
+  { slug: "novidades", name: "Novidades", banner: imageBanner("Novidades", "novidades-categoria") },
+  { slug: "vintage", name: "Vintage", banner: imageBanner("Vintage", "vintage-categoria") },
+  { slug: "diamantes", name: "Diamantes", banner: imageBanner("Diamantes", "diamantes-categoria") },
   {
     slug: "marcas-iconicas",
     name: "Marcas Icônicas",
-    banner: imageBanner("Marcas Icônicas", "MARCAS ICONICAS"),
+    banner: imageBanner("Marcas Icônicas", "marcas-iconicas-categoria"),
   },
   { slug: "joias", name: "Joias", banner: placeholderBanner("Joias") },
-  { slug: "aneis", name: "Anéis", banner: imageBanner("Anéis", "ANEIS") },
-  { slug: "brincos", name: "Brincos", banner: imageBanner("Brincos", "BRINCOS") },
-  { slug: "colares", name: "Colares", banner: imageBanner("Colares", "COLARES") },
-  { slug: "pingentes", name: "Pingentes", banner: imageBanner("Pingentes", "PINGENTES") },
-  { slug: "pulseiras", name: "Pulseiras", banner: imageBanner("Pulseiras", "PULSEIRAS") },
+  { slug: "aneis", name: "Anéis", banner: imageBanner("Anéis", "aneis-categoria") },
+  { slug: "brincos", name: "Brincos", banner: imageBanner("Brincos", "brincos-categoria") },
+  { slug: "colares", name: "Colares", banner: imageBanner("Colares", "colares-categoria") },
+  {
+    slug: "pingentes",
+    name: "Pingentes",
+    banner: {
+      ...imageBanner("Pingentes", "pingentes-categoria"),
+      imageClassName: "ml-[-1]",
+    },
+  },
+  { slug: "pulseiras", name: "Pulseiras", banner: imageBanner("Pulseiras", "pulseiras-categoria") },
 ];
 
 // Sem imageUrl, o HeroBanner cai num fundo escuro liso (ver Components/HeroBanner.tsx).

@@ -10,7 +10,7 @@ type HeroBannerProps = {
 
 export default function HeroBanner(props: HeroBannerProps) {
   const { banner, handleModal } = props;
-  const { imageUrl, title, subtitle, variant, align } = banner;
+  const { imageUrl, title, subtitle, variant, align, imageClassName } = banner;
   const textOnRight = align === "right";
 
   if (variant === "split") {
@@ -40,7 +40,14 @@ export default function HeroBanner(props: HeroBannerProps) {
     <div className="relative aspect-3/1 w-full overflow-hidden bg-black landscape:aspect-21/5 portrait:aspect-5/3 portrait:sm:aspect-20/9 portrait:lg:aspect-[2.625/1]">
       {imageUrl && (
         <>
-          <Image src={imageUrl} alt="" fill sizes="100vw" priority className="object-cover" />
+          <Image
+            src={imageUrl}
+            alt=""
+            fill
+            sizes="100vw"
+            priority
+            className={`object-cover ${imageClassName ?? ""}`}
+          />
           <div className="absolute inset-0 bg-linear-to-r from-transparent via-black/10 to-black/40" />
         </>
       )}
