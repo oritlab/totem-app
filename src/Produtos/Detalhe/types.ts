@@ -70,11 +70,15 @@ export type TopBarProps = {
 
 export type ImageCarouselProps = {
   images: ProdutoImage[];
+  onImageClick?: (index: number) => void;
+  onMediaError?: (src: string) => void;
 };
 
 export type CarouselItemProps = {
   media: ProdutoImage;
   priority: boolean;
+  onClick?: () => void;
+  onMediaError?: (src: string) => void;
 };
 
 export type DragState = {
@@ -85,6 +89,20 @@ export type DragState = {
 
 export type ProductInfoProps = {
   produto: ProdutoData;
+};
+
+export type PriceInfoProps = {
+  produto: ProdutoData;
+};
+
+export type ImageLightboxProps = {
+  images: ProdutoImage[];
+  activeIndex: number;
+  onClose: () => void;
+  onNext: () => void;
+  onPrev: () => void;
+  onSelect: (index: number) => void;
+  onMediaError?: (src: string) => void;
 };
 
 export type AccordionState = {

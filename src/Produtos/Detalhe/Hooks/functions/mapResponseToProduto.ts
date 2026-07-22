@@ -18,6 +18,10 @@ const MEASURES_IMAGES_BY_CATEGORY_SLUG: Record<string, string[]> = {
   ],
 };
 
+function isValidImageUrl(url: string): boolean {
+  return url.startsWith("/") || /^https?:\/\//.test(url);
+}
+
 function buildAccordionItems(
   description: string,
   categorySlug: string | undefined,
@@ -59,6 +63,7 @@ export function mapResponseToProduto(response: ProductDetailResponse): ProdutoDa
 
   const images = [...response.images]
     .sort((imageA, imageB) => (imageA.order ?? Infinity) - (imageB.order ?? Infinity))
+    .filter((image) => isValidImageUrl(image.url))
     .map((image) => ({ src: image.url, alt: response.title }));
 
   return {

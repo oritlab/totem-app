@@ -11,6 +11,7 @@
   --font-sans: var(--font-outfit), var(--font-geist-sans), sans-serif;
   --font-mono: var(--font-geist-mono);
   --font-outfit: var(--font-outfit), sans-serif;
+  --font-didot: var(--font-didot), serif;
 }
 
 @media (prefers-color-scheme: dark) {
