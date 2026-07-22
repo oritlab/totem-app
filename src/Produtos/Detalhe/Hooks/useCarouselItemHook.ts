@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 
-const VIDEO_EXTENSIONS = [".mp4", ".webm", ".mov"];
+import { isVideoSrc } from "../utils/media";
 
 export default function useCarouselItemHook(src: string) {
   // 1. States
@@ -14,7 +14,7 @@ export default function useCarouselItemHook(src: string) {
 
   // 3. useEffect — N/A
 
-  const isVideo = VIDEO_EXTENSIONS.some((extension) => src.toLowerCase().endsWith(extension));
+  const isVideo = isVideoSrc(src);
 
   // 4. Handlers
   function handleToggle() {

@@ -22,8 +22,8 @@ export default function HeroBanner(props: HeroBannerProps) {
 
         <div className={`flex w-full ${textOnRight ? "flex-row" : "flex-row-reverse"}`}>
           <div className="flex flex-1 flex-col items-start justify-center gap-2 px-10 text-zinc-900">
-            <h1 className="whitespace-pre-line font-serif text-6xl uppercase">{title}</h1>
-            {subtitle && <p className="max-w-md text-xs text-zinc-600">{subtitle}</p>}
+            <h1 className="whitespace-pre-line font-didot text-6xl uppercase">{title}</h1>
+            {subtitle && <p className="max-w-md font-didot text-xs text-zinc-600">{subtitle}</p>}
           </div>
 
           {imageUrl && (
@@ -61,8 +61,8 @@ export default function HeroBanner(props: HeroBannerProps) {
           textOnRight ? "items-end text-right" : "items-start text-left"
         }`}
       >
-        <h1 className="whitespace-pre-line font-serif text-6xl uppercase">{title}</h1>
-        {subtitle && <p className="max-w-md text-xs text-white/80">{subtitle}</p>}
+        <h1 className="whitespace-pre-line font-didot text-6xl uppercase">{title}</h1>
+        {subtitle && <p className="max-w-md font-didot text-xs text-white/80">{subtitle}</p>}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Logo from "../../../public/Orit-log-atualizado.png"
 
 import { HeaderProps } from "../types/global";
 
@@ -14,7 +15,7 @@ export default function Header(props: HeaderProps) {
     <header className="fixed inset-x-0 top-0 z-20 flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
       <Link href="/">
         <Image
-          src={theme === "dark" ? LOGO_DARK_SRC : LOGO_LIGHT_SRC}
+          src={Logo}
           alt="Orit"
           width={100}
           height={100}
