@@ -4,7 +4,7 @@ import { CarouselItemProps } from "../types";
 import useCarouselItemHook from "../Hooks/useCarouselItemHook";
 
 export default function CarouselItem(props: CarouselItemProps) {
-  const { media, priority } = props;
+  const { media, priority, onClick, onMediaError } = props;
   const { videoRef, isPlaying, isVideo, loaded, handleToggle, handleEnded, handleImage } = useCarouselItemHook(
     media.src
   );
@@ -17,6 +17,7 @@ export default function CarouselItem(props: CarouselItemProps) {
           src={media.src}
           playsInline
           onEnded={handleEnded}
+          onError={() => onMediaError?.(media.src)}
           aria-label={media.alt}
           className="h-full w-full cursor-pointer object-cover"
         />
@@ -39,7 +40,12 @@ export default function CarouselItem(props: CarouselItemProps) {
   }
 
   return (
-    <>
+    <button
+      type="button"
+      aria-label="Ampliar imagem"
+      onClick={onClick}
+      className="absolute inset-0 cursor-pointer"
+    >
       {!loaded && (
         <div className="absolute inset-0 animate-pulse bg-linear-to-br from-zinc-100 via-zinc-200 to-zinc-100" />
       )}
@@ -52,8 +58,11 @@ export default function CarouselItem(props: CarouselItemProps) {
         draggable={false}
         className={`pointer-events-none object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
         onLoad={() => handleImage("load")}
-        onError={() => handleImage("error")}
+        onError={() => {
+          handleImage("error");
+          onMediaError?.(media.src);
+        }}
       />
-    </>
+    </button>
   );
 }

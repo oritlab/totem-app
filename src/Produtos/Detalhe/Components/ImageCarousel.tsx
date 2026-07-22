@@ -5,7 +5,7 @@ import CarouselItem from "./CarouselItem";
 const VISIBLE_COUNT = 3;
 
 export default function ImageCarousel(props: ImageCarouselProps) {
-  const { images } = props;
+  const { images, onImageClick, onMediaError } = props;
   const {
     maxIndex,
     trackRef,
@@ -47,7 +47,12 @@ export default function ImageCarousel(props: ImageCarouselProps) {
               o índice como key é seguro mesmo com src repetido no mock. */}
           {images.map((image, index) => (
             <div key={index} className="relative aspect-square w-1/3 shrink-0">
-              <CarouselItem media={image} priority={index < VISIBLE_COUNT} />
+              <CarouselItem
+                media={image}
+                priority={index < VISIBLE_COUNT}
+                onClick={() => onImageClick?.(index)}
+                onMediaError={onMediaError}
+              />
             </div>
           ))}
         </div>

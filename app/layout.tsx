@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Outfit } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,6 +18,11 @@ const outfit = Outfit({
   subsets: ["latin"],
 });
 
+const didot = localFont({
+  src: "../public/font/Didot Title.otf",
+  variable: "--font-didot",
+});
+
 export const metadata: Metadata = {
   title: "Catálogo Orit",
   description: "Catálogo de categorias e peças Orit",
@@ -31,7 +37,7 @@ export default function RootLayout(props: Readonly<{ children: React.ReactNode }
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} ${didot.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
