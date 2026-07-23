@@ -135,7 +135,7 @@ export default function MenuDrawer(props: MenuDrawerProps) {
             href="https://www.orit.com.br/"
             className="flex w-full cursor-pointer items-center justify-center rounded-sm bg-black px-6 py-3 text-xs tracking-widest text-white"
           >
-            ECOMMERCE
+            VISITE NOSSO SITE
           </Link>
         </div>
       </nav>
