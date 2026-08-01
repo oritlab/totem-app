@@ -1,4 +1,4 @@
-import { calculateDiscountPercent, formatBRL } from "@/src/global/utils/formatPrice";
+import { formatBRL } from "@/src/global/utils/formatPrice";
 import { getCategoryByName } from "@/src/Produtos/Listagem/categories";
 import { AccordionItemData, ProdutoData, ProductDetailResponse } from "../../types";
 
@@ -59,7 +59,6 @@ export function mapResponseToProduto(response: ProductDetailResponse): ProdutoDa
   // achar a primeira que corresponde, em vez de assumir a de índice 0.
   const category = response.categories.find((category) => getCategoryByName(category.name));
   const categorySlug = category ? getCategoryByName(category.name)?.slug : undefined;
-  const discountPercent = calculateDiscountPercent(response.price, response.listPrice);
 
   const images = [...response.images]
     .sort((imageA, imageB) => (imageA.order ?? Infinity) - (imageB.order ?? Infinity))
@@ -69,12 +68,12 @@ export function mapResponseToProduto(response: ProductDetailResponse): ProdutoDa
   return {
     reference: response.sku,
     badge: "ÚNICA PEÇA",
-    promotionBadge: response.onSale ? `${discountPercent}% OFF` : undefined,
+    promotionBadge: undefined,
     brand: response.brand ?? "Sem Marca",
     title: response.title,
     category: category?.name ?? "Produtos",
-    originalPrice: response.onSale ? formatBRL(response.listPrice) : undefined,
-    price: formatBRL(response.price),
+    originalPrice: undefined,
+    price: formatBRL(response.onSale ? response.listPrice : response.price),
     installment: `ou em até ${response.installments.count}x de ${formatBRL(response.installments.amount)}`,
     pixPrice: formatBRL(response.pix.price),
     pixPercent: response.pix.percent,

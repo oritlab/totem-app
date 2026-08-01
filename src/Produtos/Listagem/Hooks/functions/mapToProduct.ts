@@ -20,8 +20,8 @@ export function mapToProduct(item: BackendProductListItem): Product {
     name: item.title,
     brand: item.brand ?? "",
     imageUrl: item.image ?? "",
-    price: item.price,
-    listPrice: item.onSale ? item.listPrice : undefined,
+    price: item.onSale ? item.listPrice : item.price,
+    listPrice: undefined,
     categories: [],
   };
 }
