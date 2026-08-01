@@ -2,7 +2,6 @@ import { ApiConfig } from "../../configurations/ApiConfig";
 
 export default function useHomeMediaHook() {
   const bannerVideo = ApiConfig.Router.TotemVideo("home_desktop-2026");
-  const imageSale = ApiConfig.Router.TotemImage("orit-promocao");
   const imageWatch = ApiConfig.Router.TotemImage("orit-relogios");
   const imageNews = ApiConfig.Router.TotemImage("orit-novidades");
   const imageVintage = ApiConfig.Router.TotemImage("orit-vintage");
@@ -18,7 +17,6 @@ export default function useHomeMediaHook() {
 
   return {
     bannerVideo,
-    imageSale,
     imageWatch,
     imageNews,
     imageVintage,

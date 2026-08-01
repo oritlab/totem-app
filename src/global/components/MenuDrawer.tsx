@@ -35,11 +35,6 @@ export default function MenuDrawer(props: MenuDrawerProps) {
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="/produtos/sale" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              SALE ATÉ 30% OFF
-            </Link>
-          </li>
-          <li className="border-b border-black">
             <Link href="/produtos/novidades" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               NOVIDADES
             </Link>
