@@ -40,11 +40,6 @@ export default function MenuDrawer(props: MenuDrawerProps) {
             </Link>
           </li>
           <li className="border-b border-black">
-            <Link href="/produtos/dia-dos-pais" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              DIA DOS PAIS
-            </Link>
-          </li>
-          <li className="border-b border-black">
             <Link href="/produtos/vintage" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
               VINTAGE
             </Link>
