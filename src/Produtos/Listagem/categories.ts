@@ -3,7 +3,18 @@ import { Category, CategoryBanner, CategoryResponse } from "./types";
 
 export const CATEGORIES: Category[] = [
   { slug: "relogios", name: "Relógios", banner: imageBanner("Relógios", "relogios-categoria") },
-  { slug: "sale", name: "Sale", banner: imageBanner("Sale", "campanha-categoria") },
+  // { slug: "sale", name: "Sale", banner: imageBanner("Sale", "campanha-categoria") },
+  {
+    slug: "dia-dos-pais",
+    name: "Dia dos pais",
+    banner: {
+      imageUrl: "/dia-dos-pais.jpg",
+      title: "",
+      subtitle: "",
+      variant: "cover",
+      align: "right",
+    },
+  },
   { slug: "novidades", name: "Novidades", banner: imageBanner("Novidades", "novidades-categoria") },
   { slug: "vintage", name: "Vintage", banner: imageBanner("Vintage", "vintage-categoria") },
   { slug: "diamantes", name: "Diamantes", banner: imageBanner("Diamantes", "diamantes-categoria") },
