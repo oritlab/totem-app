@@ -13,6 +13,8 @@
 
 </div>
 
+novo texto
+
 ## 📖 Explicação
 
 Aplicação web para o totem de autoatendimento da Orit, pensado para rodar em tela vertical de kiosk. Permite que o cliente navegue pelo catálogo de joias e relógios diretamente na loja, sem depender de um vendedor, incluindo:
