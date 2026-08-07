@@ -8,7 +8,7 @@ export const CATEGORIES: Category[] = [
     slug: "dia-dos-pais",
     name: "Dia dos pais",
     banner: {
-      imageUrl: "/Dia-dos-pais.jpg",
+      imageUrl: "/dia-dos-pais.jpg",
       title: "",
       subtitle: "",
       variant: "cover",
