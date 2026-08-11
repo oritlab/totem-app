@@ -15,6 +15,17 @@ export const CATEGORIES: Category[] = [
       align: "right",
     },
   },
+    {
+    slug: "escolhas-orit",
+    name: "Escolhas orit",
+    banner: {
+      imageUrl: "/escolhas-orit.jpg",
+      title: "",
+      subtitle: "",
+      variant: "cover",
+      align: "right",
+    },
+  },
   { slug: "novidades", name: "Novidades", banner: imageBanner("Novidades", "novidades-categoria") },
   { slug: "vintage", name: "Vintage", banner: imageBanner("Vintage", "vintage-categoria") },
   { slug: "diamantes", name: "Diamantes", banner: imageBanner("Diamantes", "diamantes-categoria") },
