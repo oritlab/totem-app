@@ -40,7 +40,7 @@ export default function Main() {
       <Hero videoSrc={bannerVideo} handleModal={handleModal} />
 
       <main className="grid grid-cols-3">
-        <Tile label="DIA DOS PAIS" imageSrc="/bg-pais.jpg" href="/produtos/dia-dos-pais" />
+        <Tile label="ESCOLHAS ORIT" imageSrc="/escolhas-orit-home.jpg" href="/produtos/escolhas-orit" />
         <Tile label="RELÓGIOS" imageSrc={imageWatch} href="/produtos/relogios" />
         <Tile label="NOVIDADES" imageSrc={imageNews} href="/produtos/novidades" />
 
