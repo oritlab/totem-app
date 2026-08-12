@@ -24,7 +24,7 @@ export const CATEGORIES: Category[] = [
       subtitle: "",
       variant: "cover",
       align: "right",
-      imageClassName: "object-[-190px_0px]",
+      imageClassName: "object-[-180px_0px]",
     },
   },
   { slug: "novidades", name: "Novidades", banner: imageBanner("Novidades", "novidades-categoria") },
