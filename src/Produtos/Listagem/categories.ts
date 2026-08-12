@@ -15,7 +15,7 @@ export const CATEGORIES: Category[] = [
       align: "right",
     },
   },
-    {
+  {
     slug: "escolhas-orit",
     name: "Escolhas orit",
     banner: {
@@ -24,6 +24,7 @@ export const CATEGORIES: Category[] = [
       subtitle: "",
       variant: "cover",
       align: "right",
+      imageClassName: "object-[-190px_0px]",
     },
   },
   { slug: "novidades", name: "Novidades", banner: imageBanner("Novidades", "novidades-categoria") },
