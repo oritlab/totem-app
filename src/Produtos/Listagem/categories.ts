@@ -19,12 +19,11 @@ export const CATEGORIES: Category[] = [
     slug: "escolhas-orit",
     name: "Escolhas orit",
     banner: {
-      imageUrl: "/escolhas-orit.jpg",
+      imageUrl: ApiConfig.Router.TotemImage("PROMOCAO"),
       title: "",
       subtitle: "",
       variant: "cover",
       align: "right",
-      imageClassName: "object-[-180px_0px]",
     },
   },
   { slug: "novidades", name: "Novidades", banner: imageBanner("Novidades", "novidades-categoria") },
