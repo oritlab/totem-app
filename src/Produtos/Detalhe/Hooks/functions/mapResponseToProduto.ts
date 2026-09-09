@@ -68,7 +68,9 @@ export function mapResponseToProduto(response: ProductDetailResponse): ProdutoDa
   return {
     reference: response.sku,
     badge: "ÚNICA PEÇA",
-    promotionBadge: undefined,
+    // Selo campanha Dia do Cliente (14/09–30/09), fixo em todo produto —
+    // reverter para "undefined" após 30/09
+    promotionBadge: "10% OFF",
     brand: response.brand ?? "Sem Marca",
     title: response.title,
     category: category?.name ?? "Produtos",
