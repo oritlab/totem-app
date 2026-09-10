@@ -10,19 +10,18 @@ import { ProductCardProps } from "../types";
 
 export default function ProductCard(props: ProductCardProps) {
   const { product } = props;
-  const isPromo = !!product.listPrice && product.listPrice > product.price;
   const { imgSrc, loaded, handleImage } = useProductImageHook(product.imageUrl);
 
   return (
     <Link href={`/info-product/${product.sku}`} className="flex flex-col gap-2">
       <div className="relative aspect-square w-full overflow-hidden bg-zinc-100">
-        {/* Selo campanha Dia do Cliente (14/09–30/09), fixo em todos os cards
-            independente do preço vindo da API — após 30/09 reverter para
-            {isPromo && (<span className="... bg-orange-600 ... rounded-sm ...">{discountPercent}% OFF</span>)},
-            reimportando calculateDiscountPercent de @/src/global/utils/formatPrice */}
-        <span className="absolute left-2 top-2 z-10 bg-[#870A04] px-2 py-1 text-[10px] font-bold rounded tracking-wide text-white">
-          10% OFF
-        </span>
+        {!!product.discountPercent && (
+          // Selo campanha Dia do Cliente (14/09–30/09) — reverter para
+          // "bg-orange-600 ... rounded-sm ... font-semibold" após 30/09
+          <span className="absolute left-2 top-2 z-10 bg-[#870A04] px-2 py-1 text-[10px] font-bold rounded tracking-wide text-white">
+            {product.discountPercent}% OFF
+          </span>
+        )}
         {!loaded && (
           <div className="absolute inset-0 animate-pulse bg-linear-to-br from-zinc-100 via-zinc-200 to-zinc-100" />
         )}
@@ -43,7 +42,7 @@ export default function ProductCard(props: ProductCardProps) {
           {capitalizeFirst(product.name)}
         </span>
 
-        {isPromo ? (
+        {product.discountPercent ? (
           <span className="flex items-baseline gap-3 flex-col">
             <span className="text-xs text-zinc-600 line-through">
               de {formatBRL(product.listPrice as number)}

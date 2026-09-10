@@ -9,3 +9,7 @@ export function calculateDiscountPercent(price: number, listPrice?: number): num
   if (!listPrice || listPrice <= price) return 0;
   return Math.round((1 - price / listPrice) * 100);
 }
+
+export function calculatePriceWithDiscount(price: number, discountPercent: number): number {
+  return price * (1 - discountPercent / 100);
+}

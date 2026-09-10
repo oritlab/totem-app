@@ -46,7 +46,7 @@ export default function ImageCarousel(props: ImageCarouselProps) {
           {/* images é uma lista estática por produto (nunca reordena), então
               o índice como key é seguro mesmo com src repetido no mock. */}
           {images.map((image, index) => (
-            <div key={index} className="relative aspect-4/5 w-1/3 shrink-0">
+            <div key={index} className="relative aspect-square w-1/3 shrink-0">
               <CarouselItem
                 media={image}
                 priority={index < VISIBLE_COUNT}

@@ -44,7 +44,7 @@ export default function Main() {
             imageSrc="/escolhas-orit-home.jpg" após 30/09 */}
         <Tile
           label=""
-          imageSrc="https://orit.fbitsstatic.net/media/totem-home.jpg?v=202609091125"
+          imageSrc="https://orit.fbitsstatic.net/media/totem-home-(1).jpg?v=202609101019"
           href="/produtos/escolhas-orit"
         />
         <Tile label="RELÓGIOS" imageSrc={imageWatch} href="/produtos/relogios" />
