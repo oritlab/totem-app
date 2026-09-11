@@ -2,6 +2,13 @@
 // re-exporta junto dos próprios tipos no seu types.ts — nunca se importa
 // direto de global.tsx fora daqui.
 
+import { ReactNode } from "react";
+
+export type StrikethroughProps = {
+  children: ReactNode;
+  className?: string;
+};
+
 export type MenuState = {
   open: boolean;
 };

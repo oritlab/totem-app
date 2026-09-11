@@ -1,6 +1,11 @@
-import { formatBRL } from "@/src/global/utils/formatPrice";
+import { calculatePriceWithDiscount, formatBRL } from "@/src/global/utils/formatPrice";
 import { getCategoryByName } from "@/src/Produtos/Listagem/categories";
 import { AccordionItemData, ProdutoData, ProductDetailResponse } from "../../types";
+
+// Campanha Dia do Cliente (14/09–30/09): 10% off em toda peça, calculado no
+// front porque o preço promocional não vem preenchido no backend. Reverter
+// para "undefined"/preço sem desconto após 30/09.
+const CAMPAIGN_DISCOUNT_PERCENT = 10;
 
 const MEASURES_IMAGES_BY_CATEGORY_SLUG: Record<string, string[]> = {
   relogios: [
@@ -65,17 +70,26 @@ export function mapResponseToProduto(response: ProductDetailResponse): ProdutoDa
     .filter((image) => isValidImageUrl(image.url))
     .map((image) => ({ src: image.url, alt: response.title }));
 
+  const basePrice = response.onSale ? response.listPrice : response.price;
+  const discountedPrice = calculatePriceWithDiscount(basePrice, CAMPAIGN_DISCOUNT_PERCENT);
+  // Pix e parcelamento recalculados em cima do preço já com os 10% off —
+  // senão o Pix fica mostrando um valor maior que o preço à vista.
+  const discountedPixPrice = calculatePriceWithDiscount(discountedPrice, response.pix.percent);
+  const discountedInstallmentAmount = discountedPrice / response.installments.count;
+
   return {
     reference: response.sku,
     badge: "ÚNICA PEÇA",
-    promotionBadge: undefined,
+    promotionBadge: `${CAMPAIGN_DISCOUNT_PERCENT}% OFF`,
     brand: response.brand ?? "Sem Marca",
     title: response.title,
     category: category?.name ?? "Produtos",
-    originalPrice: undefined,
-    price: formatBRL(response.onSale ? response.listPrice : response.price),
-    installment: `ou em até ${response.installments.count}x de ${formatBRL(response.installments.amount)}`,
-    pixPrice: formatBRL(response.pix.price),
+    originalPrice: formatBRL(basePrice),
+    price: formatBRL(discountedPrice),
+    // Reverter installment/pixPrice para response.installments.amount /
+    // response.pix.price após 30/09
+    installment: `ou em até ${response.installments.count}x de ${formatBRL(discountedInstallmentAmount)}`,
+    pixPrice: formatBRL(discountedPixPrice),
     pixPercent: response.pix.percent,
     images,
     accordionItems: buildAccordionItems(response.description, categorySlug, response.eligible360),

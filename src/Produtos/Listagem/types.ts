@@ -12,6 +12,7 @@ export type Product = {
   images?: string[];
   price: number;
   listPrice?: number;
+  discountPercent?: number;
   categories: string[];
 };
 
