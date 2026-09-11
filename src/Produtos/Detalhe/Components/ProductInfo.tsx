@@ -1,5 +1,5 @@
 import { ProductInfoProps } from "../types";
-import { capitalizeFirst, formatBrandName } from "@/src/global/utils/formatText";
+import { capitalizeSentence, formatBrandName } from "@/src/global/utils/formatText";
 import PriceInfo from "./PriceInfo";
 
 export default function ProductInfo(props: ProductInfoProps) {
@@ -24,8 +24,8 @@ export default function ProductInfo(props: ProductInfoProps) {
           )}
         </div>
         <span className="text-md text-[#626262]">{formatBrandName(produto.brand)}</span>
-        <span className="text-md font-medium text-black">
-          {capitalizeFirst(produto.title)}
+        <span className="text-md text-zinc-800">
+          {capitalizeSentence(produto.title)}
         </span>
       </div>
 
