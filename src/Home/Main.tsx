@@ -40,7 +40,9 @@ export default function Main() {
       <Hero videoSrc={bannerVideo} handleModal={handleModal} />
 
       <main className="grid grid-cols-3">
-        <Tile label="ESCOLHAS ORIT" imageSrc="/escolhas-orit-home.jpg" href="/produtos/escolhas-orit" />
+        {/* Campanha Dia do Cliente (14/09–30/09) no lugar de Escolhas Orit — reverter para
+            imageSrc="/escolhas-orit-home.jpg" após 30/09 */}
+        <Tile label="" imageSrc="/totem-home.svg" href="/produtos/escolhas-orit" />
         <Tile label="RELÓGIOS" imageSrc={imageWatch} href="/produtos/relogios" />
         <Tile label="NOVIDADES" imageSrc={imageNews} href="/produtos/novidades" />
 

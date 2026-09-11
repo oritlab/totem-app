@@ -16,7 +16,9 @@ export default function ProductInfo(props: ProductInfoProps) {
             </span>
           )}
           {produto.promotionBadge && (
-            <span className="rounded-sm border border-[#FF5B00] bg-[#FF5B00] px-2 py-0.5 text-[10px] tracking-wide text-white pb-0">
+            // Selo campanha Dia do Cliente (14/09–30/09) — reverter para
+            // "border-[#FF5B00] bg-[#FF5B00] rounded-sm" após 30/09
+            <span className="rounded border border-[#870A04] bg-[#870A04] px-2 py-0.5 text-[10px] font-bold tracking-wide text-white pb-0">
               {produto.promotionBadge}
             </span>
           )}
