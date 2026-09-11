@@ -42,11 +42,7 @@ export default function Main() {
       <main className="grid grid-cols-3">
         {/* Campanha Dia do Cliente (14/09–30/09) no lugar de Escolhas Orit — reverter para
             imageSrc="/escolhas-orit-home.jpg" após 30/09 */}
-        <Tile
-          label=""
-          imageSrc="https://orit.fbitsstatic.net/media/totem-home-(1).jpg?v=202609101019"
-          href="/produtos/escolhas-orit"
-        />
+        <Tile label="" imageSrc="/totem-home.svg" href="/produtos/escolhas-orit" />
         <Tile label="RELÓGIOS" imageSrc={imageWatch} href="/produtos/relogios" />
         <Tile label="NOVIDADES" imageSrc={imageNews} href="/produtos/novidades" />
 

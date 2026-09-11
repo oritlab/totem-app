@@ -21,7 +21,7 @@ export const CATEGORIES: Category[] = [
     banner: {
       // Campanha Dia do Cliente (14/09–30/09) — reverter para
       // ApiConfig.Router.TotemImage("PROMOCAO") após 30/09
-      imageUrl: "https://orit.fbitsstatic.net/media/totem-ct-promocao.jpg?v=202609090911",
+      imageUrl: "/totem-ct-promocao.svg",
       title: "",
       subtitle: "",
       variant: "cover",
