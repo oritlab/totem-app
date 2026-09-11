@@ -48,9 +48,9 @@ export default function ProductCard(props: ProductCardProps) {
 
         {product.discountPercent ? (
           <span className="flex items-baseline gap-3 flex-col">
-            <Strikethrough className="text-xs text-zinc-600">
-              de {formatBRL(product.listPrice as number)}
-            </Strikethrough>
+            <span className="text-xs text-zinc-600">
+              de <Strikethrough>{formatBRL(product.listPrice as number)}</Strikethrough>
+            </span>
             <span className="text-sm font-medium text-zinc-900">
               por {formatBRL(product.price)}
             </span>
