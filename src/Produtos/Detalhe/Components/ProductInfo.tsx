@@ -3,7 +3,7 @@ import { capitalizeFirst, formatBrandName } from "@/src/global/utils/formatText"
 import PriceInfo from "./PriceInfo";
 
 export default function ProductInfo(props: ProductInfoProps) {
-  const { produto } = props;
+  const { produto, productTag } = props;
 
   return (
     <div className="flex flex-col justify-between gap-4 px-4 py-6 sm:flex-row sm:px-6">
@@ -15,7 +15,15 @@ export default function ProductInfo(props: ProductInfoProps) {
               {produto.badge}
             </span>
           )}
-          {produto.promotionBadge && (
+          {productTag && (
+            <span
+              className="rounded-sm px-2 py-0.5 pb-0 text-[10px] tracking-wide"
+              style={{ backgroundColor: productTag.backgroundColor, color: productTag.textColor }}
+            >
+              {productTag.text}
+            </span>
+          )}
+          {!productTag && produto.promotionBadge && (
             <span className="rounded-sm border border-[#FF5B00] bg-[#FF5B00] px-2 py-0.5 text-[10px] tracking-wide text-white pb-0">
               {produto.promotionBadge}
             </span>

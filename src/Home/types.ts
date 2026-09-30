@@ -1,6 +1,6 @@
-import { HeaderProps, MenuDrawerProps, MenuState } from "../global/types/global";
+import { HeaderProps, HomeCardCampaign, MenuDrawerProps, MenuState } from "../global/types/global";
 
-export type { HeaderProps, MenuDrawerProps, MenuState };
+export type { HeaderProps, HomeCardCampaign, MenuDrawerProps, MenuState };
 
 export type HeroProps = {
   videoSrc: string;

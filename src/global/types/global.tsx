@@ -34,6 +34,67 @@ export type Pagination = {
 // diferente de propósito do SortOption de UI de cada página.
 export type ProductSortOption = "recentes" | "maior_preco" | "menor_preco" | "a_a_z";
 
+// Campanhas (ver src/configurations/Campaign/). Cada item aponta pra fases do
+// CampaignSchedule: janela = início de startPhase → fim de endPhase (null = sem limite).
+export type CampaignPhaseKey = "phase1" | "phase2" | "phase3" | "phase4";
+
+export type CampaignWindow = {
+  startPhase: CampaignPhaseKey | null;
+  endPhase: CampaignPhaseKey | null;
+};
+
+export type CampaignAction = {
+  type: "landing" | "link";
+  href: string;
+};
+
+export type HomeCardCampaign = CampaignWindow & {
+  id: string;
+  image: string;
+  alt: string;
+  action: CampaignAction;
+};
+
+export type LandingCampaign = CampaignWindow & {
+  id: string;
+  route: string;
+  formId: string;
+  heroImage: string;
+};
+
+export type ProductTag = {
+  text: string;
+  backgroundColor: string;
+  textColor: string;
+};
+
+export type ProductTagCampaign = CampaignWindow & {
+  id: string;
+  tag: ProductTag;
+  productSkus: string[];
+  categorySlugs: string[];
+  homologOnly: boolean;
+};
+
+export type CategoryBannerCampaign = CampaignWindow & {
+  id: string;
+  categorySlug: string;
+  imageUrl: string;
+};
+
+// sku → tag ativa (ausente = sem tag)
+export type ProductTags = Record<string, ProductTag | undefined>;
+
+// ready: false até ler o localStorage no cliente (no SSR/build é sempre false).
+// homologGrantedAt: quando a pessoa acessou a rota de homologação (epoch ms) —
+// início da linha do tempo comprimida. now: relógio da campanha (epoch ms).
+export type CampaignAccess = {
+  ready: boolean;
+  homolog: boolean;
+  homologGrantedAt: number | null;
+  now: number;
+};
+
 // Payload de GET /products/availability/stream (event: availability)
 // consumido pela Detalhe (modal) e pela Listagem (refresh da lista).
 export type AvailabilityEvent = {

@@ -48,7 +48,7 @@ export default function HeroBanner(props: HeroBannerProps) {
             priority
             className={`object-cover ${imageClassName ?? ""}`}
           />
-          <div className="absolute inset-0 bg-linear-to-r from-transparent via-black/10 to-black/40" />
+          {title && <div className="absolute inset-0 bg-linear-to-r from-transparent via-black/10 to-black/40" />}
         </>
       )}
 

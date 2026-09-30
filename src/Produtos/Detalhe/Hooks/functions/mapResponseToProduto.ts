@@ -59,6 +59,11 @@ export function mapResponseToProduto(response: ProductDetailResponse): ProdutoDa
   // achar a primeira que corresponde, em vez de assumir a de índice 0.
   const category = response.categories.find((category) => getCategoryByName(category.name));
   const categorySlug = category ? getCategoryByName(category.name)?.slug : undefined;
+  // Todas as categorias conhecidas do produto (ex: "novidades" + "aneis") —
+  // usadas pelas tags de campanha escopadas por categoria.
+  const categorySlugs = response.categories
+    .map((productCategory) => getCategoryByName(productCategory.name)?.slug)
+    .filter((slug): slug is string => !!slug);
 
   const images = [...response.images]
     .sort((imageA, imageB) => (imageA.order ?? Infinity) - (imageB.order ?? Infinity))
@@ -72,6 +77,7 @@ export function mapResponseToProduto(response: ProductDetailResponse): ProdutoDa
     brand: response.brand ?? "Sem Marca",
     title: response.title,
     category: category?.name ?? "Produtos",
+    categorySlugs,
     originalPrice: undefined,
     price: formatBRL(response.onSale ? response.listPrice : response.price),
     installment: `ou em até ${response.installments.count}x de ${formatBRL(response.installments.amount)}`,

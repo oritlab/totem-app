@@ -4,6 +4,9 @@ import type { NextConfig } from "next";
 const totemCdnHost = new URL(process.env.NEXT_PUBLIC_TOTEM_CDN_HOST as string);
 
 const nextConfig: NextConfig = {
+  // Só afeta `next dev`: libera o totem a acessar o dev server pelo IP da rede.
+  // Sem isso o Next bloqueia os assets de dev e a página não hidrata (nenhum clique funciona).
+  allowedDevOrigins: ["10.100.0.62"],
   turbopack: {
     root: path.join(__dirname),
   },

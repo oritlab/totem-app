@@ -1,6 +1,7 @@
 "use client";
 
 import MenuDrawer from "@/src/global/components/MenuDrawer";
+import useProductTagsHook from "@/src/global/hooks/useProductTagsHook";
 import useMenuHook from "@/src/Home/Hooks/useMenuHook";
 
 import FilterBar from "./Components/FilterBar";
@@ -12,6 +13,7 @@ import ProductGrid from "./Components/ProductGrid";
 import ProductGridSkeleton from "./Components/ProductGridSkeleton";
 import useProductFiltersHook from "./Hooks/useProductFiltersHook";
 import useProductsListHook from "./Hooks/useProductsListHook";
+import useCategoryBannerCampaignHook from "./Hooks/useCategoryBannerCampaignHook";
 import useSortDropdownHook from "./Hooks/useSortDropdownHook";
 import { MainProps } from "./types";
 
@@ -50,12 +52,14 @@ export default function Main(props: MainProps) {
     useSortDropdownHook();
 
   const { modalMenu, handleModal } = useMenuHook();
+  const { productTags } = useProductTagsHook(visibleProducts, [category?.slug]);
+  const { categoryBanner } = useCategoryBannerCampaignHook(category?.slug, banner);
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <MenuDrawer modalMenu={modalMenu} handleModal={handleModal} />
 
-      <HeroBanner banner={banner} handleModal={handleModal} />
+      <HeroBanner banner={categoryBanner} handleModal={handleModal} />
 
       <FilterBar
         columns={columns}
@@ -85,7 +89,7 @@ export default function Main(props: MainProps) {
       )}
       {visibleProducts.length > 0 && (
         <>
-          <ProductGrid products={visibleProducts} columns={columns} />
+          <ProductGrid products={visibleProducts} productTags={productTags} columns={columns} />
           <LoadMore
             shown={visibleProducts.length}
             total={totalCount}
