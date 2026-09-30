@@ -2,6 +2,13 @@
 // re-exporta junto dos próprios tipos no seu types.ts — nunca se importa
 // direto de global.tsx fora daqui.
 
+import { ReactNode } from "react";
+
+export type StrikethroughProps = {
+  children: ReactNode;
+  className?: string;
+};
+
 export type MenuState = {
   open: boolean;
 };
@@ -36,7 +43,7 @@ export type ProductSortOption = "recentes" | "maior_preco" | "menor_preco" | "a_
 
 // Campanhas (ver src/configurations/Campaign/). Cada item aponta pra fases do
 // CampaignSchedule: janela = início de startPhase → fim de endPhase (null = sem limite).
-export type CampaignPhaseKey = "phase1" | "phase2" | "phase3" | "phase4";
+export type CampaignPhaseKey = "phase0" | "phase1" | "phase2" | "phase3" | "phase4";
 
 export type CampaignWindow = {
   startPhase: CampaignPhaseKey | null;
@@ -76,10 +83,16 @@ export type ProductTagCampaign = CampaignWindow & {
   homologOnly: boolean;
 };
 
+export type PriceDiscountCampaign = CampaignWindow & {
+  id: string;
+  discountPercent: number;
+};
+
 export type CategoryBannerCampaign = CampaignWindow & {
   id: string;
   categorySlug: string;
   imageUrl: string;
+  hideOverlay: boolean;
 };
 
 // sku → tag ativa (ausente = sem tag)

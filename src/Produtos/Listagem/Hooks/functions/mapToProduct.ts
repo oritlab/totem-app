@@ -1,3 +1,5 @@
+import { getActivePriceDiscountPercent } from "@/src/global/utils/campaign";
+import { calculateDiscountPercent, calculatePriceWithDiscount } from "@/src/global/utils/formatPrice";
 import { Product } from "../../types";
 
 export type BackendProductListItem = {
@@ -14,14 +16,35 @@ export type BackendProductListItem = {
 // o resto da página já consome (name/imageUrl/listPrice opcional). `categories`
 // fica sempre vazio — a listagem já vem escopada por categoria pelo próprio
 // backend, então esse campo do mock não tem mais função aqui.
+//
+// Desconto de campanha (ex: Dia do Cliente) calculado no front porque o preço
+// promocional não vem preenchido no backend — janela em
+// src/configurations/Campaign/PriceDiscountCampaigns.js.
 export function mapToProduct(item: BackendProductListItem): Product {
+  const campaignDiscountPercent = getActivePriceDiscountPercent();
+
+  if (!campaignDiscountPercent) {
+    return {
+      sku: item.sku,
+      name: item.title,
+      brand: item.brand ?? "",
+      imageUrl: item.image ?? "",
+      price: item.onSale ? item.listPrice : item.price,
+      listPrice: undefined,
+      categories: [],
+    };
+  }
+
+  const price = calculatePriceWithDiscount(item.price, campaignDiscountPercent);
+
   return {
     sku: item.sku,
     name: item.title,
     brand: item.brand ?? "",
     imageUrl: item.image ?? "",
-    price: item.onSale ? item.listPrice : item.price,
-    listPrice: undefined,
+    price,
+    listPrice: item.price,
+    discountPercent: calculateDiscountPercent(price, item.price),
     categories: [],
   };
 }

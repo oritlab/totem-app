@@ -16,7 +16,14 @@ export default function useCategoryBannerCampaignHook(categorySlug: string | und
   const bannerCampaign = campaignAccess.ready ? getActiveCampaign(categoryCampaigns, campaignAccess) : null;
 
   const categoryBanner: CategoryBanner = bannerCampaign
-    ? { ...banner, imageUrl: bannerCampaign.imageUrl, title: "", subtitle: "", variant: "cover" }
+    ? {
+        ...banner,
+        imageUrl: bannerCampaign.imageUrl,
+        title: "",
+        subtitle: "",
+        variant: "cover",
+        hideOverlay: bannerCampaign.hideOverlay,
+      }
     : banner;
 
   return { categoryBanner };

@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import Strikethrough from "@/src/global/components/Strikethrough";
 import { PriceInfoProps } from "../types";
 import Pix from "@/public/pix.svg";
 
@@ -10,7 +11,7 @@ export default function PriceInfo(props: PriceInfoProps) {
     <div className="flex flex-col gap-1 text-right">
       {produto.originalPrice && (
         <span className="text-sm text-black">
-          de <span className="line-through">{produto.originalPrice}</span> por
+          de <Strikethrough>{produto.originalPrice}</Strikethrough> por
         </span>
       )}
       <span className="text-2xl font-normal text-black">{produto.price}</span>

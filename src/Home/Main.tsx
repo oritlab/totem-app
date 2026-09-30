@@ -42,6 +42,8 @@ export default function Main() {
       <Hero videoSrc={bannerVideo} handleModal={handleModal} />
 
       <main className="grid grid-cols-3">
+        {/* 1º card dirigido por campanha (Dia do Cliente → Private Sale → Black Friday);
+            fora de campanha, Escolhas Orit — ver src/configurations/Campaign/HomeCardCampaigns.js */}
         <Tile label="" imageSrc={homeCard.image} href={homeCard.action.href} />
         <Tile label="RELÓGIOS" imageSrc={imageWatch} href="/produtos/relogios" />
         <Tile label="NOVIDADES" imageSrc={imageNews} href="/produtos/novidades" />

@@ -1,4 +1,5 @@
 import { CampaignSchedule } from "@/src/configurations/Campaign/CampaignSchedule";
+import { PriceDiscountCampaigns } from "@/src/configurations/Campaign/PriceDiscountCampaigns";
 import { CampaignAccess, CampaignPhaseKey, CampaignWindow, ProductTag, ProductTagCampaign } from "../types/global";
 
 // Início/fim de uma fase em epoch ms. Com homologação, usa a linha do tempo
@@ -34,6 +35,14 @@ export function getActiveCampaign<Campaign extends CampaignWindow>(
       return isCampaignActive(campaign, campaignAccess);
     }) ?? null
   );
+}
+
+// % de desconto de preço ativo agora pelo cronograma real (0 = sem desconto).
+// Chamado no mapeamento da resposta da API, fora de hooks — por isso usa o
+// relógio direto e ignora a homologação.
+export function getActivePriceDiscountPercent(): number {
+  const productionAccess: CampaignAccess = { ready: true, homolog: false, homologGrantedAt: null, now: Date.now() };
+  return getActiveCampaign(PriceDiscountCampaigns, productionAccess)?.discountPercent ?? 0;
 }
 
 // Tag do produto: campanha ativa (e liberada pro acesso atual) que lista o

@@ -20,6 +20,7 @@ export type Product = {
   images?: string[];
   price: number;
   listPrice?: number;
+  discountPercent?: number;
   categories: string[];
 };
 
@@ -36,6 +37,7 @@ export type CategoryBanner = {
   variant: BannerVariant;
   align: BannerAlign;
   imageClassName?: string; // classes extras aplicadas na imagem (ex: ajuste fino de posição)
+  hideOverlay?: boolean; // sem gradiente escuro por cima (arte de campanha já pronta)
 };
 
 export type Category = {

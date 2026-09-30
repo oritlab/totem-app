@@ -1,5 +1,5 @@
 import { ProductInfoProps } from "../types";
-import { capitalizeFirst, formatBrandName } from "@/src/global/utils/formatText";
+import { capitalizeSentence, formatBrandName } from "@/src/global/utils/formatText";
 import PriceInfo from "./PriceInfo";
 
 export default function ProductInfo(props: ProductInfoProps) {
@@ -24,14 +24,16 @@ export default function ProductInfo(props: ProductInfoProps) {
             </span>
           )}
           {!productTag && produto.promotionBadge && (
-            <span className="rounded-sm border border-[#FF5B00] bg-[#FF5B00] px-2 py-0.5 text-[10px] tracking-wide text-white pb-0">
+            // Selo do desconto de campanha (PriceDiscountCampaigns) — só aparece
+            // enquanto houver desconto ativo (hoje: Dia do Cliente, até 01/10 07h59).
+            <span className="rounded border border-[#870A04] bg-[#870A04] px-2 py-0.5 text-[10px] font-bold tracking-wide text-white pb-0">
               {produto.promotionBadge}
             </span>
           )}
         </div>
         <span className="text-md text-[#626262]">{formatBrandName(produto.brand)}</span>
-        <span className="text-md font-medium text-black">
-          {capitalizeFirst(produto.title)}
+        <span className="text-md text-zinc-800">
+          {capitalizeSentence(produto.title)}
         </span>
       </div>
 

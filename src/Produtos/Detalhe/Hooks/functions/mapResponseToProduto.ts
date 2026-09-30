@@ -1,4 +1,5 @@
-import { formatBRL } from "@/src/global/utils/formatPrice";
+import { getActivePriceDiscountPercent } from "@/src/global/utils/campaign";
+import { calculatePriceWithDiscount, formatBRL } from "@/src/global/utils/formatPrice";
 import { getCategoryByName } from "@/src/Produtos/Listagem/categories";
 import { AccordionItemData, ProdutoData, ProductDetailResponse } from "../../types";
 
@@ -73,17 +74,44 @@ export function mapResponseToProduto(response: ProductDetailResponse): ProdutoDa
   return {
     reference: response.sku,
     badge: "ÚNICA PEÇA",
-    promotionBadge: undefined,
     brand: response.brand ?? "Sem Marca",
     title: response.title,
     category: category?.name ?? "Produtos",
     categorySlugs,
-    originalPrice: undefined,
-    price: formatBRL(response.onSale ? response.listPrice : response.price),
-    installment: `ou em até ${response.installments.count}x de ${formatBRL(response.installments.amount)}`,
-    pixPrice: formatBRL(response.pix.price),
+    ...buildPricing(response),
     pixPercent: response.pix.percent,
     images,
     accordionItems: buildAccordionItems(response.description, categorySlug, response.eligible360),
+  };
+}
+
+// Preço exibido. Com desconto de campanha ativo (ver
+// src/configurations/Campaign/PriceDiscountCampaigns.js) mostra "de/por" +
+// selo; Pix e parcelamento recalculados em cima do preço já com desconto —
+// senão o Pix fica mostrando um valor maior que o preço à vista.
+function buildPricing(response: ProductDetailResponse) {
+  const basePrice = response.onSale ? response.listPrice : response.price;
+  const campaignDiscountPercent = getActivePriceDiscountPercent();
+
+  if (!campaignDiscountPercent) {
+    return {
+      promotionBadge: undefined,
+      originalPrice: undefined,
+      price: formatBRL(basePrice),
+      installment: `ou em até ${response.installments.count}x de ${formatBRL(response.installments.amount)}`,
+      pixPrice: formatBRL(response.pix.price),
+    };
+  }
+
+  const discountedPrice = calculatePriceWithDiscount(basePrice, campaignDiscountPercent);
+  const discountedPixPrice = calculatePriceWithDiscount(discountedPrice, response.pix.percent);
+  const discountedInstallmentAmount = discountedPrice / response.installments.count;
+
+  return {
+    promotionBadge: `${campaignDiscountPercent}% OFF`,
+    originalPrice: formatBRL(basePrice),
+    price: formatBRL(discountedPrice),
+    installment: `ou em até ${response.installments.count}x de ${formatBRL(discountedInstallmentAmount)}`,
+    pixPrice: formatBRL(discountedPixPrice),
   };
 }

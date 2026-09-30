@@ -8,6 +8,14 @@
 /** @type {import("@/src/global/types/global").HomeCardCampaign[]} */
 export const HomeCardCampaigns = [
   {
+    id: "dia-do-cliente-2026",
+    startPhase: "phase0",
+    endPhase: "phase0",
+    image: "/totem-home.svg",
+    alt: "Dia do Cliente — Escolhas Orit",
+    action: { type: "link", href: "/produtos/escolhas-orit" },
+  },
+  {
     id: "blackfriday-2026-cadastro",
     startPhase: "phase1",
     endPhase: "phase2",
@@ -30,7 +38,7 @@ export const HomeCardDefault = {
   id: "default",
   startPhase: null,
   endPhase: null,
-  image: "/bannerProvisório.jpeg",
-  alt: "Novidades",
-  action: { type: "link", href: "/produtos/novidades" },
+  image: "/escolhas-orit-home.jpg",
+  alt: "Escolhas Orit",
+  action: { type: "link", href: "/produtos/escolhas-orit" },
 };

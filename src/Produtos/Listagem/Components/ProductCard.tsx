@@ -3,15 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { calculateDiscountPercent, formatBRL } from "@/src/global/utils/formatPrice";
-import { capitalizeFirst, formatBrandName } from "@/src/global/utils/formatText";
+import { formatBRL } from "@/src/global/utils/formatPrice";
+import { capitalizeSentence, formatBrandName } from "@/src/global/utils/formatText";
+import Strikethrough from "@/src/global/components/Strikethrough";
 import useProductImageHook from "../Hooks/useProductImageHook";
 import { ProductCardProps } from "../types";
 
 export default function ProductCard(props: ProductCardProps) {
   const { product, productTag } = props;
-  const isPromo = !!product.listPrice && product.listPrice > product.price;
-  const discountPercent = calculateDiscountPercent(product.price, product.listPrice);
   const { imgSrc, loaded, handleImage } = useProductImageHook(product.imageUrl);
 
   return (
@@ -25,9 +24,11 @@ export default function ProductCard(props: ProductCardProps) {
             {productTag.text}
           </span>
         )}
-        {!productTag && isPromo && (
-          <span className="absolute left-2 top-2 z-10 bg-orange-600 px-2 py-1 text-[10px] font-semibold rounded-sm tracking-wide text-white">
-            {discountPercent}% OFF
+        {!productTag && !!product.discountPercent && (
+          // Selo do desconto de campanha (PriceDiscountCampaigns) — só aparece
+          // enquanto houver desconto ativo (hoje: Dia do Cliente, até 01/10 07h59).
+          <span className="absolute left-2 top-2 z-10 bg-[#870A04] px-2 py-1 text-[10px] font-bold rounded tracking-wide text-white">
+            {product.discountPercent}% OFF
           </span>
         )}
         {!loaded && (
@@ -46,14 +47,17 @@ export default function ProductCard(props: ProductCardProps) {
 
       <div className="flex flex-col gap-3 font-outfit">
         <span className="text-sm text-[#626262]">{formatBrandName(product.brand)}</span>
-        <span className="text-sm font-semibold text-zinc-900" style={{ color: "#000000" }}>
-          {capitalizeFirst(product.name)}
+        {/* Mesma classe do site (h3 "line-clamp-1 text-[14px] lg:text-base"),
+            trocando my-2 por gap-3 do pai — espaçamento por gap tem preferência
+            sobre margin nas regras de estilo do projeto */}
+        <span className="line-clamp-1 text-[14px] text-zinc-800 lg:text-base">
+          {capitalizeSentence(product.name)}
         </span>
 
-        {isPromo ? (
+        {product.discountPercent ? (
           <span className="flex items-baseline gap-3 flex-col">
-            <span className="text-xs text-zinc-600 line-through">
-              de {formatBRL(product.listPrice as number)}
+            <span className="text-xs text-zinc-600">
+              de <Strikethrough>{formatBRL(product.listPrice as number)}</Strikethrough>
             </span>
             <span className="text-sm font-medium text-zinc-900">
               por {formatBRL(product.price)}
