@@ -7,8 +7,8 @@ export default function Tile(props: TileProps) {
   const { label, imageSrc, href, subtitle, labelClassName = "" } = props;
 
   return (
-    <Link href={href} className="relative aspect-square w-full cursor-pointer overflow-hidden">
-      <Image src={imageSrc} alt={label} fill sizes="33vw" className="object-cover" />
+    <Link href={href} className="relative aspect-square w-full cursor-pointer overflow-hidden bg-zinc-900">
+      {imageSrc && <Image src={imageSrc} alt={label} fill sizes="33vw" className="object-cover" />}
       {label && (
         <>
           <div className="absolute inset-0 bg-black/40" />

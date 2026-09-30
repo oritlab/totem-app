@@ -9,12 +9,12 @@ const COLUMNS_CLASS: Record<GridColumns, string> = {
 };
 
 export default function ProductGrid(props: ProductGridProps) {
-  const { products, columns } = props;
+  const { products, productTags, columns } = props;
 
   return (
     <div className={`grid gap-x-6 gap-y-10 px-6 py-8 ${COLUMNS_CLASS[columns]}`}>
       {products.map((product) => (
-        <ProductCard key={product.sku} product={product} />
+        <ProductCard key={product.sku} product={product} productTag={productTags[product.sku]} />
       ))}
     </div>
   );

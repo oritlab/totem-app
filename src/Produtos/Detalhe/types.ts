@@ -1,5 +1,5 @@
-import { AvailabilityEvent, RequestStatus } from "@/src/global/types/global";
-export type { AvailabilityEvent, RequestStatus };
+import { AvailabilityEvent, ProductTag, RequestStatus } from "@/src/global/types/global";
+export type { AvailabilityEvent, ProductTag, RequestStatus };
 
 export type ProdutoImage = {
   src: string;
@@ -19,6 +19,7 @@ export type ProdutoData = {
   brand: string;
   title: string;
   category: string;
+  categorySlugs: string[];
   originalPrice?: string;
   price: string;
   installment: string;
@@ -89,6 +90,7 @@ export type DragState = {
 
 export type ProductInfoProps = {
   produto: ProdutoData;
+  productTag?: ProductTag;
 };
 
 export type PriceInfoProps = {

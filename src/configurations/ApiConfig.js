@@ -3,6 +3,8 @@ export const ApiConfig = {
     production: process.env.NEXT_PUBLIC_API_URL,
     totemImages: process.env.NEXT_PUBLIC_TOTEM_CDN_HOST + "/totem-images/",
     totemVideos: process.env.NEXT_PUBLIC_TOTEM_CDN_HOST + "/video/",
+    // API de captação de leads — a mesma usada pelo popup do ecommerce (Wake).
+    leads: process.env.NEXT_PUBLIC_LEADS_API_URL || "https://forms.oritlab.com.br",
   },
   Router: {
     TotemImage: function (name) {
@@ -27,6 +29,10 @@ export const ApiConfig = {
     CategoryFilters: function (categoryId, params) {
       const query = buildQueryString(params);
       return "/categories/" + categoryId + "/filters?" + query;
+    },
+    // URL absoluta (outro host) — o axios ignora o baseURL nesse caso.
+    LeadSubscribe: function () {
+      return ApiConfig.Host.leads + "/leads/subscribe";
     },
   },
 };

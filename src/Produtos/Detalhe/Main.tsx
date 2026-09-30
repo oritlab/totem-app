@@ -1,5 +1,7 @@
 "use client";
 
+import useProductTagsHook from "@/src/global/hooks/useProductTagsHook";
+
 import useProdutoHook from "./Hooks/useProdutoHook";
 import useAccordionHook from "./Hooks/useAccordionHook";
 import useAvailabilityHook from "./Hooks/useAvailabilityHook";
@@ -20,6 +22,7 @@ export default function Main(props: MainProps) {
   const { unavailable, handleRedirect } = useAvailabilityHook(sku);
   const { availableImages, markFailed } = useMediaAvailabilityHook(produto?.images ?? []);
   const lightbox = useImageLightboxHook(availableImages.length);
+  const { productTags } = useProductTagsHook([{ sku }], produto?.categorySlugs ?? []);
   const isLightboxOpen = lightbox.activeIndex !== null && lightbox.activeIndex < availableImages.length;
 
   if (requestStatus.loading) {
@@ -47,7 +50,7 @@ export default function Main(props: MainProps) {
 
       <ImageCarousel images={availableImages} onImageClick={lightbox.open} onMediaError={markFailed} />
 
-      <ProductInfo produto={produto} />
+      <ProductInfo produto={produto} productTag={productTags[sku]} />
 
       <AccordionSection accordionItems={produto.accordionItems} openIndex={openIndex} handleToggle={handleToggle} />
 
