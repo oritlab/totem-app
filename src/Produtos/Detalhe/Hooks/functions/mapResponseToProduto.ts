@@ -1,11 +1,7 @@
+import { getActivePriceDiscountPercent } from "@/src/global/utils/campaign";
 import { calculatePriceWithDiscount, formatBRL } from "@/src/global/utils/formatPrice";
 import { getCategoryByName } from "@/src/Produtos/Listagem/categories";
 import { AccordionItemData, ProdutoData, ProductDetailResponse } from "../../types";
-
-// Campanha Dia do Cliente (14/09–30/09): 10% off em toda peça, calculado no
-// front porque o preço promocional não vem preenchido no backend. Reverter
-// para "undefined"/preço sem desconto após 30/09.
-const CAMPAIGN_DISCOUNT_PERCENT = 10;
 
 const MEASURES_IMAGES_BY_CATEGORY_SLUG: Record<string, string[]> = {
   relogios: [
@@ -64,34 +60,58 @@ export function mapResponseToProduto(response: ProductDetailResponse): ProdutoDa
   // achar a primeira que corresponde, em vez de assumir a de índice 0.
   const category = response.categories.find((category) => getCategoryByName(category.name));
   const categorySlug = category ? getCategoryByName(category.name)?.slug : undefined;
+  // Todas as categorias conhecidas do produto (ex: "novidades" + "aneis") —
+  // usadas pelas tags de campanha escopadas por categoria.
+  const categorySlugs = response.categories
+    .map((productCategory) => getCategoryByName(productCategory.name)?.slug)
+    .filter((slug): slug is string => !!slug);
 
   const images = [...response.images]
     .sort((imageA, imageB) => (imageA.order ?? Infinity) - (imageB.order ?? Infinity))
     .filter((image) => isValidImageUrl(image.url))
     .map((image) => ({ src: image.url, alt: response.title }));
 
+  return {
+    reference: response.sku,
+    badge: "ÚNICA PEÇA",
+    brand: response.brand ?? "Sem Marca",
+    title: response.title,
+    category: category?.name ?? "Produtos",
+    categorySlugs,
+    ...buildPricing(response),
+    pixPercent: response.pix.percent,
+    images,
+    accordionItems: buildAccordionItems(response.description, categorySlug, response.eligible360),
+  };
+}
+
+// Preço exibido. Com desconto de campanha ativo (ver
+// src/configurations/Campaign/PriceDiscountCampaigns.js) mostra "de/por" +
+// selo; Pix e parcelamento recalculados em cima do preço já com desconto —
+// senão o Pix fica mostrando um valor maior que o preço à vista.
+function buildPricing(response: ProductDetailResponse) {
   const basePrice = response.onSale ? response.listPrice : response.price;
-  const discountedPrice = calculatePriceWithDiscount(basePrice, CAMPAIGN_DISCOUNT_PERCENT);
-  // Pix e parcelamento recalculados em cima do preço já com os 10% off —
-  // senão o Pix fica mostrando um valor maior que o preço à vista.
+  const campaignDiscountPercent = getActivePriceDiscountPercent();
+
+  if (!campaignDiscountPercent) {
+    return {
+      promotionBadge: undefined,
+      originalPrice: undefined,
+      price: formatBRL(basePrice),
+      installment: `ou em até ${response.installments.count}x de ${formatBRL(response.installments.amount)}`,
+      pixPrice: formatBRL(response.pix.price),
+    };
+  }
+
+  const discountedPrice = calculatePriceWithDiscount(basePrice, campaignDiscountPercent);
   const discountedPixPrice = calculatePriceWithDiscount(discountedPrice, response.pix.percent);
   const discountedInstallmentAmount = discountedPrice / response.installments.count;
 
   return {
-    reference: response.sku,
-    badge: "ÚNICA PEÇA",
-    promotionBadge: `${CAMPAIGN_DISCOUNT_PERCENT}% OFF`,
-    brand: response.brand ?? "Sem Marca",
-    title: response.title,
-    category: category?.name ?? "Produtos",
+    promotionBadge: `${campaignDiscountPercent}% OFF`,
     originalPrice: formatBRL(basePrice),
     price: formatBRL(discountedPrice),
-    // Reverter installment/pixPrice para response.installments.amount /
-    // response.pix.price após 30/09
     installment: `ou em até ${response.installments.count}x de ${formatBRL(discountedInstallmentAmount)}`,
     pixPrice: formatBRL(discountedPixPrice),
-    pixPercent: response.pix.percent,
-    images,
-    accordionItems: buildAccordionItems(response.description, categorySlug, response.eligible360),
   };
 }

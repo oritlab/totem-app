@@ -1,8 +1,16 @@
 import { RefObject } from "react";
 
-import { AvailabilityEvent, HeaderProps, Pagination, ProductSortOption, RequestStatus } from "../../global/types/global";
+import {
+  AvailabilityEvent,
+  HeaderProps,
+  Pagination,
+  ProductSortOption,
+  ProductTag,
+  ProductTags,
+  RequestStatus,
+} from "../../global/types/global";
 
-export type { AvailabilityEvent, HeaderProps, Pagination, ProductSortOption, RequestStatus };
+export type { AvailabilityEvent, HeaderProps, Pagination, ProductSortOption, ProductTag, ProductTags, RequestStatus };
 
 export type Product = {
   sku: string;
@@ -29,6 +37,7 @@ export type CategoryBanner = {
   variant: BannerVariant;
   align: BannerAlign;
   imageClassName?: string; // classes extras aplicadas na imagem (ex: ajuste fino de posição)
+  hideOverlay?: boolean; // sem gradiente escuro por cima (arte de campanha já pronta)
 };
 
 export type Category = {
@@ -46,12 +55,14 @@ export type CategoryResponse = {
 
 export type ProductCardProps = {
   product: Product;
+  productTag?: ProductTag;
 };
 
 export type GridColumns = 3 | 4;
 
 export type ProductGridProps = {
   products: Product[];
+  productTags: ProductTags;
   columns: GridColumns;
 };
 

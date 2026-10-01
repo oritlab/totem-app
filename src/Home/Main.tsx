@@ -5,12 +5,14 @@ import useCategoriesHook from "@/src/Produtos/Listagem/Hooks/useCategoriesHook";
 
 import useMenuHook from "./Hooks/useMenuHook";
 import useHomeMediaHook from "./Hooks/useHomeMediaHook";
+import useHomeCampaignHook from "./Hooks/useHomeCampaignHook";
 import Hero from "./Components/Hero";
 import Tile from "./Components/Tile";
 import PromoBanner from "./Components/PromoBanner";
 
 export default function Main() {
   const { modalMenu, handleModal } = useMenuHook();
+  const { homeCard } = useHomeCampaignHook();
   // Só prefetch: aquece o cache de GET /api/v1/categories (ver
   // Produtos/Listagem/API/CategoriesAPI.ts) pra tela de listagem não
   // precisar esperar essa chamada de novo ao tocar num tile. O grid
@@ -40,9 +42,9 @@ export default function Main() {
       <Hero videoSrc={bannerVideo} handleModal={handleModal} />
 
       <main className="grid grid-cols-3">
-        {/* Campanha Dia do Cliente (14/09–30/09) no lugar de Escolhas Orit — reverter para
-            imageSrc="/escolhas-orit-home.jpg" após 30/09 */}
-        <Tile label="" imageSrc="/totem-home.svg" href="/produtos/escolhas-orit" />
+        {/* 1º card dirigido por campanha (Dia do Cliente → Private Sale → Black Friday);
+            fora de campanha, Escolhas Orit — ver src/configurations/Campaign/HomeCardCampaigns.js */}
+        <Tile label="" imageSrc={homeCard.image} href={homeCard.action.href} />
         <Tile label="RELÓGIOS" imageSrc={imageWatch} href="/produtos/relogios" />
         <Tile label="NOVIDADES" imageSrc={imageNews} href="/produtos/novidades" />
 

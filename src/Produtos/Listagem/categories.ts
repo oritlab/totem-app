@@ -19,9 +19,9 @@ export const CATEGORIES: Category[] = [
     slug: "escolhas-orit",
     name: "Escolhas orit",
     banner: {
-      // Campanha Dia do Cliente (14/09–30/09) — reverter para
-      // ApiConfig.Router.TotemImage("PROMOCAO") após 30/09
-      imageUrl: "/totem-ct-promocao.svg",
+      // Banner padrão. Durante campanhas (ex: Dia do Cliente) é trocado via
+      // src/configurations/Campaign/CategoryBannerCampaigns.js.
+      imageUrl: ApiConfig.Router.TotemImage("PROMOCAO"),
       title: "",
       subtitle: "",
       variant: "cover",

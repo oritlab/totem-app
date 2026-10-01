@@ -10,15 +10,23 @@ import useProductImageHook from "../Hooks/useProductImageHook";
 import { ProductCardProps } from "../types";
 
 export default function ProductCard(props: ProductCardProps) {
-  const { product } = props;
+  const { product, productTag } = props;
   const { imgSrc, loaded, handleImage } = useProductImageHook(product.imageUrl);
 
   return (
     <Link href={`/info-product/${product.sku}`} className="flex flex-col gap-2">
       <div className="relative aspect-square w-full overflow-hidden bg-zinc-100">
-        {!!product.discountPercent && (
-          // Selo campanha Dia do Cliente (14/09–30/09) — reverter para
-          // "bg-orange-600 ... rounded-sm ... font-semibold" após 30/09
+        {productTag && (
+          <span
+            className="absolute left-2 top-2 z-10 rounded-sm px-2 py-1 text-[10px] font-semibold tracking-wide"
+            style={{ backgroundColor: productTag.backgroundColor, color: productTag.textColor }}
+          >
+            {productTag.text}
+          </span>
+        )}
+        {!productTag && !!product.discountPercent && (
+          // Selo do desconto de campanha (PriceDiscountCampaigns) — só aparece
+          // enquanto houver desconto ativo (hoje: Dia do Cliente, até 01/10 07h59).
           <span className="absolute left-2 top-2 z-10 bg-[#870A04] px-2 py-1 text-[10px] font-bold rounded tracking-wide text-white">
             {product.discountPercent}% OFF
           </span>
