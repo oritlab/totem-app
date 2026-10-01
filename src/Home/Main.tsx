@@ -11,7 +11,7 @@ import Tile from "./Components/Tile";
 import PromoBanner from "./Components/PromoBanner";
 
 export default function Main() {
-  const { modalMenu, handleModal } = useMenuHook();
+  const { modalMenu, menuItems, handleModal } = useMenuHook();
   const { homeCard } = useHomeCampaignHook();
   // Só prefetch: aquece o cache de GET /api/v1/categories (ver
   // Produtos/Listagem/API/CategoriesAPI.ts) pra tela de listagem não
@@ -37,7 +37,7 @@ export default function Main() {
 
   return (
     <div className="flex min-h-screen w-full flex-col overflow-x-hidden overflow-y-auto bg-white">
-      <MenuDrawer modalMenu={modalMenu} handleModal={handleModal} />
+      <MenuDrawer modalMenu={modalMenu} menuItems={menuItems} handleModal={handleModal} />
 
       <Hero videoSrc={bannerVideo} handleModal={handleModal} />
 

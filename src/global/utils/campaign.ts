@@ -1,6 +1,14 @@
 import { CampaignSchedule } from "@/src/configurations/Campaign/CampaignSchedule";
 import { PriceDiscountCampaigns } from "@/src/configurations/Campaign/PriceDiscountCampaigns";
-import { CampaignAccess, CampaignPhaseKey, CampaignWindow, ProductTag, ProductTagCampaign } from "../types/global";
+import {
+  CampaignAccess,
+  CampaignPhaseKey,
+  CampaignWindow,
+  MenuItem,
+  MenuItemCampaign,
+  ProductTag,
+  ProductTagCampaign,
+} from "../types/global";
 
 // Início/fim de uma fase em epoch ms. Com homologação, usa a linha do tempo
 // comprimida (offsets a partir do acesso); sem, as datas reais.
@@ -35,6 +43,25 @@ export function getActiveCampaign<Campaign extends CampaignWindow>(
       return isCampaignActive(campaign, campaignAccess);
     }) ?? null
   );
+}
+
+// Menu com os ajustes de campanha ativos: itens escondidos saem da lista,
+// itens renomeados trocam label/href. Ordem original preservada.
+export function getCampaignMenuItems(
+  menuItems: MenuItem[],
+  campaigns: MenuItemCampaign[],
+  campaignAccess: CampaignAccess
+): MenuItem[] {
+  return menuItems.flatMap(function (menuItem) {
+    const itemCampaigns = campaigns.filter(function (campaign) {
+      return campaign.menuItemId === menuItem.id;
+    });
+    const activeCampaign = getActiveCampaign(itemCampaigns, campaignAccess);
+
+    if (!activeCampaign) return [menuItem];
+    if (activeCampaign.hidden) return [];
+    return [{ ...menuItem, label: activeCampaign.label ?? menuItem.label, href: activeCampaign.href ?? menuItem.href }];
+  });
 }
 
 // % de desconto de preço ativo agora pelo cronograma real (0 = sem desconto).
