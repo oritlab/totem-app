@@ -3,7 +3,7 @@ import Link from "next/link";
 import { MenuDrawerProps } from "../types/global";
 
 export default function MenuDrawer(props: MenuDrawerProps) {
-  const { modalMenu, handleModal } = props;
+  const { modalMenu, menuItems, handleModal } = props;
 
   if (!modalMenu.open) return null;
 
@@ -28,106 +28,18 @@ export default function MenuDrawer(props: MenuDrawerProps) {
           </svg>
         </button>
 
+        {/* Itens vêm de src/configurations/MenuConfig.js, com os ajustes de
+            campanha de src/configurations/Campaign/MenuItemCampaigns.js */}
         <ul className="flex flex-1 flex-col pb-2">
-          <li className="border-b border-black">
-            <Link href="/" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              INÍCIO
-            </Link>
-          </li>
-          <li className="border-b border-black">
-            <Link href="/produtos/novidades" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              NOVIDADES
-            </Link>
-          </li>
-          <li className="border-b border-black">
-            <Link href="/produtos/escolhas-orit" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              ESCOLHAS ORIT
-            </Link>
-          </li>
-          <li className="border-b border-black">
-            <Link href="/produtos/vintage" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              VINTAGE
-            </Link>
-          </li>
-          <li className="border-b border-black">
-            <Link href="/produtos/diamantes" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              DIAMANTES
-            </Link>
-          </li>
-          <li className="border-b border-black">
-            <Link href="/produtos/marcas-iconicas" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              MARCAS ICÔNICAS
-            </Link>
-          </li>
-          <li className="border-b border-black">
-            <Link href="/produtos/relogios" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              RELÓGIOS
-            </Link>
-          </li>
-          {/* <li className="border-b border-black">
-            <button
-              className="flex w-full cursor-pointer items-center justify-between px-6 py-4 text-left text-sm text-zinc-800"
-              onClick={() => handleAccordion("toggle")}
-            >
-              JOIAS
-              <span>{accordionJoias.open ? "-" : "+"}</span>
-            </button>
-
-            {accordionJoias.open && (
-              <ul className="flex flex-col pb-2">
-                <li>
-                  <Link href="#" className="block cursor-pointer px-10 py-2 text-sm text-zinc-600">
-                    Anéis e Alianças
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="block cursor-pointer px-10 py-2 text-sm text-zinc-600">
-                    Brincos
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="block cursor-pointer px-10 py-2 text-sm text-zinc-600">
-                    Colares
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="block cursor-pointer px-10 py-2 text-sm text-zinc-600">
-                    Pingentes
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="block cursor-pointer px-10 py-2 text-sm text-zinc-600">
-                    Pulseiras
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </li> */}
-          <li className="border-b border-black">
-            <Link href="/produtos/aneis" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              ANÉIS E ALIANÇAS
-            </Link>
-          </li>
-          <li className="border-b border-black">
-            <Link href="/produtos/brincos" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              BRINCOS
-            </Link>
-          </li>
-          <li className="border-b border-black">
-            <Link href="/produtos/colares" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              COLARES
-            </Link>
-          </li>
-          <li className="border-b border-black">
-            <Link href="/produtos/pingentes" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              PINGENTES
-            </Link>
-          </li>
-          <li className="border-b border-black">
-            <Link href="/produtos/pulseiras" className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
-              PULSEIRAS
-            </Link>
-          </li>
+          {menuItems.map(function (menuItem) {
+            return (
+              <li key={menuItem.id} className="border-b border-black">
+                <Link href={menuItem.href} className="block cursor-pointer px-6 py-3 text-sm text-zinc-800">
+                  {menuItem.label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="px-4 pb-4">
