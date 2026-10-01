@@ -10,7 +10,7 @@ import LeadFormSection from "./Components/LeadFormSection";
 import ErrorModal from "./Components/ErrorModal";
 
 export default function Main() {
-  const { modalMenu, handleModal } = useMenuHook();
+  const { modalMenu, menuItems, handleModal } = useMenuHook();
   const { landingCampaign, landingAccess } = useLandingCampaignHook("blackfriday-2026-cadastro");
   const { form, leadFormRules, birthMonths, requestStatus, formComplete, handleSubmit, handleModalError } =
     useFormPrivateSaleHook(landingCampaign.formId);
@@ -23,7 +23,7 @@ export default function Main() {
   // arte inteira no topo e formulário logo abaixo, como no layout de referência.
   return (
     <div className="flex h-dvh w-full flex-col overflow-x-hidden overflow-y-auto bg-[#111111]">
-      <MenuDrawer modalMenu={modalMenu} handleModal={handleModal} />
+      <MenuDrawer modalMenu={modalMenu} menuItems={menuItems} handleModal={handleModal} />
 
       <HeroSale imageSrc={landingCampaign.heroImage} handleModal={handleModal} />
 

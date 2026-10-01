@@ -26,8 +26,15 @@ export type HeaderProps = {
   handleModal: (action: string) => void;
 };
 
+export type MenuItem = {
+  id: string;
+  label: string;
+  href: string;
+};
+
 export type MenuDrawerProps = {
   modalMenu: MenuState;
+  menuItems: MenuItem[];
   handleModal: (action: string) => void;
 };
 
@@ -81,6 +88,14 @@ export type ProductTagCampaign = CampaignWindow & {
   productSkus: string[];
   categorySlugs: string[];
   homologOnly: boolean;
+};
+
+export type MenuItemCampaign = CampaignWindow & {
+  id: string;
+  menuItemId: string;
+  hidden: boolean;
+  label?: string;
+  href?: string;
 };
 
 export type PriceDiscountCampaign = CampaignWindow & {
